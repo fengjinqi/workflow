@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Layout from '@/components/layout'
+import Index from '@/pages/home/index'//首页
+import Order from '@/pages/order/index'//订单中心
+import Account from '@/pages/account/index'//账户金额
 
 Vue.use(Router)
 
@@ -8,21 +10,20 @@ export default new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: Layout,
-      children:[
-
-      ]
-    },
-    {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-    }
+      {
+        path: '/',
+        name: 'index',
+        component: Index
+      },
+      {
+          path: '/order',
+          name: 'order',
+          component: Order
+      },
+      {
+          path: '/account',
+          name: 'account',
+          component: Account
+      }
   ]
 })
