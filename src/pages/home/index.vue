@@ -1,6 +1,5 @@
 <template>
     <div>
-        <Top />
         <Banner />
         <div class="index">
             <div class="main order">
@@ -222,12 +221,10 @@
 </template>
 
 <script>
-    import Top from '@/components/top'//头部
     import Banner from '@/components/banner'//banner
     export default {
         name: "index",
         components:{
-          Top,
           Banner,
         },
     }

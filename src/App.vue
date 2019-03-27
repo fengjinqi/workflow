@@ -1,16 +1,20 @@
 <template>
   <div id="app">
+    <Top />
     <router-view/>
   </div>
 </template>
 <script>
-
+    import Top from '@/components/top'//头部
   export default {
       name: "top",
       data() {
           return{
 
           }
+      },
+      components:{
+          Top,
       },
   }
 </script>

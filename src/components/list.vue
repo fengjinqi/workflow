@@ -159,9 +159,9 @@
             //跳转到详情页
             todetail(id){
                 this.$router.push({
-                    path: 'index/detail',
-                    query: {
-                        id: id
+                    name: 'detail',
+                    params:{
+                        id:id
                     }
                 })
             },

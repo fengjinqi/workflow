@@ -16,25 +16,18 @@ export default new Router({
         path: '/',
         name: 'index',
         component: Mindex,
-        redirect: {name: 'index'},//重定向
-        children: [
-            {
-                path: 'index',
-                name: 'index',
-                component: Mindex
-            },
-            {
-                path: 'detail',
-                name: 'detail',
-                component: Detail
-            },
-        ]
       },
       {
           path: '/search',
           name: 'search',
-          component: Search
+          component: Search,
+
       },
+    {
+        path: '/search/detail/:id',
+        name: 'detail',
+        component: Detail
+    },
       {
           path: '/order',
           name: 'order',
