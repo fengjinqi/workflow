@@ -16,7 +16,7 @@
                     <div class="flex btnBox">
                         <div class="list-item-btn" @click="choose('1')" :class="chose=='1'?'active':''">标准套餐</div>
                         <div class="list-item-btn" @click="choose('2')" :class="chose=='2'?'active':''">自定义</div>
-                        <div class="list-item-btn list-item-btn1">加入购物车</div>
+                        <div class="list-item-btn list-item-btn1" @click="addCart">加入购物车</div>
                     </div>
                 </div>
                 <div class="list-item">
@@ -144,12 +144,16 @@
 </template>
 
 <script>
+    import store from '../store/store.js'
     export default {
         name: "list",
          data(){
             return {
                 chose:'1',//标准
             }
+        },
+        computed:{
+
         },
         methods: {
             //标准/自定义
@@ -165,6 +169,10 @@
                     }
                 })
             },
+            //加入购物车
+            addCart(){
+                console.log(store.state.cartNumber);
+            },
         }
     }
 </script>
@@ -174,7 +182,6 @@
         .list-main{
             padding:15px 20px;
             background:#fff;
-            margin-top:20px;
             .list-item{
                 width: 278px;
                 height: 218px;

@@ -14,7 +14,7 @@
                 <div class="cart">
                     <img src="" alt="" />
                     <span class="cart-name">我的购物车</span>
-                    <span class="cart-num">8</span>
+                    <span class="cart-num">{{cartNum}}</span>
                 </div>
             </div>
         </div>
@@ -25,11 +25,17 @@
 
 <script>
     import Navbar from '@/components/navbar'
+    import store from '../store/store.js'
     export default {
         name: "top",
         data() {
             return{
-
+            }
+        },
+        computed:{
+            //全局购物车数量
+            cartNum:function(){
+                return store.state.cartNum
             }
         },
         components:{

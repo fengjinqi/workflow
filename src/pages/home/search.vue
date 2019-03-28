@@ -24,5 +24,5 @@
 </script>
 
 <style scoped lang="less">
-
+    .list{margin-top:20px}
 </style>
