@@ -2,34 +2,15 @@
     <div class="nav">
         <div class="main">
             <div class="flex">
-                <div class="nav-first" @mouseover="selectType"  :class="selectTypeShow?'active':''">
+                <div class="nav-first" @mouseover="selectType" :class="selectTypeShow?'active':''">
                     <div>全部商品分类</div>
-                    <div v-if="selectTypeShow" class="selectType">
+                    <div v-show="selectTypeShow" class="selectType"  @mouseout="outSelectType" >
                         <ul>
-                            <li @mouseover="selectTypeFun('1')" :class="selectTypeIndex=='1'?'active':''">
-                                <router-link :to="{ path: '/search', query: { type: 1}}">分类一名称</router-link>
+
+                            <li  @mouseover='selectTypeFun(item.id)' :class="selectTypeIndex==item.id?'active':''" v-for="(item,index) in list">
+                                <router-link :to="{ name: 'search', params: { id: item.id}}">{{item.name}}</router-link>
                             </li>
-                            <li @mouseover="selectTypeFun('2')" :class="selectTypeIndex=='2'?'active':''">
-                                <router-link :to="{ path: '/search', query: { type: 2}}">分类二名称</router-link>
-                            </li>
-                            <li @mouseover="selectTypeFun('3')" :class="selectTypeIndex=='3'?'active':''">
-                                <router-link :to="{ path: '/search', query: { type: 3}}">分类三名称</router-link>
-                            </li>
-                            <li @mouseover="selectTypeFun('4')" :class="selectTypeIndex=='4'?'active':''">
-                                <router-link :to="{ path: '/search', query: { type: 4}}">分类四名称</router-link>
-                            </li>
-                            <li @mouseover="selectTypeFun('5')" :class="selectTypeIndex=='5'?'active':''">
-                                <router-link :to="{ path: '/search', query: { type: 5}}">分类五名称</router-link>
-                            </li>
-                            <li @mouseover="selectTypeFun('6')" :class="selectTypeIndex=='6'?'active':''">
-                                <router-link :to="{ path: '/search', query: { type: 6}}">分类六名称</router-link>
-                            </li>
-                            <li @mouseover="selectTypeFun('7')" :class="selectTypeIndex=='7'?'active':''">
-                                <router-link :to="{ path: '/search', query: { type: 7}}">分类七名称</router-link>
-                            </li>
-                            <li @mouseover="selectTypeFun('8')" :class="selectTypeIndex=='8'?'active':''">
-                                <router-link :to="{ path: '/search', query: { type: 8}}">分类八名称</router-link>
-                            </li>
+
                         </ul>
                     </div>
                 </div>
@@ -59,20 +40,26 @@
                 selectTypeIndex:'1'
             }
         },
+        props: {
+            list: Array,
+            required: true
+        },
         methods: {
             //商品分类
             selectType(){
                 this.selectTypeShow=true;
             },
-            // outSelectType(){
-            //     this.selectTypeShow=false;
-            // },
+            outSelectType(){
+                this.selectTypeShow=false;
+            },
             selectTypeFun(index){
                 this.selectTypeIndex=index;
+
             },
             //选择导航
             selectNav(){
                 this.selectTypeShow=false;
+
             },
         }
     }
@@ -90,8 +77,8 @@
         cursor: pointer
     }
     .nav-first{
-        padding:0 47px; 
-        position: relative; 
+        padding:0 47px;
+        position: relative;
         cursor: pointer;
         .selectType{
             position: absolute;

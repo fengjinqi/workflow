@@ -25,14 +25,14 @@
                 </div>
                 <div class="fiter-item-more">更多 ></div>
             </div>
-            <div class="fiter-item flex" style="padding-bottom:20px;">
+    <!--        <div class="fiter-item flex" style="padding-bottom:20px;">
                 <div class="fiter-item-name">价格区间</div>
                 <div><input type="text" class="price" v-model="minPrice"></div>
                 <div class="border"></div>
                 <div><input type="text" class="price" v-model="maxPrice"></div>
                 <div class="confirm" style="margin-left:20px;">确定</div>
                 <div class="reset">重置</div>
-            </div>
+            </div>-->
         </div>
     </div>
 </template>
@@ -133,6 +133,6 @@
               top: 15px
           }
         }
-        
+
     }
 </style>

@@ -13,12 +13,22 @@
     import List from '@/components/list'//列表
     export default {
         name: "search",
+        data(){
+            return{
+                id:''
+            }
+        },
         components:{
           Fiter,
           List,
         },
+        watch: {
+            $route() {
+                this.id = this.$route.params.id
+            }
+        },
         created(){
-
+            this.id = this.$route.params.id
         }
     }
 </script>

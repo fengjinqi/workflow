@@ -144,7 +144,7 @@
 </template>
 
 <script>
-    import store from '../store/store.js'
+
     export default {
         name: "list",
          data(){
@@ -171,7 +171,6 @@
             },
             //加入购物车
             addCart(){
-                console.log(store.state.cartNumber);
             },
         }
     }
@@ -236,7 +235,7 @@
                         color: #26B7BC;
                     }
                 }
-                
+
             }
         }
     }

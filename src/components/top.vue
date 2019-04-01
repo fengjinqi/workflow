@@ -4,14 +4,14 @@
         <div class="main">
             <div class="top-main flex-j">
                 <div>
-                    <router-link to="/"><img src="@/assets/logo.png" alt="" style="width:50px;"></router-link>
+                    <router-link :to="{name:'home'}"><img src="@/assets/logo.png" alt="" style="width:50px;"></router-link>
                 </div>
                 <div class="flex search">
                     <div class="search-left">搜单品</div>
                     <div><input type="text" placeholder="搜全网6085789件商品"></div>
                     <div class="search-btn">搜索</div>
                 </div>
-                <div class="cart">
+                <div class="cart" @click="tocart">
                     <img src="" alt="" />
                     <span class="cart-name">我的购物车</span>
                     <span class="cart-num">{{cartNum}}</span>
@@ -19,27 +19,45 @@
             </div>
         </div>
     </div>
-    <navbar />
+    <navbar :list="category"/>
     </div>
 </template>
 
 <script>
     import Navbar from '@/components/navbar'
-    import store from '../store/store.js'
+    import {getIndexList} from '@/api/user'
+    import {getToken} from '@/libs/util'
     export default {
         name: "top",
-        data() {
+        data(){
             return{
+                category:[]
             }
         },
         computed:{
             //全局购物车数量
             cartNum:function(){
-                return store.state.cartNum
+                return ''
             }
         },
         components:{
             Navbar
+        },
+        created(){
+            getIndexList(getToken('token')).then(res=>{
+                if(res.code=='OK'){
+                    this.category=res.data
+                }
+                console.log(res)
+            })
+        },
+        methods: {
+            //跳转到购物车
+            tocart(){
+                this.$router.push({
+                    name: 'cart',
+                })
+            },
         }
     }
 </script>

@@ -8,7 +8,7 @@ export default {
     /**
      * @description api请求基础路径
      */
-    baseUrl: 'http://ip-29-kangmei-swagger.coralcodes.com',
+    baseUrl: '/api',
     /**
      * @description 默认打开的首页的路由name值，默认为home
      */

@@ -221,12 +221,41 @@
 </template>
 
 <script>
+    import {getUserInfo,getIndex} from '@/api/user'
+    import {getToken} from '@/libs/util'
+    import {mapActions} from 'vuex'
     import Banner from '@/components/banner'//banner
     export default {
         name: "index",
+
         components:{
           Banner,
         },
+        created() {
+            //alert(getToken('token'))
+            this.getUserInfo().then(res=>{
+                if(res.code!='OK'){
+                    this.$notify({
+                        title: '警告',
+                        message: res.message,
+                        type: 'warning'
+                    });
+                    this.$router.push({
+                        path: '/login'
+                    })
+                }
+            })
+
+            getIndex(getToken('token')).then(res=>{
+
+            })
+
+    },
+        methods:{
+            ...mapActions([
+                'getUserInfo'
+            ])
+        }
     }
 </script>
 
@@ -246,7 +275,7 @@
                 height: 40px;
                 line-height: 40px;
                 background: #F9F9F9;
-                border: 1px solid #ddd;
+                border: 1px solid #EBEEF5;
                 .order-main-th-item{
                     text-align: center
                 }
@@ -265,10 +294,10 @@
                     }
                     .order-main-list-item-cont1{
                         text-align:center;
-                        border-right:1px solid #ddd;
+                        border-right:1px solid #EBEEF5;
                         .order-main-list-item-cont-1{
-                            border-left:1px solid #ddd;
-                            border-bottom:1px solid #ddd;
+                            border-left:1px solid #EBEEF5;
+                            border-bottom:1px solid #EBEEF5;
                             height:100px;
                             padding:15px 20px 10px 20px;
                             div{
@@ -284,12 +313,12 @@
                         }
                         .order-main-list-item-cont-2{
                             border:none;
-                            
+
                         }
                     }
                     .order-main-list-item-cont-0{
-                         border-bottom:1px solid #ddd;
-                         border-left:1px solid #ddd;
+                         border-bottom:1px solid #EBEEF5;
+                         border-left:1px solid #EBEEF5;
                     }
                 }
             }

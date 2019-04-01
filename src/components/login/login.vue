@@ -16,14 +16,14 @@
                                 <el-form-item label="" prop="username">
                                     <el-input v-model="ruleForm.username" placeholder="手机号码"></el-input>
                                 </el-form-item>
-                                <el-form-item label="" prop="password">
-                                    <el-input v-model="ruleForm.password" placeholder="密码"></el-input>
-                                </el-form-item>
-                                <el-form-item label="" prop="code">
-                                    <el-input v-model="ruleForm.code" placeholder="验证码"></el-input>
-                                </el-form-item>
+                                <div class="flex-j">
+                                    <el-form-item label="" prop="code">
+                                        <el-input v-model="ruleForm.code" placeholder="验证码"></el-input>
+                                    </el-form-item>
+                                    <el-button type="primary" @click="getCodes" class="getCode">获取验证码</el-button>
+                                </div>
                                 <el-form-item>
-                                    <el-button type="primary" @click="submitForm('ruleForm')">登录</el-button>
+                                    <el-button type="primary" @click="submitForm('ruleForm')" class="loginBtn">登录</el-button>
                                 </el-form-item>
                             </el-form>
                         </div>
@@ -35,7 +35,7 @@
         <div class="login-nav">
             <div class="main flex">
                 <div class="nav-item">
-                    <img :src="src" alt="" @click="reload">
+
                 </div>
             </div>
         </div>
@@ -44,24 +44,20 @@
 </template>
 
 <script>
-    import {Login} from '@/api/login'
-    let Timestamp = new Date().getTime();
+    import {getCode,Login} from '@/api/login'
+    import {setToken} from '@/libs/util'
+    import {mapActions} from 'vuex'
     export default {
         name: "login",
         data() {
             return {
-                src:'',
                 ruleForm: {
                     username: '18616755331',//手机号
-                    password:'123456',
-                    code: '',//验证码
+                    code: '666666',//验证码
                 },
                 rules: {
                     username: [
                         { required: true, message: '请输入手机号', trigger: 'blur' }
-                    ],
-                    password: [
-                        { required: true, message: '请输入密码', trigger: 'blur' }
                     ],
                     code: [
                         { required: true, message: '请输入验证码', trigger: 'blur' }
@@ -69,38 +65,80 @@
                 }
             };
         },
-        created(){
-            this.src=`/api/jcaptcha?r=${Timestamp}`
-
-        },
         methods: {
-            reload(){
-                let Timestamp = new Date().getTime();
-                this.src=`/api/jcaptcha?r=${Timestamp}`
-            },
             //登录
+            ...mapActions([
+                'handleLogin'
+            ]),
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         let obj = {
-                            username:this.ruleForm.username,
-                            password:this.ruleForm.password,
+                            userName:this.ruleForm.username,
                             code:this.ruleForm.code,
                         }
-                        Login(obj).then(res=>{
-                            console.log(res)
+                        this.handleLogin(obj).then(res=>{
+
+                            let data = res
+                            //let data = JSON.parse(res)
+                            if(data.code=='OK') {
+                                this.$notify({
+                                    title: '成功',
+                                    message: data.message,
+                                    type: 'success'
+                                });
+                                this.$router.push({
+                                    name: 'home'
+                                })
+                            }else {
+                                this.$notify({
+                                    title: '警告',
+                                    message: data.message,
+                                    type: 'warning'
+                                });
+                            }
                         })
                     } else {
                         console.log('error submit!!');
                         return false;
                     }
                 });
-            }
+            },
+            //获取验证码
+            getCodes(){
+                let obj={
+                    userName:this.ruleForm.username
+                };
+                getCode(obj).then(res=>{
+                    console.log(res)
+                    //let data = JSON.parse(res)
+                    let data = res
+                    if(data.code=='OK') {
+                        this.$notify({
+                            title: '成功',
+                            message: data.message,
+                            type: 'success'
+                        });
+                    }else {
+                        this.$notify({
+                            title: '警告',
+                            message: data.message,
+                            type: 'warning'
+                        });
+                    }
+
+                }).catch(err=>{
+                    console.log(err)
+                })
+            },
         }
     }
 </script>
 
 <style scoped lang="less">
+.el-form-item {
+    margin-bottom: 30px;
+}
 .login{
     .login-banner{
         width:100%;
@@ -151,25 +189,31 @@
                     color: #333;
                     margin-bottom: 40px;
                 }
+                .form-cont{
+                    .loginBtn{
+                        width:100%;
+                        margin-top: 20px;
+                    }
+                    .getCode{
+                        height: 40px;
+                        line-height: 40px;
+                        padding: 0;
+                        width: 139px;
+                        text-align: center;
+                    }
+                }
+                .form-forgetPwd{
+                    text-align: right;
+                    color: #26B7BC;
+                    cursor: pointer;
+                }
             }
-        }
-        .form-forgetPwd{
-            text-align: right;
-            color: #26B7BC;
-            cursor: pointer;
         }
     }
     .login-nav{
         width: 100%;
         height: 212px;
         background: #fff;
-    }
-    .el-form-item {
-        margin-bottom: 30px;
-    }
-    .el-button{
-        width:100%;
-        margin-top: 20px;
     }
 }
 </style>

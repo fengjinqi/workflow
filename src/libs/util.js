@@ -13,3 +13,12 @@ export const getToken = () => {
     if (token) return token
     else return false
 }
+
+// export const setToken = (token) =>{
+//     sessionStorage.setItem(TOKEN_KEY, token);
+// }
+// export const getToken = () => {
+//     const token = sessionStorage.getItem(TOKEN_KEY)
+//     if (token) return token
+//     else return false
+// }

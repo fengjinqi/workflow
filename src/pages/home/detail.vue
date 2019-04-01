@@ -37,7 +37,7 @@
                         <div class="price">¥15889</div>
                     </div>
                 </div>
-                <div class="detail-item" style="border-bottom: none;line-height: 54px;">
+                <div class="detail-item detail-item-last">
                     <div class="flex item-name">
                         <div class="detail-item-name">选择套餐</div>
                         <div class="flex type">
@@ -46,19 +46,207 @@
                         </div>
                     </div>
                 </div>
-                <div class="list-title">标准套餐</div>
             </div>
-            <List></List>
+            <div class="detail-main">
+                <div class="list-title">
+                    <div v-if="type=='1'">标准套餐</div>
+                    <div v-else>
+                        自定义套餐
+                        <span class="defined">可一键选择标准套餐内容</span>
+                        <el-button type="primary"  class="fastBtn">一键加入标配</el-button>
+                    </div>
+                </div>
+            </div>
+            <div v-if="type=='1'">
+                <ListStandard></ListStandard>
+            </div>
+            <div v-else>
+                <ListDefined></ListDefined>
+            </div>
+            <div class="detail-main">
+                <div class="list-title">
+                    <div>
+                        其他商品
+                        <span class="defined" v-if="type=='1'">请在自定义套餐中选择</span>
+                    </div>
+                </div>
+            </div>
+            <div v-if="type=='1'">
+                <ListStandard></ListStandard>
+            </div>
+            <div v-else>
+                <ListDefined></ListDefined>
+            </div>
+            <div class="flex-r detail-main">
+                <div class="choseNum">已选 <span>2</span> 件商品</div>
+                <div><el-button type="primary"  class="addCart">加入购物车</el-button></div>
+            </div>
+            <div class="detail-main">
+                <div class="list-title">
+                    <div>套餐详情</div>
+                </div>
+            </div>
+            <div class="detail-main detailInfo">
+                <div style="margin-bottom: 20px;">
+                    <div class="detailInfo-title">套餐详情</div>
+                    <div class="flex detailInfo-main">
+                        <div class="detailInfo-info">
+                            <div class="flex">
+                                <div>套餐名称</div>
+                                <div>股骨LC-DCP接骨板Ⅱ（锥螺纹）股骨骨</div>
+                            </div>
+                            <div class="flex">
+                                <div>套餐编码</div>
+                                <div>32214523351</div>
+                            </div>
+                        </div>
+                        <div class="detailInfo-info">
+                            <div class="flex">
+                                <div>套餐类别</div>
+                                <div>骨折/F3/施乐辉</div>
+                            </div>
+                            <div class="flex">
+                                <div>全套种类</div>
+                                <div>12种</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-w">
+                    <div class="detailInfo-item">
+                        <div class="flex">
+                            <div class="name">商品信息</div>
+                            <div class="cont">1</div>
+                        </div>
+                        <div class="flex">
+                            <div class="name">套餐名称</div>
+                            <div class="cont">股骨LC-DCP接骨板Ⅱ（锥螺纹）股骨骨</div>
+                        </div>
+                        <div class="flex">
+                            <div class="name">规格</div>
+                            <div class="cont">AX-201</div>
+                        </div>
+                        <div class="flex">
+                            <div class="name">品类</div>
+                            <div class="cont">正常 品规</div>
+                        </div>
+                        <div class="flex">
+                            <div class="name">类别</div>
+                            <div class="cont">锁定接骨板</div>
+                        </div>
+                        <div class="flex">
+                            <div class="name">套餐名称</div>
+                            <div class="cont">股骨LC-DCP接骨板Ⅱ（锥螺纹）股骨骨 Copy 2</div>
+                        </div>
+                        <div class="flex">
+                            <div class="name">套餐名称</div>
+                            <div class="cont">股骨LC-DCP接骨板Ⅱ（锥螺纹）股骨骨 Copy 2</div>
+                        </div>
+                    </div>
+                    <div class="detailInfo-item">
+                        <div class="flex">
+                            <div class="name">商品信息</div>
+                            <div class="cont">1</div>
+                        </div>
+                        <div class="flex">
+                            <div class="name">套餐名称</div>
+                            <div class="cont">股骨LC-DCP接骨板Ⅱ（锥螺纹）股骨骨</div>
+                        </div>
+                        <div class="flex">
+                            <div class="name">规格</div>
+                            <div class="cont">AX-201</div>
+                        </div>
+                        <div class="flex">
+                            <div class="name">品类</div>
+                            <div class="cont">正常 品规</div>
+                        </div>
+                        <div class="flex">
+                            <div class="name">类别</div>
+                            <div class="cont">锁定接骨板</div>
+                        </div>
+                        <div class="flex">
+                            <div class="name">套餐名称</div>
+                            <div class="cont">股骨LC-DCP接骨板Ⅱ（锥螺纹）股骨骨 Copy 2</div>
+                        </div>
+                        <div class="flex">
+                            <div class="name">套餐名称</div>
+                            <div class="cont">股骨LC-DCP接骨板Ⅱ（锥螺纹）股骨骨 Copy 2</div>
+                        </div>
+                    </div>
+                    <div class="detailInfo-item">
+                        <div class="flex">
+                            <div class="name">商品信息</div>
+                            <div class="cont">1</div>
+                        </div>
+                        <div class="flex">
+                            <div class="name">套餐名称</div>
+                            <div class="cont">股骨LC-DCP接骨板Ⅱ（锥螺纹）股骨骨</div>
+                        </div>
+                        <div class="flex">
+                            <div class="name">规格</div>
+                            <div class="cont">AX-201</div>
+                        </div>
+                        <div class="flex">
+                            <div class="name">品类</div>
+                            <div class="cont">正常 品规</div>
+                        </div>
+                        <div class="flex">
+                            <div class="name">类别</div>
+                            <div class="cont">锁定接骨板</div>
+                        </div>
+                        <div class="flex">
+                            <div class="name">套餐名称</div>
+                            <div class="cont">股骨LC-DCP接骨板Ⅱ（锥螺纹）股骨骨 Copy 2</div>
+                        </div>
+                        <div class="flex">
+                            <div class="name">套餐名称</div>
+                            <div class="cont">股骨LC-DCP接骨板Ⅱ（锥螺纹）股骨骨 Copy 2</div>
+                        </div>
+                    </div>
+                    <div class="detailInfo-item">
+                        <div class="flex">
+                            <div class="name">商品信息</div>
+                            <div class="cont">1</div>
+                        </div>
+                        <div class="flex">
+                            <div class="name">套餐名称</div>
+                            <div class="cont">股骨LC-DCP接骨板Ⅱ（锥螺纹）股骨骨</div>
+                        </div>
+                        <div class="flex">
+                            <div class="name">规格</div>
+                            <div class="cont">AX-201</div>
+                        </div>
+                        <div class="flex">
+                            <div class="name">品类</div>
+                            <div class="cont">正常 品规</div>
+                        </div>
+                        <div class="flex">
+                            <div class="name">类别</div>
+                            <div class="cont">锁定接骨板</div>
+                        </div>
+                        <div class="flex">
+                            <div class="name">套餐名称</div>
+                            <div class="cont">股骨LC-DCP接骨板Ⅱ（锥螺纹）股骨骨 Copy 2</div>
+                        </div>
+                        <div class="flex">
+                            <div class="name">套餐名称</div>
+                            <div class="cont">股骨LC-DCP接骨板Ⅱ（锥螺纹）股骨骨 Copy 2</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
    </div>
 </template>
 
 <script>
-    import List from '@/components/list'//列表
+    import ListStandard from '@/components/listStandard'//标准套餐
+    import ListDefined from '@/components/listDefined'//自定义套餐
     export default {
         name: "detail",
         components:{
-            List,
+            ListStandard,
+            ListDefined
         },
         data(){
             return {
@@ -67,7 +255,7 @@
         },
         methods: {
             typeChose(index){
-                this.type=index
+                this.type=index;
             }
         }
     }
@@ -122,12 +310,75 @@
                 }
             }
         }
+        .detail-item-last{
+            border-bottom: none;
+            line-height: 54px;
+            height: 54px;
+            .item-name{
+                line-height: 54px;
+            }
+        }
+        .choseNum{
+            height: 40px;
+            line-height: 40px;
+            margin-right: 30px;
+        }
     }
     .list-title{
         font-size: 18px;
         color: #333;
         border-left: 4px solid #26B7BC;
         padding-left: 10px;
+        position: relative;
+        .defined{
+            color: #999;
+            margin-left: 20px;
+            font-size: 14px;
+        }
+        .fastBtn{
+            position: absolute;
+            right: 0;
+        }
+    }
+    .detailInfo{
+        .detailInfo-main{
+            padding: 15px 20px;
+            border: 1px solid rgba(221, 221, 221, 1);
+            .detailInfo-info{
+                width: 50%;
+                .flex{
+                    margin-bottom:10px
+                }
+            }
+        }
+        .detailInfo-title{
+            height: 40px;
+            line-height: 40px;
+            background-color: rgba(245, 245, 245, 1);
+            border: 1px solid rgba(238, 238, 238, 1);
+            border-bottom: 0;
+            text-align: center;
+        }
+        .detailInfo-item{
+            margin-bottom: 15px;
+            width: 572px;
+            /*height: 367px;*/
+            border: 1px solid rgba(221, 221, 221, 1);
+            .flex{
+                height: 52px;
+                line-height: 52px;
+                border-bottom: 1px solid #EEEEEE;
+                .name{
+                    width: 76px;
+                    background: #F5F5F5;
+                    text-align: right;
+                    padding-right:20px;
+                }
+                .cont{
+                    padding-left:20px;
+                }
+            }
+        }
     }
 }
 </style>

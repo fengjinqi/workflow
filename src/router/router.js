@@ -1,26 +1,24 @@
-import Vue from 'vue'
-import Router from 'vue-router'
+
 import Mindex from '@/pages/home/index'//首页
 import Login from '../components/login/login'//登录
 import Search from '@/pages/home/search'//搜索页
 import Detail from '@/pages/home/detail'//详情页
 import Cart from '@/pages/cart/index'//购物车
+import OrderSubmit from '@/pages/cart/orderSubmit'//提交订单
 import Order from '@/pages/order/index'//订单中心
 import Account from '@/pages/account/index'//账户金额
 
-Vue.use(Router)
 
-export default new Router({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes: [
+
+export default [
       {
-        path: '/',
-        name: 'index',
+        path: '/home',
+        name: 'home',
         meta:{
             keepAlive:true
         },
-        component: Mindex,
+          //component: resolve => require(['@/pages/home/index.vue'],resolve)
+        component: () => import('@/pages/home/index'),
       },
       {
           path: '/login',
@@ -28,10 +26,11 @@ export default new Router({
           meta:{
               keepAlive:false
           },
-          component: Login,
+          //component: resolve => require(['@/components/login/login.vue'],resolve)
+         component: () => import('@/components/login/login'),
       },
       {
-          path: '/search',
+          path: '/search/:id',
           name: 'search',
           meta:{
               keepAlive:true
@@ -55,6 +54,14 @@ export default new Router({
           },
           component: Cart
       },
+       {
+            path: '/orderSubmit',
+            name: 'orderSubmit',
+            meta:{
+                keepAlive:true
+            },
+            component: OrderSubmit
+       },
       {
           path: '/order',
           name: 'order',
@@ -70,6 +77,10 @@ export default new Router({
               keepAlive:true
           },
           component: Account
-      }
+      },
+    {
+        path: '*',
+        redirect:'/home'
+    }
   ]
-})
+

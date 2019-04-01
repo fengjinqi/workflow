@@ -21,6 +21,12 @@
       components:{
           Top,
       },
+      mounted(){
+          // 关闭浏览器窗口的时候清空浏览器缓存在localStorage的数据
+          window.onbeforeunload = function (e) {
+             alert()
+          }
+      }
   }
 </script>
 <style lang="less">
@@ -44,6 +50,12 @@
     outline: none;
     border:none;
   }
+  button{
+      background-color: rgba(245, 245, 245, 1);
+      border: 1px solid rgba(232, 232, 232, 1);
+      color: #666;
+      outline: none;
+  }
   .main{
     width: 1200px;
     margin:0 auto;
@@ -62,5 +74,10 @@
     display: -webkit-flex;
     flex-wrap: wrap;
     justify-content: space-between;
+  }
+  .flex-r{
+      display: flex;
+      display: -webkit-flex;
+      justify-content:flex-end;
   }
 </style>
