@@ -33,9 +33,38 @@
             </div>
         </div>
         <div class="login-nav">
-            <div class="main flex">
+            <div class="main flex-j">
                 <div class="nav-item">
-
+                    <div class="div">
+                        <div class="img"><img src="" alt=""></div>
+                        <div class="title">上市集团参股</div>
+                        <div class="info">上市集团参股上市集团参股上市集团参股上市集团参股
+                            上市集团参股上市集团参股</div>
+                    </div>
+                </div>
+                <div class="nav-item">
+                    <div class="div">
+                        <div class="img"><img src="" alt=""></div>
+                        <div class="title">上市集团参股</div>
+                        <div class="info">上市集团参股上市集团参股上市集团参股上市集团参股
+                            上市集团参股上市集团参股</div>
+                    </div>
+                </div>
+                <div class="nav-item">
+                    <div class="div">
+                        <div class="img"><img src="" alt=""></div>
+                        <div class="title">上市集团参股</div>
+                        <div class="info">上市集团参股上市集团参股上市集团参股上市集团参股
+                            上市集团参股上市集团参股</div>
+                    </div>
+                </div>
+                <div class="nav-item">
+                    <div class="div">
+                        <div class="img"><img src="" alt=""></div>
+                        <div class="title">上市集团参股</div>
+                        <div class="info">上市集团参股上市集团参股上市集团参股上市集团参股
+                            上市集团参股上市集团参股</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -214,6 +243,27 @@
         width: 100%;
         height: 212px;
         background: #fff;
+        text-align: center;
+        .nav-item{
+            width: 25%;
+            .div{
+                padding:20px;
+                .img{
+                    width: 80px;
+                    margin: 0 auto;
+                    height: 80px;
+                    background: #eee;
+                }
+                .title{
+                    font-size: 18px;
+                    color: #333;
+                    margin: 10px 0;
+                }
+                .info{
+                    color: #999;
+                }
+            }
+        }
     }
 }
 </style>

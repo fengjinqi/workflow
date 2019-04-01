@@ -38,6 +38,7 @@
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     background: #F9F9F9;
     font-size: 14px;
+      color: #333;
   }
   a{
     color: #fff;

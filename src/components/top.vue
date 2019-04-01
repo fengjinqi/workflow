@@ -7,7 +7,17 @@
                     <router-link :to="{name:'home'}"><img src="@/assets/logo.png" alt="" style="width:50px;"></router-link>
                 </div>
                 <div class="flex search">
-                    <div class="search-left">搜单品</div>
+                    <div class="search-left">
+                        <el-dropdown trigger="click" @command="handleCommand">
+                              <span class="el-dropdown-link">
+                                {{commandVal}}
+                              </span>
+                            <el-dropdown-menu slot="dropdown">
+                                <el-dropdown-item command="1">搜单品</el-dropdown-item>
+                                <el-dropdown-item command="2">搜套餐</el-dropdown-item>
+                            </el-dropdown-menu>
+                        </el-dropdown>
+                    </div>
                     <div><input type="text" placeholder="搜全网6085789件商品"></div>
                     <div class="search-btn">搜索</div>
                 </div>
@@ -31,7 +41,8 @@
         name: "top",
         data(){
             return{
-                category:[]
+                category:[],
+                commandVal:'搜单品'//搜单品
             }
         },
         computed:{
@@ -58,6 +69,15 @@
                     name: 'cart',
                 })
             },
+            //下拉搜索
+            handleCommand(command) {
+                this.$message('click on item ' + command);
+                if(command=='1'){
+                    this.commandVal="搜单品"
+                } else{
+                    this.commandVal="搜套餐"
+                }
+            }
         }
     }
 </script>
@@ -79,6 +99,7 @@
                 height: 100%;
                 background-color: rgba(244, 244, 244, 1);
                 text-align: center;
+
             }
             .search-btn{
                 width: 100px;
@@ -101,6 +122,7 @@
             text-align: center;
             height: 40px;
             border: 1px solid #EEEEEE;
+            cursor: pointer;
             .cart-name{
                 margin:0 15px 0 10px;
                 line-height: 40px;
@@ -119,4 +141,19 @@
         }
     }
 }
+.el-dropdown-link {
+    cursor: pointer;
+    color: #999;
+}
+.el-dropdown-menu{
+    width: 100px;
+}
+    .el-dropdown{
+        width: 100%;
+        span{
+            height: 100%;
+            width:100%;
+            display: inline-block;
+        }
+    }
 </style>
