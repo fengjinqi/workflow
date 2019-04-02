@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Banner />
+        <Banner :src="data.imageResponses"/>
         <div class="index">
             <div class="main order">
                 <div class="order-main">
@@ -227,12 +227,16 @@
     import Banner from '@/components/banner'//banner
     export default {
         name: "index",
-
+        data(){
+            return{
+                data:[],
+                src:[]
+            }
+        },
         components:{
           Banner,
         },
         created() {
-            //alert(getToken('token'))
             this.getUserInfo().then(res=>{
                 if(res.code!='OK'){
                     this.$notify({
@@ -248,12 +252,19 @@
 
             getIndex(getToken('token')).then(res=>{
 
+                if (res.code=='OK'){
+                    this.data = res.data
+                    this.src= JSON.parse(res.data.imageResponses[0].imageUrl)
+                    console.log(this.src)
+                }
             })
+            this.getGoodsShopsCounts()
 
     },
         methods:{
             ...mapActions([
-                'getUserInfo'
+                'getUserInfo',
+                'getGoodsShopsCounts'
             ])
         }
     }

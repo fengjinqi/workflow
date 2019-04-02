@@ -1,6 +1,3 @@
-
-import Mindex from '@/pages/home/index'//首页
-import Login from '../components/login/login'//登录
 import Search from '@/pages/home/search'//搜索页
 import Detail from '@/pages/home/detail'//详情页
 import Cart from '@/pages/cart/index'//购物车

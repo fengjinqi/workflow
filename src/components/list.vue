@@ -2,142 +2,21 @@
     <div class="list">
         <div class="main">
             <div class="list-main flex-w">
-                <div class="list-item">
-                    <div class="list-item-main" @click="todetail('1')">
+                <div class="list-item" v-for="(item ,index) in list.list" >
+                    <div class="list-item-main" @click="todetail(item.id)">
                         <div class="divM">
-                            <span class="type">寄售</span>
-                            <span>股骨LC-DCP接骨板Ⅱ（锥螺纹）股骨骨</span>
-                            <span class="num">共8种</span>
+                            <span class="type">{{item.goodsType==1?'单品':'套餐'}}</span>
+                            <span>{{item.name}}</span>
                         </div>
-                        <div class="divM info">编码：5688454545121</div>
-                        <div class="divM info">骨折/F3/施乐辉</div>
-                        <div class="divM price">¥15889</div>
+                        <div class="divM info">编码：{{item.goodsSn}}</div>
+                        <div class="divM info">{{item.matModel}}</div>
                     </div>
-                    <div class="flex btnBox">
-                        <div class="list-item-btn" @click="choose('1')" :class="chose=='1'?'active':''">标准套餐</div>
-                        <div class="list-item-btn" @click="choose('2')" :class="chose=='2'?'active':''">自定义</div>
-                        <div class="list-item-btn list-item-btn1" @click="addCart">加入购物车</div>
+                    <div class="btnBox">
+                        <div class="fl text">¥{{item.price}}</div>
+                        <div class="list-item-btn list-item-btn1 fr" @click="addCart">加入购物车</div>
                     </div>
                 </div>
-                <div class="list-item">
-                    <div class="list-item-main">
-                        <div class="divM">
-                            <span class="type">寄售</span>
-                            <span>股骨LC-DCP接骨板Ⅱ（锥螺纹）股骨骨</span>
-                            <span class="num">共8种</span>
-                        </div>
-                        <div class="divM info">编码：5688454545121</div>
-                        <div class="divM info">骨折/F3/施乐辉</div>
-                        <div class="divM price">¥15889</div>
-                    </div>
-                    <div class="flex btnBox">
-                        <div class="list-item-btn" @click="choose('1')" :class="chose=='1'?'active':''">标准套餐</div>
-                        <div class="list-item-btn" @click="choose('2')" :class="chose=='2'?'active':''">自定义</div>
-                        <div class="list-item-btn list-item-btn1">加入购物车</div>
-                    </div>
-                </div>
-                <div class="list-item">
-                    <div class="list-item-main">
-                        <div class="divM">
-                            <span class="type">寄售</span>
-                            <span>股骨LC-DCP接骨板Ⅱ（锥螺纹）股骨骨</span>
-                            <span class="num">共8种</span>
-                        </div>
-                        <div class="divM info">编码：5688454545121</div>
-                        <div class="divM info">骨折/F3/施乐辉</div>
-                        <div class="divM price">¥15889</div>
-                    </div>
-                    <div class="flex btnBox">
-                        <div class="list-item-btn" @click="choose('1')" :class="chose=='1'?'active':''">标准套餐</div>
-                        <div class="list-item-btn" @click="choose('2')" :class="chose=='2'?'active':''">自定义</div>
-                        <div class="list-item-btn list-item-btn1">加入购物车</div>
-                    </div>
-                </div>
-                <div class="list-item">
-                    <div class="list-item-main">
-                        <div class="divM">
-                            <span class="type">寄售</span>
-                            <span>股骨LC-DCP接骨板Ⅱ（锥螺纹）股骨骨</span>
-                            <span class="num">共8种</span>
-                        </div>
-                        <div class="divM info">编码：5688454545121</div>
-                        <div class="divM info">骨折/F3/施乐辉</div>
-                        <div class="divM price">¥15889</div>
-                    </div>
-                    <div class="flex btnBox">
-                        <div class="list-item-btn" @click="choose('1')" :class="chose=='1'?'active':''">标准套餐</div>
-                        <div class="list-item-btn" @click="choose('2')" :class="chose=='2'?'active':''">自定义</div>
-                        <div class="list-item-btn list-item-btn1">加入购物车</div>
-                    </div>
-                </div>
-                <div class="list-item">
-                    <div class="list-item-main">
-                        <div class="divM">
-                            <span class="type">寄售</span>
-                            <span>股骨LC-DCP接骨板Ⅱ（锥螺纹）股骨骨</span>
-                            <span class="num">共8种</span>
-                        </div>
-                        <div class="divM info">编码：5688454545121</div>
-                        <div class="divM info">骨折/F3/施乐辉</div>
-                        <div class="divM price">¥15889</div>
-                    </div>
-                    <div class="flex btnBox">
-                        <div class="list-item-btn" @click="choose('1')" :class="chose=='1'?'active':''">标准套餐</div>
-                        <div class="list-item-btn" @click="choose('2')" :class="chose=='2'?'active':''">自定义</div>
-                        <div class="list-item-btn list-item-btn1">加入购物车</div>
-                    </div>
-                </div>
-                <div class="list-item">
-                    <div class="list-item-main">
-                        <div class="divM">
-                            <span class="type">寄售</span>
-                            <span>股骨LC-DCP接骨板Ⅱ（锥螺纹）股骨骨</span>
-                            <span class="num">共8种</span>
-                        </div>
-                        <div class="divM info">编码：5688454545121</div>
-                        <div class="divM info">骨折/F3/施乐辉</div>
-                        <div class="divM price">¥15889</div>
-                    </div>
-                    <div class="flex btnBox">
-                        <div class="list-item-btn" @click="choose('1')" :class="chose=='1'?'active':''">标准套餐</div>
-                        <div class="list-item-btn" @click="choose('2')" :class="chose=='2'?'active':''">自定义</div>
-                        <div class="list-item-btn list-item-btn1">加入购物车</div>
-                    </div>
-                </div>
-                <div class="list-item">
-                    <div class="list-item-main">
-                        <div class="divM">
-                            <span class="type">寄售</span>
-                            <span>股骨LC-DCP接骨板Ⅱ（锥螺纹）股骨骨</span>
-                            <span class="num">共8种</span>
-                        </div>
-                        <div class="divM info">编码：5688454545121</div>
-                        <div class="divM info">骨折/F3/施乐辉</div>
-                        <div class="divM price">¥15889</div>
-                    </div>
-                    <div class="flex btnBox">
-                        <div class="list-item-btn" @click="choose('1')" :class="chose=='1'?'active':''">标准套餐</div>
-                        <div class="list-item-btn" @click="choose('2')" :class="chose=='2'?'active':''">自定义</div>
-                        <div class="list-item-btn list-item-btn1">加入购物车</div>
-                    </div>
-                </div>
-                <div class="list-item">
-                    <div class="list-item-main">
-                        <div class="divM">
-                            <span class="type">寄售</span>
-                            <span>股骨LC-DCP接骨板Ⅱ（锥螺纹）股骨骨</span>
-                            <span class="num">共8种</span>
-                        </div>
-                        <div class="divM info">编码：5688454545121</div>
-                        <div class="divM info">骨折/F3/施乐辉</div>
-                        <div class="divM price">¥15889</div>
-                    </div>
-                    <div class="flex btnBox">
-                        <div class="list-item-btn" @click="choose('1')" :class="chose=='1'?'active':''">标准套餐</div>
-                        <div class="list-item-btn" @click="choose('2')" :class="chose=='2'?'active':''">自定义</div>
-                        <div class="list-item-btn list-item-btn1">加入购物车</div>
-                    </div>
-                </div>
+
             </div>
         </div>
     </div>
@@ -151,6 +30,11 @@
             return {
                 chose:'1',//标准
             }
+        },
+        props:{
+          list:{
+              type:[Object,Array]
+          }
         },
         computed:{
 
@@ -181,14 +65,17 @@
         .list-main{
             padding:15px 20px;
             background:#fff;
+
             .list-item{
                 width: 278px;
-                height: 218px;
+                height: 182px;
                 border: 1px solid #eee;
                 margin:7px 0;
                 position: relative;
                 .list-item-main{
-                    padding:15px 10px 0 10px;
+                    padding:15px 10px 10px 10px;
+                    height: 125px;
+                    box-sizing: border-box;
                     .divM{
                         margin-bottom:10px;
                         .type{
@@ -213,9 +100,16 @@
                     }
                 }
                 .btnBox{
-                    position: absolute;
-                    bottom: 0;
-                    left: 0;
+                    overflow: hidden;
+                    border-top: 1px solid #eee;
+                    .text{
+                        color: rgba(255, 136, 25, 1);
+                        font-size: 24px;
+                        text-align: left;
+                        height: 50px;
+                        line-height: 50px;
+                        padding-left: 15px;
+                    }
                     .list-item-btn{
                         width:72px;
                         text-align: center;

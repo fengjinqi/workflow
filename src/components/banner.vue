@@ -1,12 +1,17 @@
 <template>
     <div class="banner">
-        <div class="main"></div>
+        <div class="main"><img :src="src" alt=""></div>
     </div>
 </template>
 
 <script>
     export default {
-        name: "banner"
+        name: "banner",
+        porps:{
+            src:{
+                type:Array
+            }
+        }
     }
 </script>
 

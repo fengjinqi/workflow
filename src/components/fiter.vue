@@ -8,38 +8,16 @@
                 </div>
                 <div class="fiter-item-list flex">
                     <el-checkbox-group v-model="checkedFiters1" @change="handleCheckedFitersChange1">
-                        <el-checkbox v-for="item in fiters1" :label="item" :key="item">{{item}}</el-checkbox>
+                        <el-checkbox v-for="item in category.list" :label="item.id" :key="item.id">{{item.categoryName}}</el-checkbox>
                     </el-checkbox-group>
                 </div>
                 <div class="fiter-item-more">更多 ></div>
             </div>
-            <div class="fiter-item flex" style="border-top:1px solid #eee;border-bottom:1px solid #eee;">
-                <div class="fiter-item-name">手术部位</div>
-                <div class="fiter-item-all">
-                    <el-checkbox  v-model="checkAll2" @change="handleCheckAllChange2">全部</el-checkbox>
-                </div>
-                <div class="fiter-item-list flex">
-                    <el-checkbox-group v-model="checkedFiters2" @change="handleCheckedFitersChange2">
-                        <el-checkbox v-for="item in fiters2" :label="item" :key="item">{{item}}</el-checkbox>
-                    </el-checkbox-group>
-                </div>
-                <div class="fiter-item-more">更多 ></div>
-            </div>
-    <!--        <div class="fiter-item flex" style="padding-bottom:20px;">
-                <div class="fiter-item-name">价格区间</div>
-                <div><input type="text" class="price" v-model="minPrice"></div>
-                <div class="border"></div>
-                <div><input type="text" class="price" v-model="maxPrice"></div>
-                <div class="confirm" style="margin-left:20px;">确定</div>
-                <div class="reset">重置</div>
-            </div>-->
         </div>
     </div>
 </template>
 
 <script>
-    const fiterOptions1 = ['分类一', '分类二', '分类三', '分类四', '分类五', '分类六', '分类七', '分类八', '分类九', '分类十', '分类', '分类十二', '分类十三', '分类十四', '分类十五'];
-    const fiterOptions2 = ['分类一', '分类二', '分类三', '分类四', '分类五', '分类六', '分类七', '分类八', '分类九', '分类十', '分类', '分类十二', '分类十三', '分类十四', '分类十五'];
     export default {
         name: "fiter",
         data() {
@@ -47,33 +25,36 @@
                 //品牌
                 checkAll1: false,
                 checkedFiters1: [],
-                fiters1: fiterOptions1,
-                //手术部位
-                checkAll2: false,
-                checkedFiters2: [],
-                fiters2: fiterOptions2,
-                //价格区间
-                minPrice:"",
-                maxPrice:""
+                fiters1: [],
             };
+        },
+        props:{
+            category:{
+                type:[Object,Array]
+            }
+        },
+        watch:{
+            category(v){
+                console.log(v)
+                //this.fiters1=v.list
+
+            }
+        },
+        created(){
+            console.log(this.category)
+            //this.fiters1=this.category.list
+
         },
         methods: {
             //品牌
             handleCheckAllChange1(val) {
-                this.checkedFiters1 = val ? fiterOptions1 : [];
+              console.log(val)
+
+
             },
             handleCheckedFitersChange1(value) {
-                let checkedCount1 = value.length;
-                this.checkAll1 = checkedCount1 === this.fiters1.length
+                console.log(value)
             },
-            //手术部位
-            handleCheckAllChange2(val) {
-                this.checkedFiters2 = val ? fiterOptions2 : [];
-            },
-            handleCheckedFitersChange2(value) {
-                let checkedCount2 = value.length;
-                this.checkAll2 = checkedCount2 === this.fiters2.length
-            }
         }
     }
 </script>

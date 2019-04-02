@@ -1,10 +1,8 @@
 import {
     login,
     getUserInfo,
-    getMessage,
-    getMessageRead,
-    getUnreadCount
 } from '@/api/user'
+import {getGoodsShopsCount} from '@/api/goods'
 import {
     Login
 } from '@/api/login'
@@ -22,6 +20,7 @@ export default {
         position: '',
         powerAttorneyImage: '',
         sex: '',
+        shops:[]
 
     },
     mutations: {
@@ -56,8 +55,9 @@ export default {
         setSex(state, sex) {
             state.sex = sex
         },
-
-
+        setShops(state,shops){
+          state.shops=shops
+        },
         setEmail(state, email) {
             state.email = email
         },
@@ -169,45 +169,15 @@ export default {
                 }
             })
         },
-        // 此方法用来获取未读消息条数，接口只返回数值，不返回消息列表
-        getUnreadMessageCount({state, commit}) {
-            getUnreadCount(getToken('token')).then(res => {
+        getGoodsShopsCounts({state,commit}){
+            return new Promise((resolve, reject) =>{
+                getGoodsShopsCount(state.token).then(res=>{
 
-
-                commit('setMessageCount', res.data.count)
-            })
-        },
-        // 获取消息列表，其中包含未读、已读、回收站三个列表
-        getMessageList({state, commit}) {
-            return new Promise((resolve, reject) => {
-                getMessage(getToken('token')).then(res => {
-                    commit('setMessageUnreadList', res.data.results)
-                    // const { unread, readed, trash } = res.data
-                    // commit('setMessageUnreadList', unread.sort((a, b) => new Date(b.create_time) - new Date(a.create_time)))
-                    // commit('setMessageReadedList', readed.map(_ => {
-                    //   _.loading = false
-                    //   return _
-                    // }).sort((a, b) => new Date(b.create_time) - new Date(a.create_time)))
-                    // commit('setMessageTrashList', trash.map(_ => {
-                    //   _.loading = false
-                    //   return _
-                    // }).sort((a, b) => new Date(b.create_time) - new Date(a.create_time)))
-                    resolve()
-                }).catch(error => {
-                    reject(error)
+                    if(res.code=='OK') {
+                        commit('setShops', res.data)
+                    }
                 })
-            })
-        },
-        getMessage({state, commit}) {
-            return new Promise((resolve, reject) => {
-                getMessageRead(getToken('token')).then(res => {
-                    commit('setMessageReadedList', res.data.results)
-                    commit('setRead', res.data.count)
-                    resolve()
-                }).catch(error => {
-                    reject(error)
-                })
-            })
-        },
+            } )
+        }
     }
 }

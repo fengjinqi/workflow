@@ -34,6 +34,12 @@
     padding: 0;
     margin: 0;
   }
+  .fl{
+      float: left;
+  }
+  .fr{
+      float: right;
+  }
   body{
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     background: #F9F9F9;

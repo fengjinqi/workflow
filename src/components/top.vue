@@ -48,7 +48,8 @@
         computed:{
             //全局购物车数量
             cartNum:function(){
-                return ''
+
+                return this.$store.state.user.shops.length
             }
         },
         components:{
@@ -57,9 +58,24 @@
         created(){
             getIndexList(getToken('token')).then(res=>{
                 if(res.code=='OK'){
-                    this.category=res.data
+
+                    this.category = res.data.map((item)=>{
+                        let currentItem = {
+                            label: item.name,
+                            value: item.id,
+                            children: []
+                        }
+                        currentItem.children =item.categoryResponses.map((its)=>{
+                                return{
+                                    value:its.id,
+                                    label:its.name
+                                }
+                            })
+                        return currentItem;
+                    })
+
                 }
-                console.log(res)
+
             })
         },
         methods: {

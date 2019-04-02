@@ -2,7 +2,16 @@
     <div class="nav">
         <div class="main">
             <div class="flex">
-                <div class="nav-first" @mouseover="selectType" :class="selectTypeShow?'active':''">
+                <div>
+                    <el-cascader
+                            placeholder="商品分类"
+                            expand-trigger="hover"
+                            :options="list"
+                            v-model="selectedOptions2"
+                            @change="handleChange">
+                    </el-cascader >
+                </div>
+               <!-- <div class="nav-first" @mouseover="selectType" :class="selectTypeShow?'active':''">
                     <div>全部商品分类</div>
                     <div v-show="selectTypeShow" class="selectType"  @mouseout="outSelectType" >
                         <ul>
@@ -13,7 +22,7 @@
 
                         </ul>
                     </div>
-                </div>
+                </div>-->
                 <div class="nav-list flex">
                     <div class="nav-item" @mouseover="selectNav">
                         <router-link to="/order">订单中心</router-link>
@@ -37,7 +46,9 @@
         data(){
             return {
                 selectTypeShow:false,
-                selectTypeIndex:'1'
+                selectTypeIndex:'1',
+                selectedOptions2: [],
+
             }
         },
         props: {
@@ -54,6 +65,15 @@
             },
             selectTypeFun(index){
                 this.selectTypeIndex=index;
+
+            },
+            handleChange(value) {
+                this.$router.push({
+                    name:'search',
+                    params:{
+                        id:value.pop()
+                    }
+                })
 
             },
             //选择导航
