@@ -18,14 +18,16 @@
 </template>
 
 <script>
+
     export default {
         name: "fiter",
         data() {
             return {
                 //品牌
-                checkAll1: false,
-                checkedFiters1: [],
-                fiters1: [],
+                checkAll1: false,//全选
+                checkedFiters1: [],//已选
+                fiters1: [],//所有选项  this.category.list
+                dataArr:[],
             };
         },
         props:{
@@ -37,23 +39,23 @@
             category(v){
                 console.log(v)
                 //this.fiters1=v.list
-
             }
         },
         created(){
-            console.log(this.category)
-            //this.fiters1=this.category.list
-
+            // for(var i=0; i<this.category.list.length; i++){
+            //     this.dataArr.push(this.category.list[i].categoryName);
+            // }
+            // this.fiters1=this.dataArr
+            //console.log(this.dataArr)
         },
         methods: {
             //品牌
             handleCheckAllChange1(val) {
-              console.log(val)
-
-
+                this.checkedFiters1 = val ? this.dataArr : [];
+                console.log(this.checkedFiters1);
             },
             handleCheckedFitersChange1(value) {
-                console.log(value)
+               console.log(value)
             },
         }
     }

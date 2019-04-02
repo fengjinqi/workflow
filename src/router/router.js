@@ -3,6 +3,7 @@ import Detail from '@/pages/home/detail'//详情页
 import Cart from '@/pages/cart/index'//购物车
 import OrderSubmit from '@/pages/cart/orderSubmit'//提交订单
 import Order from '@/pages/order/index'//订单中心
+import OrderDetail from '@/pages/order/detail'//订单详情页
 import Account from '@/pages/account/index'//账户金额
 
 
@@ -67,6 +68,14 @@ export default [
           },
           component: Order
       },
+    {
+        path: '/orderdetail',
+        name: 'orderdetail',
+        meta:{
+            keepAlive:true
+        },
+        component: OrderDetail
+    },
       {
           path: '/account',
           name: 'account',
