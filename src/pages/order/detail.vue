@@ -3,6 +3,12 @@
         <div class="main">
             <div class="detail-item">
                 <div class="flex-j border">
+                    <div class="title">审核失败原因</div>
+                </div>
+                <div style="padding-top:20px;">邮递地址与经销商合作地址不符。</div>
+            </div>
+            <div class="detail-item">
+                <div class="flex-j border">
                     <div class="title">寄售订单</div>
                     <div class="orderNumb">订单编号：001A181030DC000</div>
                 </div>
@@ -40,124 +46,125 @@
             </div>
             <div class="detail-item">
                 <div class="flex-j">
-                    <div class="title">医疗信息</div>
-                </div>
-                <div class="info flex-j">
-                    <div class="info-item">
-                        <div class="flex">
-                            <div class="label">手术单号</div>
-                            <div class="val">38347584758592384328</div>
-                        </div>
-                        <div class="flex">
-                            <div class="label">医院名称</div>
-                            <div class="val">上海市XX第六医院</div>
-                        </div>
-                        <div class="flex">
-                            <div class="label">科室名称</div>
-                            <div class="val">ASW</div>
-                        </div>
-                        <div class="flex">
-                            <div class="label">医师姓名</div>
-                            <div class="val">王是</div>
-                        </div>
-                        <div class="flex">
-                            <div class="label">患者姓名</div>
-                            <div class="val">顾和与</div>
-                        </div>
-                        <div class="flex">
-                            <div class="label">患者年龄</div>
-                            <div class="val">23</div>
-                        </div>
-                        <div class="flex">
-                            <div class="label">联系电话</div>
-                            <div class="val">135 7878 9800</div>
-                        </div>
-                        <div class="flex">
-                            <div class="label">跟台人员</div>
-                            <div class="val">臻开心</div>
-                        </div>
-                        <div class="flex">
-                            <div class="label">跟台人电话</div>
-                            <div class="val">135 7878 9800</div>
-                        </div>
-                    </div>
-                    <div class="info-item">
-                        <div class="flex">
-                            <div class="label">器械名称</div>
-                            <div class="val">股骨LC-DCP接骨板Ⅱ（锥螺纹）股骨L</div>
-                        </div>
-                        <div class="flex">
-                            <div class="label">器械规格</div>
-                            <div class="val">请输入器械规格</div>
-                        </div>
-                        <div class="flex">
-                            <div class="label">器械批号</div>
-                            <div class="val">请输入器械批号</div>
-                        </div>
-                        <div class="flex">
-                            <div class="label">有效期</div>
-                            <div class="val">2019-04-15</div>
-                        </div>
-                        <div class="flex">
-                            <div class="label">注册证号</div>
-                            <div class="val">请输入注册账号</div>
-                        </div>
-                        <div class="flex">
-                            <div class="label">生产企业</div>
-                            <div class="val">请输入生产企业名称</div>
-                        </div>
-                        <div class="flex">
-                            <div class="label">数量</div>
-                            <div class="val">5</div>
-                        </div>
-                        <div class="flex">
-                            <div class="label">使用日期</div>
-                            <div class="val">请输入使用日期</div>
-                        </div>
+                    <div class="title titleW">
+                        <!--医疗信息-->
+                        <el-collapse v-model="activeNames1" @change="handleChange1">
+                            <el-collapse-item title="医疗信息" name="1">
+                                <div class="info flex-j">
+                                    <div class="info-item">
+                                        <div class="flex">
+                                            <div class="label">手术单号</div>
+                                            <div class="val">38347584758592384328</div>
+                                        </div>
+                                        <div class="flex">
+                                            <div class="label">医院名称</div>
+                                            <div class="val">上海市XX第六医院</div>
+                                        </div>
+                                        <div class="flex">
+                                            <div class="label">科室名称</div>
+                                            <div class="val">ASW</div>
+                                        </div>
+                                        <div class="flex">
+                                            <div class="label">医师姓名</div>
+                                            <div class="val">王是</div>
+                                        </div>
+                                        <div class="flex">
+                                            <div class="label">患者姓名</div>
+                                            <div class="val">顾和与</div>
+                                        </div>
+                                        <div class="flex">
+                                            <div class="label">患者年龄</div>
+                                            <div class="val">23</div>
+                                        </div>
+                                        <div class="flex">
+                                            <div class="label">联系电话</div>
+                                            <div class="val">135 7878 9800</div>
+                                        </div>
+                                        <div class="flex">
+                                            <div class="label">跟台人员</div>
+                                            <div class="val">臻开心</div>
+                                        </div>
+                                        <div class="flex">
+                                            <div class="label">跟台人电话</div>
+                                            <div class="val">135 7878 9800</div>
+                                        </div>
+                                    </div>
+                                    <div class="info-item">
+                                        <div class="flex">
+                                            <div class="label">器械名称</div>
+                                            <div class="val">股骨LC-DCP接骨板Ⅱ（锥螺纹）股骨L</div>
+                                        </div>
+                                        <div class="flex">
+                                            <div class="label">器械规格</div>
+                                            <div class="val">请输入器械规格</div>
+                                        </div>
+                                        <div class="flex">
+                                            <div class="label">器械批号</div>
+                                            <div class="val">请输入器械批号</div>
+                                        </div>
+                                        <div class="flex">
+                                            <div class="label">有效期</div>
+                                            <div class="val">2019-04-15</div>
+                                        </div>
+                                        <div class="flex">
+                                            <div class="label">注册证号</div>
+                                            <div class="val">请输入注册账号</div>
+                                        </div>
+                                        <div class="flex">
+                                            <div class="label">生产企业</div>
+                                            <div class="val">请输入生产企业名称</div>
+                                        </div>
+                                        <div class="flex">
+                                            <div class="label">数量</div>
+                                            <div class="val">5</div>
+                                        </div>
+                                        <div class="flex">
+                                            <div class="label">使用日期</div>
+                                            <div class="val">请输入使用日期</div>
+                                        </div>
 
+                                    </div>
+                                </div>
+                            </el-collapse-item>
+                        </el-collapse>
                     </div>
                 </div>
+
             </div>
             <div class="flex-j orderinfo">
                 <div class="orderinfo-item">
                     <div class="main-b">
                         <div class="main-bgd">
-                            <el-dropdown trigger="click">
-                              <span class="el-dropdown-link">
-                                买家备注<i class="el-icon-arrow-down el-icon--right"></i>
-                              </span>
-                                <el-dropdown-menu slot="dropdown">
-                                    <el-dropdown-item>备注信息</el-dropdown-item>
-                                </el-dropdown-menu>
-                            </el-dropdown>
+                            <!--买家备注-->
+                            <el-collapse v-model="activeNames2">
+                                <el-collapse-item title="买家备注" name="1">
+                                   <div>买家备注</div>
+                                </el-collapse-item>
+                            </el-collapse>
                         </div>
                     </div>
                 </div>
                 <div class="orderinfo-item">
                     <div class="main-b">
                        <div class="main-bgd">
-                           <el-dropdown trigger="click">
-                              <span class="el-dropdown-link">
-                                收货人信息<i class="el-icon-arrow-down el-icon--right"></i>
-                              </span>
-                               <el-dropdown-menu slot="dropdown">
-                                   <el-dropdown-item>收货人信息</el-dropdown-item>
-                               </el-dropdown-menu>
-                           </el-dropdown>
+                           <!--收货人信息-->
+                           <el-collapse v-model="activeNames3">
+                               <el-collapse-item title="收货人信息" name="1">
+                                   <div>收货人信息</div>
+                               </el-collapse-item>
+                           </el-collapse>
                        </div>
                     </div>
                 </div>
                 <div class="orderinfo-item">
                     <div class="main-b">
                         <div class="main-bgd">
-                            <el-dropdown trigger="click">
-                              <span class="el-dropdown-link">
-                                订单信息<i class="el-icon-arrow-down el-icon--right"></i>
-                              </span>
-                                <el-dropdown-menu slot="dropdown">
-                                    <el-dropdown-item>订单信息</el-dropdown-item>
-                                </el-dropdown-menu>
-                            </el-dropdown>
+                            <!--订单信息-->
+                            <el-collapse v-model="activeNames4">
+                                <el-collapse-item title="订单信息" name="1">
+                                    <div>订单信息</div>
+                                </el-collapse-item>
+                            </el-collapse>
                         </div>
                     </div>
                 </div>
@@ -238,11 +245,16 @@
         name: "detail",
         data(){
             return {
-
+                activeNames1: [],//医疗信息
+                activeNames2: [],//买家备注
+                activeNames3: [],//收货人信息
+                activeNames4: [],//订单信息
             }
         },
         methods: {
-
+            handleChange1(val) {
+                console.log(val);
+            },
         }
     }
 </script>
@@ -260,6 +272,9 @@
         .title{
             font-size: 18px;
             font-weight: bold;
+        }
+        .titleW{
+            width: 100%;
         }
         .orderNumb{
             font-size: 14px;
@@ -306,6 +321,8 @@
         }
         .info{
             margin:20px 100px 0 100px;
+            font-size: 14px;
+            font-weight: normal;
             .info-item{
                 width: 50%;
                 .flex{
@@ -424,5 +441,8 @@
     /*left: 0!important;*/
     max-height:400px!important;
     overflow: visible;
+}
+.el-collapse-item__arrow{
+    margin:0 0 0 auto
 }
 </style>
