@@ -56,7 +56,10 @@ export const addGoodsShops = (token,data) =>{
         url: '/api/u/cart/single/add'
     });
 }
-
+/**
+ * 购物车列表数量
+ * @param token
+ */
 export const getGoodsShopsCount = (token) =>{
     return axios({
         method: 'get',
@@ -65,5 +68,77 @@ export const getGoodsShopsCount = (token) =>{
         },
 
         url: '/api/u/cart/single/list'
+    });
+}
+/**
+ * 修改购物车数量
+ * @param token
+ * @param id
+ * @param val
+ */
+export const setGoodsShopsCount = (token,id,val) =>{
+    return axios({
+        method: 'get',
+        headers:{
+            'Authorization':'Bearer '+token
+        },
+        url: '/api/u/cart/single/amount?cartId=' +id+'&amount='+val
+    });
+}
+/**
+ * 删除购物车
+ * @param token
+ * @param data
+ * @param id
+ */
+export const delGoodsShopsCount = (token,data,id) =>{
+    return axios({
+        method: 'post',
+        headers:{
+            'Authorization':'Bearer '+token
+        },
+        data:data,
+        url: '/api/u/cart/deleteCart/'+id
+    });
+}
+export const subGoodsShops = (token,data) =>{
+    return axios({
+        method: 'post',
+        headers:{
+            'Authorization':'Bearer '+token
+        },
+        data:data,
+        url: '/api/u/cart/single/arithmetic'
+    });
+}
+/**
+ * 收货地址
+ * @param token
+ */
+export const getUserAdders = (token) =>{
+    return axios({
+        method: 'get',
+        headers:{
+            'Authorization':'Bearer '+token
+        },
+
+        url: '/api/u/address/list'
+    });
+}
+
+
+/**
+ * 结算
+ * @param token
+ * @param data
+ */
+export const subGoodsShopsList = (token,data) =>{
+    return axios({
+        method: 'post',
+        headers:{
+            'Authorization':'Bearer '+token
+        },
+        data:data,
+        url: '/api/u/cart/single/arithmetic'
     });
 }

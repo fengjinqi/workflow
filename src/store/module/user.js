@@ -58,46 +58,8 @@ export default {
         setShops(state,shops){
           state.shops=shops
         },
-        setEmail(state, email) {
-            state.email = email
-        },
-        setAccess(state, access) {
-            state.access = access
-        },
-
-        setHasGetInfo(state, status) {
-            state.hasGetInfo = status
-        },
-        setMessageCount(state, count) {
-            state.unreadCount = count
-        },
-        setMessageUnreadList(state, list) {
-            state.messageUnreadList = list
-        },
-        setMessageReadedList(state, list) {
-            state.messageReadedList = list
-        },
-        setRead(state, list) {
-            state.read = list
-        },
-        setMessageTrashList(state, list) {
-            state.messageTrashList = list
-        },
-        updateMessageContentStore(state, {msg_id, content}) {
-            state.messageContentStore[msg_id] = content
-        },
-        moveMsg(state, {from, to, msg_id}) {
-            const index = state[from].findIndex(_ => _.msg_id === msg_id)
-            const msgItem = state[from].splice(index, 1)[0]
-            msgItem.loading = false
-            state[to].unshift(msgItem)
-        }
     },
     getters: {
-
-        messageUnreadCount: state => state.unreadCount,
-        messageReadedCount: state => state.read,
-        messageTrashCount: state => state.messageTrashList.length
     },
     actions: {
         // 登录
@@ -154,12 +116,6 @@ export default {
                             commit('setPowerAttorneyImage', data.data.powerAttorneyImage)
                             commit('setSex', data.data.sex)
                         }
-                        /*else if(data.code=='Unauthorized'){
-                            commit('setToken', '')
-                            this.$router.push({
-                                path:'/'
-                            })
-                        }*/
                         resolve(data)
                     }).catch(err => {
                         reject(err)
@@ -170,6 +126,9 @@ export default {
             })
         },
         getGoodsShopsCounts({state,commit}){
+            /**
+             * 单品购物车列表
+             */
             return new Promise((resolve, reject) =>{
                 getGoodsShopsCount(state.token).then(res=>{
 

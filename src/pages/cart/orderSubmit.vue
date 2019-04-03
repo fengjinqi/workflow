@@ -1,7 +1,7 @@
 <template>
     <div class="orderSubmit">
         <div class="main">
-            <el-form :model="ruleForm" status-icon :rules="rules2" ref="ruleForm" label-width="120px" class="demo-ruleForm">
+            <el-form :model="ruleForm" status-icon  ref="ruleForm" label-width="120px" class="demo-ruleForm">
                 <div class="orderSubmit-main">
                     <div class="orderSubmit-main-item flex-j">
                         <div class="title">收货方式</div>
@@ -15,118 +15,16 @@
                     <div class="orderSubmit-main-item">
                         <div class="title">收货人信息</div>
                         <div class="list flex-w">
-                            <div class="list-item">
-                                <div class="name">上海 杨浦区（邹宇怀收</div>
-                                <div class="border">凉城路1201弄 凤凰大楼 18号楼 1 copy</div>
-                                <div>186 3444 1386</div>
-                            </div>
-                            <div class="list-item">
-                                <div class="name">上海 杨浦区（邹宇怀收</div>
-                                <div class="border">凉城路1201弄 凤凰大楼 18号楼 1 copy</div>
-                                <div>186 3444 1386</div>
-                            </div>
-                            <div class="list-item">
-                                <div class="name">上海 杨浦区（邹宇怀收</div>
-                                <div class="border">凉城路1201弄 凤凰大楼 18号楼 1 copy</div>
-                                <div>186 3444 1386</div>
-                            </div>
-                            <div class="list-item">
-                                <div class="name">上海 杨浦区（邹宇怀收</div>
-                                <div class="border">凉城路1201弄 凤凰大楼 18号楼 1 copy</div>
-                                <div>186 3444 1386</div>
+                            <div class="list-item" v-for="(item,index) in address" @click="setAddress(item.id)">
+                                <div class="name">{{item.province}} {{item.district}}（{{item.name}}</div>
+                                <div class="border">{{item.address}}</div>
+                                <div>{{item.phone}}</div>
                             </div>
                         </div>
                         <div class="alladdr">显示全部地址</div>
                     </div>
                 </div>
-                <div class="orderSubmit-main">
-                    <div class="orderSubmit-main-item">
-                        <div class="title">医疗信息</div>
-                        <div class="info flex-j">
-                            <div class="info-item">
-                                <!--<el-form :model="ruleForm" status-icon :rules="rules2" ref="ruleForm" label-width="120px" class="demo-ruleForm">-->
-                                    <el-form-item label="手术单号" prop="orderId">
-                                        <el-input type="text" v-model.number="ruleForm.orderId" autocomplete="off" placeholder="请输入手术单号"></el-input>
-                                    </el-form-item>
-                                    <el-form-item label="医院名称" prop="hosName">
-                                        <el-select v-model="ruleForm.hosName" placeholder="请选择医院">
-                                            <el-option label="医院一" value="1"></el-option>
-                                            <el-option label="医院二" value="2"></el-option>
-                                        </el-select>
-                                    </el-form-item>
-                                    <el-form-item label="科室名称" prop="keName">
-                                        <el-select v-model="ruleForm.keName" placeholder="请选择科室名称">
-                                            <el-option label="科室一" value="1"></el-option>
-                                            <el-option label="科室二" value="2"></el-option>
-                                        </el-select>
-                                    </el-form-item>
-                                    <el-form-item label="患者姓名" prop="name">
-                                        <el-input v-model="ruleForm.name" placeholder="请输入患者姓名"></el-input>
-                                    </el-form-item>
-                                    <el-form-item label="医师姓名" prop="yiName">
-                                        <el-select v-model="ruleForm.yiName" placeholder="请选择医师姓名">
-                                            <el-option label="医生一" value="1"></el-option>
-                                            <el-option label="医生二" value="2"></el-option>
-                                        </el-select>
-                                    </el-form-item>
-                                    <el-form-item label="患者年龄" prop="age">
-                                        <el-input type="text" v-model.number="ruleForm.age" autocomplete="off" placeholder="请输入患者年龄"></el-input>
-                                    </el-form-item>
-                                    <el-form-item label="联系电话" prop="phone">
-                                        <el-input type="text" v-model.number="ruleForm.phone" autocomplete="off" placeholder="请输入联系电话"></el-input>
-                                    </el-form-item>
-                                    <el-form-item label="跟台人员" prop="genName">
-                                        <el-select v-model="ruleForm.genName" placeholder="请选择跟台人员">
-                                            <el-option label="跟台人员一" value="1"></el-option>
-                                            <el-option label="跟台人员二" value="2"></el-option>
-                                        </el-select>
-                                    </el-form-item>
-                                    <el-form-item label="跟台人员电话" prop="genPhone">
-                                        <el-input type="text" v-model.number="ruleForm.genPhone" autocomplete="off" placeholder="请输入跟台人员电话"></el-input>
-                                    </el-form-item>
-                                <!--</el-form>-->
-                            </div>
-                            <div class="info-item">
-                                <!--<el-form :model="ruleForm" status-icon :rules="rules2" ref="ruleForm" label-width="120px" class="demo-ruleForm">-->
-                                    <el-form-item label="器械名称" prop="jxName">
-                                        <el-input type="text" v-model="ruleForm.jxName" autocomplete="off" placeholder="请输入手术单号"></el-input>
-                                    </el-form-item>
-                                    <el-form-item label="器械规格" prop="container">
-                                        <el-input type="text" v-model="ruleForm.container" autocomplete="off" placeholder="请输入手术单号"></el-input>
-                                    </el-form-item>
-                                    <el-form-item label="器械批号" prop="jxNum">
-                                        <el-input type="text" v-model="ruleForm.jxNum" autocomplete="off" placeholder="请输入手术单号"></el-input>
-                                    </el-form-item>
-                                    <el-form-item label="有效期" prop="inTime">
-                                        <!--<el-input type="text" v-model="ruleForm.inTime" autocomplete="off" placeholder="请输入手术单号"></el-input>-->
-                                        <el-date-picker
-                                                v-model="ruleForm.inTime"
-                                                type="date"
-                                                placeholder="请选择有效期">
-                                        </el-date-picker>
-                                    </el-form-item>
-                                    <el-form-item label="注册证号" prop="registerNum">
-                                        <el-input type="text" v-model="ruleForm.registerNum" autocomplete="off" placeholder="请输入手术单号"></el-input>
-                                    </el-form-item>
-                                    <el-form-item label="生产企业" prop="companey">
-                                        <el-input type="text" v-model="ruleForm.companey" autocomplete="off" placeholder="请输入手术单号"></el-input>
-                                    </el-form-item>
-                                    <el-form-item label="数量" prop="number">
-                                        <el-input type="text" v-model="ruleForm.number" autocomplete="off" placeholder="请输入手术单号"></el-input>
-                                    </el-form-item>
-                                    <el-form-item label="使用日期" prop="time">
-                                        <!--<el-input type="text" v-model="ruleForm.time" autocomplete="off" placeholder="请输入手术单号"></el-input>-->
-                                        <el-date-picker
-                                                v-model="ruleForm.time"
-                                                type="date"
-                                                placeholder="请选择使用日期">
-                                        </el-date-picker>
-                                    </el-form-item>
-                                <!--</el-form>-->
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
                 <div class="orderSubmit-main">
                 <div class="orderSubmit-main-item">
                     <div class="title">货物清单</div>
@@ -206,43 +104,20 @@
 </template>
 
 <script>
-    // import Count from '@/components/count'//数量
+  import {getUserAdders} from '@/api/goods'
+  import {mapActions} from 'vuex'
+  import {getToken} from '@/libs/util'
     export default {
         name: "orderSubmit",
         components:{
             //Count,
         },
         data(){
-            var validate1 = (rule, value, callback) => {
-                if (!Number.isInteger(value)) {
-                    callback(new Error('请输入数字值'));
-                } else {
-                    callback();
-                }
-            };
-            var validate2 = (rule, value, callback) => {
-                if (!Number.isInteger(value)) {
-                    callback(new Error('请输入数字值'));
-                } else {
-                    callback();
-                }
-            };
-            var validate3 = (rule, value, callback) => {
-                if (!Number.isInteger(value)) {
-                    callback(new Error('请输入数字值'));
-                } else {
-                    callback();
-                }
-            };
-            var validate4 = (rule, value, callback) => {
-                if (!Number.isInteger(value)) {
-                    callback(new Error('请输入数字值'));
-                } else {
-                    callback();
-                }
-            };
+
             return {
                 typeVal: true,//收货方式 自提
+                address:[],
+                addressId:'',
                 ruleForm: {
                     orderId: '',//手术单号
                     hosName: '',//医院名称
@@ -263,62 +138,21 @@
                     time:'',//使用日期
                     desc:'',//备注
                 },
-                rules2: {
-                    orderId: [
-                        { validator: validate1, required: true, message: '请输入手术单号', trigger: 'blur'}
-                    ],
-                    hosName: [
-                        { required: true, message: '请选择医院',trigger: 'blur' }
-                    ],
-                    keName: [
-                        { required: true, message: '请选择科室名称',trigger: 'blur' }
-                    ],
-                    name: [
-                        { required: true, message: '请输入患者姓名',trigger: 'blur' }
-                    ],
-                    yiName: [
-                        { required: true, message: '请输入医师姓名',trigger: 'blur' }
-                    ],
-                    age: [
-                        { validator: validate2, required: true, message: '请输入患者年龄', trigger: 'blur'}
-                    ],
-                    phone: [
-                        { validator: validate3, required: true, message: '请输入联系电话', trigger: 'blur'}
-                    ],
-                    genName: [
-                        {  required: true, message: '请选择跟台人员', trigger: 'blur'}
-                    ],
-                    genPhone: [
-                        {  required: true, message: '请输入跟台人员电话', trigger: 'blur'}
-                    ],
-                    jxName: [
-                        { required: true, message: '请输入容器名称', trigger: 'blur'}
-                    ],
-                    container: [
-                        { required: true, message: '请输入容器规格', trigger: 'blur'}
-                    ],
-                    jxNum: [
-                        {  required: true, message: '请输入器械批号', trigger: 'blur'}
-                    ],
-                    inTime: [
-                        {  required: true, message: '请输入有效期', trigger: 'blur'}
-                    ],
-                    registerNum: [
-                        {  required: true, message: '请输入注册证号', trigger: 'blur'}
-                    ],
-                    companey: [
-                        {  required: true, message: '请输入生产企业', trigger: 'blur'}
-                    ],
-                    number: [
-                        {  required: true, message: '请输入数量', trigger: 'blur'}
-                    ],
-                    time: [
-                        {  required: true, message: '请输入使用日期', trigger: 'blur'}
-                    ]
-                }
+
             }
         },
+        created(){
+            getUserAdders(getToken('token')).then(res=>{
+                console.log(res)
+                if(res.code=='OK'){
+                    this.address=res.data
+                }
+            })
+        },
         methods: {
+            setAddress(id){
+                this.addressId=id
+            },
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
