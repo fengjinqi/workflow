@@ -17,14 +17,16 @@ export const getIndexList = (token) =>{
  * 分类商品
  * @param token
  * @param id
+ * @param val
  */
-export const searchCategory = (token,id) =>{
+export const searchCategory = (token,id,val) =>{
+
     return axios({
         method: 'get',
         headers:{
             'Authorization':'Bearer '+token
         },
-        url: '/api/u/search/searchGoods?categoryIds='+id
+        url: `/api/u/search/searchGoods?categoryIds=${id}&keyword=${val}`
     });
 }
 /**
@@ -140,5 +142,20 @@ export const subGoodsShopsList = (token,data) =>{
         },
         data:data,
         url: '/api/u/cart/single/arithmetic'
+    });
+}
+/**
+ * 提交订单
+ * @param token
+ * @param data
+ */
+export const addGoodsShopst = (token,data) =>{
+    return axios({
+        method: 'post',
+        headers:{
+            'Authorization':'Bearer '+token
+        },
+        data:data,
+        url: '/api/u/orders/single/affirm'
     });
 }

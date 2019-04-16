@@ -2,9 +2,12 @@
    <div>
         <div class="search">
             <Fiter :category="category"/>
-            {{list.list.length}}
-            <List :list="list" v-if="list.list.length>0"/>
+            <template  v-if="list.list.length>0">
+                <List :list="list"/>
+            </template>
+
             <p v-else class="error">
+
                 <img :src="src" alt="">
                 <span>敬请商品更新</span>
             </p>
@@ -14,7 +17,7 @@
 </template>
 
 <script>
-    import {searchCategory} from '@/api/user'
+    import {searchCategory} from '@/api/goods'
     import {getToken} from '@/libs/util'
     import Fiter from '@/components/fiter'//筛选
     import List from '@/components/list'//列表
@@ -25,7 +28,8 @@
                 id:'',
                 src:require('../../assets/9275427C-CE92-4915-BAFF-290C1D28BB23@1x.png'),
                 category:[],
-                list:[]
+                list:[],
+                lists:false
             }
         },
         components:{
@@ -33,21 +37,74 @@
           List,
         },
         watch: {
-            $route() {
+            async $route() {
                 this.id = this.$route.params.id
-                searchCategory(getToken('token'),this.id).then(res=>{
-                    this.list = res.data
-                    this.category = res.data
-                })
+                const loading = this.$loading({
+                    lock: true,
+                    text: 'Loading',
+                    spinner: 'el-icon-loading',
+                    background: 'rgba(0, 0, 0, 0.7)'
+                });
+                if(this.id==1 && this.$route.params.type&&this.$route.params.type!=undefined){
+
+                    await searchCategory(getToken('token'),'',this.$route.params.val).then(res=>{
+                        this.list = res.data
+                        res.data.list.length>0?this.lists=true:this.lists=false
+                        this.category = res.data
+                        loading.close()
+                    })
+                }else if(this.id==0 && this.$route.params.type&&this.$route.params.type!=undefined){
+
+                    await searchCategory(getToken('token'),'',this.$route.params.val).then(res=>{
+                        this.list = res.data
+                        res.data.list.length>0?this.lists=true:this.lists=false
+                        this.category = res.data
+                        loading.close()
+                    })
+                }else{
+
+                    await searchCategory(getToken('token'),this.id,'').then(res=>{
+                        this.list = res.data
+                        res.data.list.length>0?this.lists=true:this.lists=false
+                        this.category = res.data
+                        loading.close()
+                    })
+                }
+
             }
         },
-        created(){
+        async created(){
             this.id = this.$route.params.id
-            searchCategory(getToken('token'),this.id).then(res=>{
+            const loading = this.$loading({
+                lock: true,
+                text: 'Loading',
+                spinner: 'el-icon-loading',
+                background: 'rgba(0, 0, 0, 0.7)'
+            });
+            if(this.id==1 && this.$route.params.type&&this.$route.params.type!=undefined){
 
-                this.list = res.data
-                this.category = res.data
-            })
+                await searchCategory(getToken('token'),'',this.$route.params.val).then(res=>{
+                    this.list = res.data
+                    res.data.length>0?this.lists=true:this.lists=false
+                    this.category = res.data
+                    loading.close()
+                })
+            }else if(this.id==0 && this.$route.params.type&&this.$route.params.type!=undefined){
+                await searchCategory(getToken('token'),this.id,this.$route.params.val).then(res=>{
+                    this.list = res.data
+                    res.data.list.length>0?this.lists=true:this.lists=false
+                    this.category = res.data
+                    loading.close()
+                })
+            }else{
+                await searchCategory(getToken('token'),this.id,'').then(res=>{
+                    this.list = res.data
+                    res.data.list.length>0?this.lists=true:this.lists=false
+                    this.category = res.data
+                    loading.close()
+                })
+            }
+
 
         }
     }

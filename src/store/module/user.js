@@ -1,6 +1,7 @@
 import {
     login,
     getUserInfo,
+    getpayAmount
 } from '@/api/user'
 import {getGoodsShopsCount} from '@/api/goods'
 import {
@@ -20,7 +21,12 @@ export default {
         position: '',
         powerAttorneyImage: '',
         sex: '',
-        shops:[]
+        goods:[],
+        afterSaleAmount:[],
+        creditAmount:0,
+        deposit:0,
+        giveAmount:0,
+        rebateAmount:0
 
     },
     mutations: {
@@ -55,8 +61,23 @@ export default {
         setSex(state, sex) {
             state.sex = sex
         },
-        setShops(state,shops){
-          state.shops=shops
+        setGoods(state,shops){
+          state.goods=shops
+        },
+        setAfterSaleAmount(state,afterSaleAmount){
+          state.afterSaleAmount=afterSaleAmount
+        },
+        setCreditAmount(state,creditAmount){
+          state.creditAmount=creditAmount
+        },
+        setDeposit(state,deposit){
+          state.deposit=deposit
+        },
+        setgiveAmount(state,giveAmount){
+          state.giveAmount=giveAmount
+        },
+        setRebateAmount(state,rebateAmount){
+          state.rebateAmount=rebateAmount
         },
     },
     getters: {
@@ -99,9 +120,8 @@ export default {
         // 获取用户相关信息
         getUserInfo({state, commit}) {
             return new Promise((resolve, reject) => {
-                console.log(state)
                 try {
-                     getUserInfo(state.token).then(res => {
+                     getUserInfo(getToken('token')).then(res => {
                         //let  data = JSON.parse(res)
                         let  data = res
 
@@ -125,15 +145,25 @@ export default {
                 }
             })
         },
+        getAccem({state,commit}){
+            return new Promise((resolve, reject) => {
+                getpayAmount(getToken('token')).then(res=>{
+                    console.log(res)
+                    if(res.code=='OK') {
+                        commit('setAfterSaleAmount', res.data)
+                    }
+                })
+            })
+        },
         getGoodsShopsCounts({state,commit}){
             /**
              * 单品购物车列表
              */
             return new Promise((resolve, reject) =>{
-                getGoodsShopsCount(state.token).then(res=>{
+                getGoodsShopsCount(getToken('token')).then(res=>{
 
                     if(res.code=='OK') {
-                        commit('setShops', res.data)
+                        commit('setGoods', res.data)
                     }
                 })
             } )

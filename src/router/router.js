@@ -5,6 +5,8 @@ import OrderSubmit from '@/pages/cart/orderSubmit'//提交订单
 import Order from '@/pages/order/index'//订单中心
 import OrderDetail from '@/pages/order/detail'//订单详情页
 import Account from '@/pages/account/index'//账户金额
+import parent from '@/pages/order/parent'//账户金额
+
 
 
 
@@ -53,7 +55,7 @@ export default [
           component: Cart
       },
        {
-            path: '/orderSubmit',
+            path: '/orderSubmit/:id',
             name: 'orderSubmit',
             meta:{
                 keepAlive:true
@@ -69,7 +71,15 @@ export default [
           component: Order
       },
     {
-        path: '/orderdetail',
+        path: '/parent',
+        name: 'parent',
+        meta:{
+            keepAlive:true
+        },
+        component:parent,
+    },
+    {
+        path: '/orderdetail/:id',
         name: 'orderdetail',
         meta:{
             keepAlive:true

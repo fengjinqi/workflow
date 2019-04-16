@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Banner :src="data.imageResponses"/>
+        <Banner :list="src"/>
         <div class="index">
             <div class="main order">
                 <div class="order-main">
@@ -14,7 +14,7 @@
                         <div class="order-main-th-item" style="width:15%">订单操作</div>
                     </div>
                     <div class="order-main-list">
-                        <div class="order-main-list-item">
+                <!--        <div class="order-main-list-item">
                             <div class="order-main-list-item-head flex">
                                 <div>2018-10-18 07:49:38</div>
                                 <div>订单编号：001A181030DC000</div>
@@ -146,68 +146,44 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
 
-                    <div class="order-main-list-item">
+                    <div class="order-main-list-item" v-for="item in data.ordersPackageGoodsResponses" v-if="item.ordersGoodsResponses.length>0">
                             <div class="order-main-list-item-head flex">
-                                <div>2018-10-18 07:49:38</div>
+                                <div>{{new Date(item.createTime).toLocaleString()}}</div>
                                 <div>订单编号：001A181030DC000</div>
-                                <div>类型：寄售</div>
+                                <div>类型：{{item.orderType}}</div>
                             </div>
                             <div class="order-main-list-item-cont1 flex">
+
                                 <div style="width:55%" >
-                                    <div class="flex">
+                                    <div class="flex"  v-for="child in item.ordersGoodsResponses">
                                         <div style="width:289.75px;text-align:left;">
                                             <div class="order-main-list-item-cont-1">
-                                                <div>股骨LC-DCP接骨板Ⅱ（锥螺纹）股骨L</div>
-                                                <div class="type">标准套餐</div>
-                                                <div style="color:#999">骨折/F3/施乐辉</div>
-                                                <div style="color:#999">II—24</div>
+                                                <div>{{child.goodsName}}</div>
+                                                <div style="color:#999">{{child.goodsCategoryName}}</div>
                                             </div>
                                         </div>
-                                        <div style="width:173.84px"><div class="order-main-list-item-cont-1">5688454545121</div></div>
-                                        <div style="width:173.84px"><div class="order-main-list-item-cont-1">X2</div></div>
+                                        <div style="width:173.84px"><div class="order-main-list-item-cont-1">{{child.goodsSn}}</div></div>
+                                        <div style="width:173.84px"><div class="order-main-list-item-cont-1">{{child.goodsSum}}</div></div>
                                     </div>
-                                    <div class="flex">
-                                        <div style="width:289.75px;text-align:left;">
-                                            <div class="order-main-list-item-cont-1">
-                                                <div>股骨LC-DCP接骨板Ⅱ（锥螺纹）股骨L</div>
-                                                <div class="type">标准套餐</div>
-                                                <div style="color:#999">骨折/F3/施乐辉</div>
-                                                <div style="color:#999">II—24</div>
-                                            </div>
-                                        </div>
-                                        <div style="width:173.84px"><div class="order-main-list-item-cont-1">5688454545121</div></div>
-                                        <div style="width:173.84px"><div class="order-main-list-item-cont-1">X2</div></div>
-                                    </div>
-                                    <div class="flex">
-                                        <div style="width:289.75px;text-align:left;">
-                                            <div class="order-main-list-item-cont-1">
-                                                <div>股骨LC-DCP接骨板Ⅱ（锥螺纹）股骨L</div>
-                                                <div class="type">标准套餐</div>
-                                                <div style="color:#999">骨折/F3/施乐辉</div>
-                                                <div style="color:#999">II—24</div>
-                                            </div>
-                                        </div>
-                                        <div style="width:173.84px"><div class="order-main-list-item-cont-1">5688454545121</div></div>
-                                        <div style="width:173.84px"><div class="order-main-list-item-cont-1">X2</div></div>
-                                    </div>
+
                                 </div>
                                 <div style="width:45%" class="flex">
                                         <div class="order-main-list-item-cont-0" style="width:173.84px;">
                                             <div class="order-main-list-item-cont-1 order-main-list-item-cont-2">
-                                                <div>信用支付</div>
-                                                <div>总额：¥3132</div>
-                                                <div style="color:#FF8512">实付：¥3132</div>
+                                                <div>{{item.payType}}</div>
+                                                <div>总额：¥{{item.totalAmount}}</div>
+                                                <div style="color:#FF8512">实付：¥{{item.payAmount}}</div>
                                             </div>
                                         </div>
                                         <div class="order-main-list-item-cont-0" style="width:173.84px;">
-                                            <div class="order-main-list-item-cont-1 order-main-list-item-cont-2">已完成</div>
+                                            <div class="order-main-list-item-cont-1 order-main-list-item-cont-2">{{item.orderStatus}}</div>
                                         </div>
                                         <div class="order-main-list-item-cont-0" style="width:173.84px;">
                                             <div class="order-main-list-item-cont-1 order-main-list-item-cont-2">
-                                                <div>订单详情</div>
-                                                <div>申请发票</div>
+                                                <div @click="todetail(item.tradeId)" style="cursor: pointer">订单详情</div>
+                                                <!--<div>申请发票</div>-->
                                             </div>
                                         </div>
                                 </div>
@@ -221,7 +197,7 @@
 </template>
 
 <script>
-    import {getUserInfo,getIndex} from '@/api/user'
+    import {getIndex} from '@/api/user'
     import {getToken} from '@/libs/util'
     import {mapActions} from 'vuex'
     import Banner from '@/components/banner'//banner
@@ -259,13 +235,23 @@
                 }
             })
             this.getGoodsShopsCounts()
-
+            this.getAccem()
     },
         methods:{
             ...mapActions([
                 'getUserInfo',
-                'getGoodsShopsCounts'
-            ])
+                'getGoodsShopsCounts',
+                'getAccem'
+            ]),
+            //跳转到详情页
+            todetail(index){
+                this.$router.push({
+                    name: 'orderdetail',
+                    params:{
+                        id:index
+                    }
+                })
+            },
         }
     }
 </script>

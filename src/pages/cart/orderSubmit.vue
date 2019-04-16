@@ -15,7 +15,7 @@
                     <div class="orderSubmit-main-item">
                         <div class="title">收货人信息</div>
                         <div class="list flex-w">
-                            <div class="list-item" v-for="(item,index) in address" @click="setAddress(item.id)">
+                            <div class="list-item" :class="[index==0?'active':'',{'active':item.id==classId}]"  v-for="(item,index) in addressList" @click="setAddress(item.id)">
                                 <div class="name">{{item.province}} {{item.district}}（{{item.name}}</div>
                                 <div class="border">{{item.address}}</div>
                                 <div>{{item.phone}}</div>
@@ -30,48 +30,42 @@
                     <div class="title">货物清单</div>
                     <div class="listInfo">
                         <div class="listInfo-th flex-j">
-                            <div class="list-th-item" style="width:25%">商品名称</div>
-                            <div class="list-th-item">类型</div>
-                            <div class="list-th-item">价格</div>
+                            <div class="list-th-item" style="width:25%">商品简介</div>
+                            <div class="list-th-item">商品编码</div>
                             <div class="list-th-item">商品数量</div>
-                            <div class="list-th-item">订单</div>
+                            <div class="list-th-item">支付金额</div>
                         </div>
                         <div style="margin-bottom: 20px;">
-                            <div class="listInfo-tr flex-j">
+                            <div class="listInfo-tr flex-j" v-for="item in shops.data.cartResponseList">
                                 <div class="list-tr-item" style="width:25%; text-align:left;">
                                     <div class="order-main-list-item-cont-1">
-                                        <div>股骨LC-DCP接骨板Ⅱ（锥螺纹）股骨L</div>
-                                        <div class="type">标准套餐</div>
-                                        <div style="color:#999">骨折/F3/施乐辉</div>
-                                        <div style="color:#999">II—24</div>
+                                        <div>{{item.name}}</div>
+
                                     </div>
                                 </div>
                                 <div class="list-tr-item" style="width:15%">
                                     <div class="order-main-list-item-cont-1">
-                                        寄售
+                                        {{item.goodsSn}}
                                     </div>
                                 </div>
                                 <div class="list-tr-item" style="width:15%">
                                     <div class="order-main-list-item-cont-1">
-                                        ¥3132.00
+                                       {{item.amount}}
                                     </div>
                                 </div>
                                 <div class="list-tr-item" style="width:15%">
                                     <div class="order-main-list-item-cont-1">
-                                        X2
+                                        {{item.price}}
                                     </div>
                                 </div>
-                                <div class="list-tr-item" style="width:15%">
-                                    <div class="order-main-list-item-cont-1">
-                                        商品详情
-                                    </div>
-                                </div>
+
                             </div>
+
                         </div>
                         <div class="subinfo">
                             <div>
                                 <span class="label">商品总额</span>
-                                <span class="val price">¥3132.00</span>
+                                <span class="val price">¥{{shops.data.goodsTotalPrice}}</span>
                             </div>
                             <div>
                                 <span class="label">邮费</span>
@@ -79,11 +73,12 @@
                             </div>
                             <div>
                                 <span class="label">实付金额</span>
-                                <span class="val price price1">¥3132.00</span></div>
+                                <span class="val price price1">¥{{shops.data.goodsTotalPrice}}</span></div>
                             <div class="border">
-                                <span>寄送至：上海市 杨浦区 城区 上海市杨浦</span>
-                                <span style="margin:0 20px">收货人：邹宇怀</span>
-                                <span>186 3434 3783</span>
+
+                                <span>寄送至：{{address.province}}{{address.city}}{{address.district}}{{address.address}}</span>
+                                <span style="margin:0 20px">收货人：{{address.name}}</span>
+                                <span>{{address.phone}}</span>
                             </div>
                         </div>
                         <div class="flex-j" style="text-align: right;">
@@ -93,7 +88,7 @@
                             </div>
                         </div>
                         <div style="text-align: right;margin-top:20px">
-                            <el-button type="primary" @click="submitForm('ruleForm')">提交订单</el-button>
+                            <el-button type="primary" @click="submitForm">提交订单</el-button>
                         </div>
                     </div>
                 </div>
@@ -104,7 +99,7 @@
 </template>
 
 <script>
-  import {getUserAdders} from '@/api/goods'
+  import {getUserAdders,addGoodsShopst} from '@/api/goods'
   import {mapActions} from 'vuex'
   import {getToken} from '@/libs/util'
     export default {
@@ -116,52 +111,67 @@
 
             return {
                 typeVal: true,//收货方式 自提
-                address:[],
+                addressList:[],
+
                 addressId:'',
+                classId:'',
+                address:[],
+                shops:[],
+                shopId:[],
                 ruleForm: {
-                    orderId: '',//手术单号
-                    hosName: '',//医院名称
-                    keName: '',//科室名称
-                    name:'',//患者姓名
-                    yiName:'',//医生姓名
-                    age:'',//患者年龄
-                    phone:'',//联系电话
-                    genName:'',//跟台人员
-                    genPhone:'',//跟台人员电话
-                    jxName:'',//机械名称
-                    container:'',//容器规格
-                    jxNum:'',//器械批号
-                    inTime:'',//有效期
-                    registerNum:'',//注册证号
-                    companey:'',//生产企业
-                    number:'',//数量
-                    time:'',//使用日期
                     desc:'',//备注
                 },
 
             }
         },
         created(){
+            /*
+            地址
+             */
             getUserAdders(getToken('token')).then(res=>{
-                console.log(res)
                 if(res.code=='OK'){
-                    this.address=res.data
+                    this.addressList=res.data
+                    this.address = this.addressList[0]
+                    this.addressId=this.addressList[0].id
                 }
             })
+            this.shops = this.$store.state.shop.shops
+            console.log(this.shops)
+
         },
         methods: {
             setAddress(id){
                 this.addressId=id
-            },
-            submitForm(formName) {
-                this.$refs[formName].validate((valid) => {
-                    if (valid) {
-                        alert('submit!');
-                    } else {
-                        console.log('error submit!!');
-                        return false;
+                this.addressList.map((item,index)=>{
+                    if(item.id==id){
+                        this.address=this.addressList[index]
+                        this.addressList[index]
+                        this.classId = id
                     }
-                });
+                })
+            },
+            submitForm() {
+                this.shopId=[]
+                this.shops.data.cartResponseList.map((el,id)=>{
+
+                    this.shopId.push(el.id)
+                })
+                let obj={}
+                obj.tradeMemo = this.ruleForm.desc
+                obj.isExtract = this.typeVal
+                obj.addressId = this.addressId
+                obj.cartIds = this.shopId.join(',')
+                addGoodsShopst(getToken('token'),obj).then(res=>{
+                    console.log(res)
+                    if(res.code=='OK'){
+                        this.$notify({
+                            title: '成功',
+                            message: '提交成功',
+                            type: 'success'
+                        });
+                        this.$router.push({name:'home'})
+                    }
+                })
             },
 
         }
@@ -202,6 +212,9 @@
                         font-size: 18px;
                     }
                 }
+                .list-item.active{
+                    border: 4px solid rgba(38, 183, 188, 1)
+                }
             }
             .alladdr{
                 color: #26B7BC;
@@ -232,7 +245,7 @@
                     border: 1px solid rgba(38, 183, 188, 1);
                     .list-tr-item{
                         .order-main-list-item-cont-1{
-                            height:100px;
+                         /*   height:100px;*/
                             padding:15px 20px 10px 20px;
                             div{
                                 margin-bottom:5px;

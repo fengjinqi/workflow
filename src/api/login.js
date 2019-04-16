@@ -20,6 +20,6 @@ export const Login = (data) =>{
     return axios({
         method:'post',
         data:data,
-        url:'/api/passport/login'
+        url:'/api/passport/signIn'
     })
 }

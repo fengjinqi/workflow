@@ -8,7 +8,10 @@ export const getCartCount = (token) =>{
         url: '/api/u/cart/single/list'
     });
 }
-
+/**
+ * 信息
+ * @param token
+ */
 export const getUserInfo = (token) =>{
     return axios({
         method: 'get',
@@ -18,8 +21,20 @@ export const getUserInfo = (token) =>{
         url: '/api/u/user/getUserInfo'
     });
 }
+export const getpayAmount = (token) =>{
+    return axios({
+        method: 'get',
+        headers:{
+            'Authorization':'Bearer '+token
+        },
+        url: '/api/u/user/get/payAmount'
+    });
+}
 
-
+/**
+ * 首页
+ * @param token
+ */
 export const getIndex = (token) =>{
     return axios({
         method: 'get',

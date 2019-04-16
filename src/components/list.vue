@@ -13,7 +13,7 @@
                     </div>
                     <div class="btnBox">
                         <div class="fl text">¥{{item.price}}</div>
-                        <div class="list-item-btn list-item-btn1 fr" @click="addCart">加入购物车</div>
+                        <div class="list-item-btn list-item-btn1 fr" @click="addCart(item.id)">加入购物车</div>
                     </div>
                 </div>
 
@@ -23,7 +23,8 @@
 </template>
 
 <script>
-
+    import {addGoodsShops} from '@/api/goods'
+    import {getToken} from '@/libs/util'
     export default {
         name: "list",
          data(){
@@ -54,7 +55,22 @@
                 })
             },
             //加入购物车
-            addCart(){
+            addCart(index){
+                let obj = {
+                    id:index,
+                    amount:1,
+                }
+                addGoodsShops(getToken('token'),obj).then(res=>{
+                    console.log(res)
+                    if(res.code=='OK'){
+                        this.$notify({
+                            title: '成功',
+                            message: res.message,
+                            type: 'success'
+                        });
+                        this.$router.push({name:'home'})
+                    }
+                })
             },
         }
     }
@@ -70,7 +86,7 @@
                 width: 278px;
                 height: 182px;
                 border: 1px solid #eee;
-                margin:7px 0;
+                margin:7px 5px;
                 position: relative;
                 .list-item-main{
                     padding:15px 10px 10px 10px;

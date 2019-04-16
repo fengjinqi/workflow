@@ -80,11 +80,14 @@
     display: flex;
     display: -webkit-flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    /*justify-content: space-between;*/
   }
   .flex-r{
       display: flex;
       display: -webkit-flex;
       justify-content:flex-end;
+  }
+  .router-link-exact-active.router-link-active{
+  background: rgba(68, 200, 204, 1);
   }
 </style>

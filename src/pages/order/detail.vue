@@ -3,266 +3,128 @@
         <div class="main">
             <div class="detail-item">
                 <div class="flex-j border">
-                    <div class="title">审核失败原因</div>
+                    <div class="title">{{data.orderType}}订单</div>
+                    <div class="orderNumb">订单编号：{{data.ordersGoodsResponses[0].goodsSn}}</div>
                 </div>
-                <div style="padding-top:20px;">邮递地址与经销商合作地址不符。</div>
-            </div>
-            <div class="detail-item">
-                <div class="flex-j border">
-                    <div class="title">寄售订单</div>
-                    <div class="orderNumb">订单编号：001A181030DC000</div>
-                </div>
-                <div class="flex" style="height: 280px;">
+                <div class="flex" style="height: 300px;">
                     <div class="left">
-                        <div><el-button type="primary" class="cancel">取消订单</el-button></div>
-                        <div><el-button type="primary" class="ok">确认订单</el-button></div>
+                        <template v-if="data.orderStatus=='待确认'">
+                            <div><el-button type="primary" class="cancel" @click="remove(data.tradeId)">取消订单</el-button></div>
+                            <div><el-button type="primary" class="ok" @click="sub(data.tradeId)">确认订单</el-button></div>
+                        </template>
+                        <template v-else-if="data.orderStatus=='审核中'">
+                            <div><el-button type="primary" class="ok" @click="remove(data.tradeId)">取消订单</el-button></div>
+                        </template>
+                        <template v-else-if="data.orderStatus=='待发货'">
+                            <div><el-button type="primary" class="ok">订单退款</el-button></div>
+                        </template>
+                        <template v-else-if="data.orderStatus=='待收货'">
+                            <div><el-button type="primary" class="cancel">查看物流</el-button></div>
+                            <div><el-button type="primary" class="ok">确认签收</el-button></div>
+                        </template>
+                        <template v-else-if="data.orderStatus=='已完成'">
+                            <div><el-button type="primary" class="ok">申请售后</el-button></div>
+
+                        </template>
+                        <template v-else-if="data.orderStatus=='已取消'">
+                            <div><el-button type="primary"  disabled="">订单已取消</el-button></div>
+                        </template>
+                        <template v-else-if="data.orderStatus=='使用中'">
+                            <div><el-button   disabled="">使用中</el-button></div>
+                        </template>
                     </div>
                     <div class="right">
                         <div class="item">
-                            <div class="_title">使用前</div>
+
                             <div class="cont">
-                                <el-steps :active="1">
+                                <el-steps :active="data.orderStatus=='待确认'?1:data.orderStatus=='审核中'?2:data.orderStatus=='待发货'?3:data.orderStatus=='待收货'?4:data.orderStatus=='已完成'?5:data.orderStatus=='使用中'?5:''">
                                     <el-step title="待确认" icon="el-icon-edit"></el-step>
                                     <el-step title="审核中" icon="el-icon-upload"></el-step>
                                     <el-step title="待发货" icon="el-icon-picture"></el-step>
                                     <el-step title="待收货" icon="el-icon-upload"></el-step>
-                                    <el-step title="使用中" icon="el-icon-picture"></el-step>
+                                    <el-step title="已完成" icon="el-icon-picture"></el-step>
                                 </el-steps>
                             </div>
                         </div>
-                        <div class="item">
-                            <div class="_title">使用后</div>
-                            <div class="cont">
-                                <el-steps :active="1">
-                                    <el-step title="已使用" icon="el-icon-edit"></el-step>
-                                    <el-step title="已寄回" icon="el-icon-upload"></el-step>
-                                    <el-step title="已入库" icon="el-icon-picture"></el-step>
-                                    <el-step title="已完成" icon="el-icon-upload"></el-step>
-                                </el-steps>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
             </div>
-            <div class="detail-item">
-                <div class="flex-j">
-                    <div class="title titleW">
-                        <!--医疗信息-->
-                        <el-collapse v-model="activeNames1" @change="handleChange1">
-                            <el-collapse-item title="医疗信息" name="1">
-                                <div class="info flex-j">
-                                    <div class="info-item">
-                                        <div class="flex">
-                                            <div class="label">手术单号</div>
-                                            <div class="val">38347584758592384328</div>
-                                        </div>
-                                        <div class="flex">
-                                            <div class="label">医院名称</div>
-                                            <div class="val">上海市XX第六医院</div>
-                                        </div>
-                                        <div class="flex">
-                                            <div class="label">科室名称</div>
-                                            <div class="val">ASW</div>
-                                        </div>
-                                        <div class="flex">
-                                            <div class="label">医师姓名</div>
-                                            <div class="val">王是</div>
-                                        </div>
-                                        <div class="flex">
-                                            <div class="label">患者姓名</div>
-                                            <div class="val">顾和与</div>
-                                        </div>
-                                        <div class="flex">
-                                            <div class="label">患者年龄</div>
-                                            <div class="val">23</div>
-                                        </div>
-                                        <div class="flex">
-                                            <div class="label">联系电话</div>
-                                            <div class="val">135 7878 9800</div>
-                                        </div>
-                                        <div class="flex">
-                                            <div class="label">跟台人员</div>
-                                            <div class="val">臻开心</div>
-                                        </div>
-                                        <div class="flex">
-                                            <div class="label">跟台人电话</div>
-                                            <div class="val">135 7878 9800</div>
-                                        </div>
-                                    </div>
-                                    <div class="info-item">
-                                        <div class="flex">
-                                            <div class="label">器械名称</div>
-                                            <div class="val">股骨LC-DCP接骨板Ⅱ（锥螺纹）股骨L</div>
-                                        </div>
-                                        <div class="flex">
-                                            <div class="label">器械规格</div>
-                                            <div class="val">请输入器械规格</div>
-                                        </div>
-                                        <div class="flex">
-                                            <div class="label">器械批号</div>
-                                            <div class="val">请输入器械批号</div>
-                                        </div>
-                                        <div class="flex">
-                                            <div class="label">有效期</div>
-                                            <div class="val">2019-04-15</div>
-                                        </div>
-                                        <div class="flex">
-                                            <div class="label">注册证号</div>
-                                            <div class="val">请输入注册账号</div>
-                                        </div>
-                                        <div class="flex">
-                                            <div class="label">生产企业</div>
-                                            <div class="val">请输入生产企业名称</div>
-                                        </div>
-                                        <div class="flex">
-                                            <div class="label">数量</div>
-                                            <div class="val">5</div>
-                                        </div>
-                                        <div class="flex">
-                                            <div class="label">使用日期</div>
-                                            <div class="val">请输入使用日期</div>
-                                        </div>
+            <template v-if="data.orderStatus=='待收货'">
+                <Wuliu></Wuliu>
+                <Yiliao></Yiliao>
 
-                                    </div>
-                                </div>
-                            </el-collapse-item>
-                        </el-collapse>
-                    </div>
-                </div>
-
-            </div>
-            <div class="flex-j orderinfo">
-                <div class="orderinfo-item">
-                    <div class="main-b">
-                        <div class="main-bgd">
-                            <!--买家备注-->
-                            <el-collapse v-model="activeNames2">
-                                <el-collapse-item title="买家备注" name="1">
-                                   <div>买家备注</div>
-                                </el-collapse-item>
-                            </el-collapse>
-                        </div>
-                    </div>
-                </div>
-                <div class="orderinfo-item">
-                    <div class="main-b">
-                       <div class="main-bgd">
-                           <!--收货人信息-->
-                           <el-collapse v-model="activeNames3">
-                               <el-collapse-item title="收货人信息" name="1">
-                                   <div>收货人信息</div>
-                               </el-collapse-item>
-                           </el-collapse>
-                       </div>
-                    </div>
-                </div>
-                <div class="orderinfo-item">
-                    <div class="main-b">
-                        <div class="main-bgd">
-                            <!--订单信息-->
-                            <el-collapse v-model="activeNames4">
-                                <el-collapse-item title="订单信息" name="1">
-                                    <div>订单信息</div>
-                                </el-collapse-item>
-                            </el-collapse>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="detail-item">
-                <div class="flex-j">
-                    <div class="title">货物清单</div>
-                </div>
-                <div class="orderList">
-                    <div class="flex-r" style="margin-bottom: 20px;">
-                        <div>共 <span style="color: #3198CD">2</span> 件商品</div>
-                        <div style="margin-left:20px;">总价：<span style="color: #FF8512">¥15680.00</span></div>
-                    </div>
-                    <div class="order-main-th flex-j">
-                        <div class="order-main-th-item" style="width:30%">商品简介</div>
-                        <div class="order-main-th-item" style="width:15%">商品编码</div>
-                        <div class="order-main-th-item" style="width:15%">支付金额</div>
-                        <div class="order-main-th-item" style="width:15%">商品数量</div>
-                        <div class="order-main-th-item" style="width:25%">订单操作</div>
-                    </div>
-                    <div class="order-main-list">
-                        <div class="order-main-list-item">
-                            <div class="order-main-list-item-head flex">
-                                <div>2018-10-18 07:49:38</div>
-                                <div>订单编号：001A181030DC000</div>
-                                <div>类型：寄售</div>
-                            </div>
-                            <div>
-                                <div class="order-main-list-item-cont1 flex">
-                                    <div style="width:30%; text-align:left;">
-                                        <div class="order-main-list-item-cont-1">
-                                            <div>股骨LC-DCP接骨板Ⅱ（锥螺纹）股骨L</div>
-                                            <div class="type">标准套餐</div>
-                                            <div style="color:#999">骨折/F3/施乐辉</div>
-                                            <div style="color:#999">II—24</div>
-                                        </div>
-                                    </div>
-                                    <div style="width:15%"><div class="order-main-list-item-cont-1">5688454545121</div></div>
-                                    <div style="width:15%"><div class="order-main-list-item-cont-1 color">¥3132.00</div></div>
-
-                                    <div style="width:15%"><div class="order-main-list-item-cont-1">X2</div></div>
-                                    <div style="width:25%">
-                                        <div class="order-main-list-item-cont-1">
-                                            <div>订单详情</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="order-main-list-item-cont1 flex">
-                                    <div style="width:30%; text-align:left;">
-                                        <div class="order-main-list-item-cont-1">
-                                            <div>股骨LC-DCP接骨板Ⅱ（锥螺纹）股骨L</div>
-                                            <div class="type">标准套餐</div>
-                                            <div style="color:#999">骨折/F3/施乐辉</div>
-                                            <div style="color:#999">II—24</div>
-                                        </div>
-                                    </div>
-                                    <div style="width:15%"><div class="order-main-list-item-cont-1">5688454545121</div></div>
-                                    <div style="width:15%"><div class="order-main-list-item-cont-1 color">¥3132.00</div></div>
-
-                                    <div style="width:15%"><div class="order-main-list-item-cont-1">X2</div></div>
-                                    <div style="width:25%">
-                                        <div class="order-main-list-item-cont-1">
-                                            <div>订单详情</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            </template>
+            <Maijia :addrs="data"></Maijia>
+            <OrderList :list="data"></OrderList>
         </div>
     </div>
 </template>
 
 <script>
+
+    import Ordering from '@/components/ordering'//寄售订单
+    import Wuliu from '@/components/wuliu'//物流轨迹
+    import Yiliao from '@/components/yiliao'//医疗信息
+    import Maijia from '@/components/maijia'//买家信息
+    import OrderList from '@/components/orderList'//货物清单
+    import {getOrderDetail,removeOrderDetail} from '@/api/order'
+
+    import {getToken} from '@/libs/util'
     export default {
         name: "detail",
+        components:{
+
+            Ordering,
+            Wuliu,
+            Yiliao,
+            Maijia,
+            OrderList
+        },
         data(){
             return {
-                activeNames1: [],//医疗信息
-                activeNames2: [],//买家备注
-                activeNames3: [],//收货人信息
-                activeNames4: [],//订单信息
+                data:[]
             }
         },
+        created(){
+            getOrderDetail(getToken('token'),this.$route.params.id).then(res=>{
+                console.log(res)
+                if(res.code=='OK'){
+                    this.data= res.data
+                }
+            })
+        },
         methods: {
-            handleChange1(val) {
-                console.log(val);
+            remove(nodeOrToken) {
+
+                removeOrderDetail(getToken('token'),{tradeId:nodeOrToken}).then(res=>{
+                    console.log(res)
+                    if(res.code=='OK'){
+                        this.$notify({
+                            title: '成功',
+                            message: '订单取消成功',
+                            type: 'success'
+                        });
+                        this.$router.push({name:'order'})
+                    }
+                })
             },
+            sub(tradeId){
+              this.$router.push({
+                  name:'parent',
+                  query:{
+                      id:tradeId,
+                      price:this.data.totalAmount
+                  }
+              })
+    }
         }
     }
 </script>
 
 <style scoped lang="less">
-.detail{
     .detail-item{
-        padding: 20px;
+        /*padding: 20px;*/
         background: #fff;
         margin-top: 20px;
         .border{
@@ -272,12 +134,11 @@
         .title{
             font-size: 18px;
             font-weight: bold;
-        }
-        .titleW{
-            width: 100%;
+            padding:20px 20px 0 20px
         }
         .orderNumb{
             font-size: 14px;
+            padding:20px 20px 0 20px
         }
         .left{
             width:200px;
@@ -319,130 +180,6 @@
                 }
             }
         }
-        .info{
-            margin:20px 100px 0 100px;
-            font-size: 14px;
-            font-weight: normal;
-            .info-item{
-                width: 50%;
-                .flex{
-                    margin-bottom: 15px;
-                    .label{
-                        margin-right: 20px;
-                        display: inline-block;
-                        width: 90px;
-                        text-align: right;
-                    }
-                    .val{
-                        color: #666;
-                    }
-                }
-            }
-        }
-        .orderList{
-            padding-top: 26px;
-            .order-main-th{
-                height: 40px;
-                line-height: 40px;
-                background: #F9F9F9;
-                border: 1px solid #EBEEF5;
-                .order-main-th-item{
-                    text-align: center
-                }
-            }
-            .order-main-list{
-                .order-main-list-item{
-                    margin-top: 20px;
-                    .order-main-list-item-head{
-                        height: 40px;
-                        line-height: 40px;
-                        background: #E4FEFF;
-                        border: 1px solid #26B7BC;
-                        div{
-                            padding:0 20px;
-                        }
-                    }
-                    .order-main-list-item-cont1{
-                        text-align:center;
-                        border-right:1px solid #EBEEF5;
-                        .order-main-list-item-cont-1{
-                            border-left:1px solid #EBEEF5;
-                            border-bottom:1px solid #EBEEF5;
-                            height:100px;
-                            padding:15px 20px 10px 20px;
-                            div{
-                                margin-bottom:5px;
-                            }
-                            div.type{
-                                color: #26B7BC;
-                                padding:2px 8px;
-                                border-radius:4px;
-                                border:1px solid #26B7BC;
-                                display:inline-block;
-                            }
-                        }
-                        .order-main-list-item-cont-2{
-                            border:none;
+    }
 
-                        }
-                    }
-                    .order-main-list-item-cont-0{
-                        border-bottom:1px solid #EBEEF5;
-                        border-left:1px solid #EBEEF5;
-                    }
-                }
-            }
-            .color{
-                color: #FF8512;
-            }
-        }
-    }
-    .orderinfo{
-        margin-top: 20px;
-        .orderinfo-item{
-            width: 32.33%;
-            .main-b{
-                padding: 20px;
-                background: #fff;
-                .main-bgd{
-                    .el-dropdown-link {
-                        cursor: pointer;
-                        color: #409EFF;
-                        outline: none;
-                    }
-                    .el-dropdown{
-                        width: 100%;
-                        outline: none;
-                        span{
-                            display: inline-block;
-                            width: 100%;
-                            outline: none;
-                            .el-icon-arrow-down{
-                                float: right;
-                            }
-                        }
-                    }
-                    .el-icon-arrow-down {
-                        font-size: 12px;
-                    }
-                    .demonstration {
-                        display: block;
-                        color: #8492a6;
-                        font-size: 14px;
-                        margin-bottom: 20px;
-                    }
-                }
-            }
-        }
-    }
-}
-.el-dropdown-menu{
-    width: 20%;
-    /*left: 0!important;*/
-    max-height:400px!important;
-    overflow: visible;
-}
-.el-collapse-item__arrow{
-    margin:0 0 0 auto
-}
 </style>

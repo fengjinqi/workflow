@@ -135,7 +135,8 @@
                     <div class="cart-bo">
                         <div class="cart-bo-main flex-j">
                             <div class="flex ri">
-                                <div> <el-checkbox v-model="checked" @change="toggleSelection">全选</el-checkbox></div>
+                                <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll"  @change="handleCheckAllChange">全选</el-checkbox>
+     <!--                           <div> <el-checkbox v-model="checked"  @change="toggleSelection">全选</el-checkbox></div>-->
                                 <div>删除</div>
                             </div>
                             <div class="flex le">
@@ -154,7 +155,7 @@
 
 <script>
     import Count from '@/components/count'//数量
-    import {setGoodsShopsCount,delGoodsShopsCount,subGoodsShops} from '@/api/goods'
+    import {setGoodsShopsCount,delGoodsShopsCount} from '@/api/goods'
     import {mapActions} from 'vuex'
     import {getToken} from '@/libs/util'
     export default {
@@ -169,32 +170,60 @@
                 multipleSelection: [],
                 num:0,
                 price:0,
+                isIndeterminate: false,
                 checked: false,
+                checkAll:false,
                 data:[]
             }
         },
+        computed: {
+            indeterminate(){
+                return this.multipleSelection.length &&  this.multipleSelection.length < this.tableData.length
+            },
+           /* checked: {
+                get() {
+                    return this.multipleSelection.length === this.tableData.length
+                },
+                set(val) {
+                    this.$refs.multipleTable.toggleAllSelection(val)
+                }
+            }*/
+        },
         created(){
             this.getGoodsShopsCounts()
-            this.tableData=this.$store.state.user.shops
-        },
-        watch:{
-            multipleSelection(vla){
-
-            }
+            this.tableData=this.$store.state.user.goods
         },
         methods: {
             ...mapActions([
-                'getGoodsShopsCounts'
+                'getGoodsShopsCounts',
+                'setSubGoodsShopsList'
             ]),
-
+            handleSelectionChange(val) {
+                let vlength = val.length
+                this.multipleSelection = val
+                this.checkAll = vlength
+                this.isIndeterminate = vlength > 0
+                if(val.length<=0){
+                    this.price=0
+                }
+                this.num=val.length
+                this.price=0
+                this.multipleSelection.map((item)=>{
+                    this.price+=item.price*item.amount
+                })
+            },
+            handleCheckAllChange() {
+                this.$refs.multipleTable.toggleAllSelection()
+                this.isIndeterminate = false
+            },
             handleChange(id,value,price) {
-              /*  let obj ={}
+                let obj ={}
                 obj.cartId=id
                 obj.amount = value
                 setGoodsShopsCount(getToken('token'),id,value).then(res=>{
                     console.log(res)
                     this.getGoodsShopsCounts()
-                })*/
+                })
                 console.log(value,id,price);
                 //this.price=value*price
             },
@@ -230,8 +259,7 @@
                 this.chose=index;
             },
             //全选
-            handleSelectionChange(val) {
-
+           /* handleSelectionChange(val) {
                 this.multipleSelection = val;
                 if(val.length<=0){
                     this.price=0
@@ -245,22 +273,21 @@
                 if(this.multipleSelection.length==this.tableData.length){
                     this.checked=true
                 }
-            },
-            toggleSelection(rows) {
-                if (rows) {
+            },*/
+            /*toggleSelection(rows) {
 
+                if (rows) {
                     this.tableData.forEach(row => {
                         if(this.multipleSelection){
                             this.$refs.multipleTable.toggleRowSelection(row)
                         }else{
                             this.$refs.multipleTable.toggleRowSelection(row);
                         }
-
                     });
                 } else {
                     this.$refs.multipleTable.clearSelection();
                 }
-            },
+            },*/
             //跳转到提交页面
             toSubmit(){
                 this.data=[]
@@ -275,15 +302,13 @@
                     });
                     return false
                 }
-
-                console.log(this.data.join(','))
-                subGoodsShops(getToken('token'),{cartIds:this.data.join(',')}).then(res=>{
-                    console.log(res)
-                    if(res.code=='OK'){
-                          this.$router.push({
-                  name: 'orderSubmit',
-              })
-                    }
+                this.setSubGoodsShopsList({cartIds:this.data.join(',')}).then(res=>{
+                    this.$router.push({
+                        name: 'orderSubmit',
+                        params:{
+                            id:Math.random().toString(36).substr(2)
+                        }
+                    })
                 })
 
             },

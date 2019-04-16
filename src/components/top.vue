@@ -18,8 +18,8 @@
                             </el-dropdown-menu>
                         </el-dropdown>
                     </div>
-                    <div><input type="text" placeholder="搜全网6085789件商品"></div>
-                    <div class="search-btn">搜索</div>
+                    <div><input type="text" v-model="val" placeholder="搜全网6085789件商品"></div>
+                    <div class="search-btn" @click="go">搜索</div>
                 </div>
                 <div class="cart" @click="tocart">
                     <img src="" alt="" />
@@ -42,6 +42,8 @@
         data(){
             return{
                 category:[],
+                type:1,
+                val:'',
                 commandVal:'搜单品'//搜单品
             }
         },
@@ -49,7 +51,7 @@
             //全局购物车数量
             cartNum:function(){
 
-                return this.$store.state.user.shops.length
+                return this.$store.state.user.goods.length
             }
         },
         components:{
@@ -79,6 +81,16 @@
             })
         },
         methods: {
+            go(){
+                this.$router.push({
+                 name:'search',
+                    params:{
+                    id:this.type,
+                        type:this.type,
+                        val:this.val
+                }
+                })
+            },
             //跳转到购物车
             tocart(){
                 this.$router.push({
@@ -87,13 +99,15 @@
             },
             //下拉搜索
             handleCommand(command) {
-                this.$message('click on item ' + command);
                 if(command=='1'){
                     this.commandVal="搜单品"
+                    this.type=1
                 } else{
                     this.commandVal="搜套餐"
+                    this.type=0
                 }
-            }
+            },
+
         }
     }
 </script>
@@ -101,9 +115,9 @@
 <style scoped lang="less">
 .top{
     width: 100%;
-    height: 144px;
+    height: 100px;
     .top-main{
-        padding:35px 67px 67px 67px;
+        padding: 25px 67px 67px 67px;
         .search{
             height: 40px;
             line-height: 40px;
@@ -124,6 +138,7 @@
                 text-align: center;
                 color: #fff;
                 font-size: 18px;
+                cursor: pointer;
             }
             input{
                 width: 300px;
