@@ -24,6 +24,7 @@
                 </el-form-item>
                 <el-form-item label="详细地址" :label-width="formLabelWidth" prop="selectedOptions">
                     <el-cascader
+                            ref="cascaderAddr"
                             :options="data"
                             v-model="form.selectedOptions"
                             @change="handleChange">
@@ -46,7 +47,7 @@
 
 <script>
     import {getUserAdders} from '@/api/goods'
-    import {getaddrs,addaddrs,removeaddrs} from '@/api/user'
+    import {getaddrs,addaddrs,removeaddrs,updateaddrs} from '@/api/user'
     import {getToken} from '@/libs/util'
     export default {
         name: "index",
@@ -56,6 +57,10 @@
                 dialogFormVisible: false,
                 data:[],
                 title:'新增收货地址',
+                province:'',
+                city:'',
+                district:'',
+                is_update:false,
                 form: {
                     name: '',
                     phone: '',
@@ -124,10 +129,14 @@
             add(){
                 this.title='新增收货地址'
                 this.dialogFormVisible = true
+                this.is_update=false
             },
             handleChange(value) {
                 console.log(value);
-                console.log(this.selectedOptions);
+                this.province=this.$refs['cascaderAddr'].currentLabels[0]
+                this.city=this.$refs['cascaderAddr'].currentLabels[1]
+                this.district=this.$refs['cascaderAddr'].currentLabels[2]
+                console.log(value, this.$refs['cascaderAddr'])
             },
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
@@ -140,12 +149,36 @@
                             districtCode:this.form.selectedOptions[2],
                             address:this.form.address,
                             remark:this.form.remark,
+                            province:this.province,
+                            city:this.city,
+                            district:this.district,
                             id:this.id
                         }
+                        if(this.is_update==true){
+                            updateaddrs(getToken('token'),data).then(res=>{
+                                this.dialogFormVisible = false
+                                if(res.code=='OK'){
+                                    this.$message({
+                                        type: 'success',
+                                        message: '修改成功!'
+                                    });
+                                    window.location.reload()
+                                }
+                            })
+                        }else{
+
+
                         addaddrs(getToken('token'),data).then(res=>{
-                            //this.dialogFormVisible = false
-                            console.log(res)
+                            this.dialogFormVisible = false
+                            if(res.code=='OK'){
+                                this.$message({
+                                    type: 'success',
+                                    message: '添加成功!'
+                                });
+                                window.location.reload()
+                            }
                         })
+                        }
 
                     } else {
                         console.log('error submit!!');
@@ -185,6 +218,7 @@
                 this.title='修改收货地址'
                 this.id=id
                 this.dialogFormVisible = true
+                this.is_update=true
             }
         }
     }

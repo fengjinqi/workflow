@@ -52,6 +52,21 @@ export const removeaddrs = (token,data,id) =>{
     });
 }
 /**
+ * 修改地址
+ * @param token
+ * @param data
+ */
+export const updateaddrs = (token,data) =>{
+    return axios({
+        method: 'post',
+        headers:{
+            'Authorization':'Bearer '+token
+        },
+        data:data,
+        url: `/api/u/address/update`
+    });
+}
+/**
  * 获取医院列表
  * @param token
  */
