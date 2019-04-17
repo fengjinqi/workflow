@@ -109,8 +109,15 @@ export default [
         meta:{
             keepAlive:true
         },
-        //component: resolve => require(['@/components/login/login.vue'],resolve)
         component: () => import('@/views/Persona/Hospital'),
+    },
+    {
+        path: '/Persona/add_Hospital',
+        name: 'add_Hospital',
+        meta:{
+            keepAlive:true
+        },
+        component: () => import('@/views/Persona/add_Hospital'),
     },
     {
         path: '*',

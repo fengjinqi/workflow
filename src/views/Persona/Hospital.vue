@@ -71,8 +71,9 @@
         },
         methods:{
             add(){
-                this.title='新增收货地址'
-                this.dialogFormVisible = true
+                this.$router.push({
+                    name:'add_Hospital'
+                })
             },
             handleChange(value) {
                 console.log(value);
