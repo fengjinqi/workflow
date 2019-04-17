@@ -17,7 +17,7 @@ export default [
         meta:{
             keepAlive:true
         },
-          //component: resolve => require(['@/pages/home/index.vue'],resolve)
+          //component: resolve => require(['@/pages/home/addrs.vue'],resolve)
         component: () => import('@/pages/home/index'),
       },
       {
@@ -94,6 +94,24 @@ export default [
           },
           component: Account
       },
+    {
+        path: '/Persona/addrs',
+        name: 'Persona_addrs',
+        meta:{
+            keepAlive:true
+        },
+        //component: resolve => require(['@/components/login/login.vue'],resolve)
+        component: () => import('@/views/Persona/addrs'),
+    },
+    {
+        path: '/Persona/Hospital',
+        name: 'Persona_Hospital',
+        meta:{
+            keepAlive:true
+        },
+        //component: resolve => require(['@/components/login/login.vue'],resolve)
+        component: () => import('@/views/Persona/Hospital'),
+    },
     {
         path: '*',
         redirect:'/home'

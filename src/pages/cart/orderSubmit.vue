@@ -15,13 +15,14 @@
                     <div class="orderSubmit-main-item">
                         <div class="title">收货人信息</div>
                         <div class="list flex-w">
-                            <div class="list-item" :class="[index==0?'active':'',{'active':item.id==classId}]"  v-for="(item,index) in addressList" @click="setAddress(item.id)">
+
+                            <div class="list-item" :class="[addressId==item.id?'active':'',{'active':item.id==classId}]"  v-for="(item,index) in addressList" @click="setAddress(item.id)">
                                 <div class="name">{{item.province}} {{item.district}}（{{item.name}}</div>
                                 <div class="border">{{item.address}}</div>
                                 <div>{{item.phone}}</div>
                             </div>
                         </div>
-                        <div class="alladdr">显示全部地址</div>
+                     <!--   <div class="alladdr">显示全部地址</div>-->
                     </div>
                 </div>
 
