@@ -46,6 +46,8 @@
                    <p style="height: 10px;background: #f9f9f9;"></p>
                         <p style="line-height: 30px"><router-link :to="{name:'Persona_addrs'}" style="display:block;color: #333"> 地址</router-link></p>
                         <p style="line-height: 30px"><router-link :to="{name:'Persona_Hospital'}"style="display:block;color: #333"> 医院</router-link></p>
+                        <p style="line-height: 30px"><router-link :to="{name:'password'}" style="display:block;color: #333"> 密码</router-link></p>
+                        <p style="line-height: 30px"><router-link :to="{name:'menu'}"style="display:block;color: #333"> 个人</router-link></p>
                         <div id="year">
 
                             <p><img :src="shou" alt="">售后金额 <span>¥{{$store.state.user.afterSaleAmount.creditAmount}}</span></p>

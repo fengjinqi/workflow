@@ -120,6 +120,22 @@ export default [
         component: () => import('@/views/Persona/add_Hospital'),
     },
     {
+        path: '/Persona/password',
+        name: 'password',
+        meta:{
+            keepAlive:true
+        },
+        component: () => import('@/views/Persona/password'),
+    },
+    {
+        path: '/Persona/menu',
+        name: 'menu',
+        meta:{
+            keepAlive:true
+        },
+        component: () => import('@/views/Persona/menu'),
+    },
+    {
         path: '*',
         redirect:'/home'
     }

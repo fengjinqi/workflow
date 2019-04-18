@@ -85,7 +85,7 @@
 
 <style scoped lang="less">
 .main{
-    background: #fff;
+    background: #fff;margin-top: 20px;
     .orderM{
         padding: 15px;
         border-bottom: 1px solid #f9f9f9;
