@@ -8,27 +8,49 @@
             <p style="margin: 20px 0"></p>
             <template>
                 <el-table
-                        :data="tableData"
+                        :data="list"
                         border
                         style="width: 100%">
                     <el-table-column
-                            prop="date"
-                            label="日期"
-                            width="180">
+                            prop="name"
+                            label="医院名称"
+                          >
                     </el-table-column>
                     <el-table-column
                             prop="name"
-                            label="姓名"
-                            width="180">
+                            label="医院级别"
+                         >
                     </el-table-column>
                     <el-table-column
-                            prop="address"
-                            label="地址">
+                            prop="area"
+                            label="地区"
+                            >
+                    </el-table-column>
+                    <el-table-column
+                            label="状态"
+                          >
+                        <template  slot-scope="scope">
+                            {{scope.row.status=='1'?'待审核':scope.row.status=='2'?'':scope.row.status=='3'?'审核失败':''}}</template>
+                    </el-table-column>
+                    <el-table-column
+                            label="操作">
+                        <template  slot-scope="scope">
+                            <template v-if="scope.row.status=='1'">
+
+                                <el-button>撤销</el-button>
+                            </template>
+                            <template v-if="scope.row.status=='2'">
+
+                                <el-button>删除</el-button>
+                            </template>
+                            <template v-if="scope.row.status=='3'">
+                                <el-button>再次提交</el-button>
+                            </template>
+                         </template>
                     </el-table-column>
                 </el-table>
             </template>
         </div>
-
     </div>
 </template>
 
@@ -41,28 +63,10 @@
             return{
                 list:[],
                 dialogFormVisible: false,
-                tableData: [{
-                    date: '2016-05-02',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1518 弄'
-                }, {
-                    date: '2016-05-04',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1517 弄'
-                }, {
-                    date: '2016-05-01',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1519 弄'
-                }, {
-                    date: '2016-05-03',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1516 弄'
-                }]
             }
         },
         created(){
             getHospitalList(getToken('token')).then(res=>{
-
                 if(res.code=='OK'){
                     this.list = res.data.list
                     console.log(this.list)
@@ -75,67 +79,6 @@
                     name:'add_Hospital'
                 })
             },
-            handleChange(value) {
-                console.log(value);
-                console.log(this.selectedOptions);
-            },
-            submitForm(formName) {
-                this.$refs[formName].validate((valid) => {
-                    if (valid) {
-                        let data={
-                            name:this.form.name,
-                            phone:this.form.phone,
-                            provinceCode:this.form.selectedOptions[0],
-                            cityCode:this.form.selectedOptions[1],
-                            districtCode:this.form.selectedOptions[2],
-                            address:this.form.address,
-                            remark:this.form.remark,
-                            id:this.id
-                        }
-                        addaddrs(getToken('token'),data).then(res=>{
-                            //this.dialogFormVisible = false
-                            console.log(res)
-                        })
-
-                    } else {
-                        console.log('error submit!!');
-                        return false;
-                    }
-                });
-            },
-            resetForm(formName) {
-                this.dialogFormVisible = false
-                this.$refs[formName].resetFields();
-            },
-            remove(id) {
-                this.$confirm('是否删除地址?', '删除地址', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                }).then(() => {
-                    removeaddrs(getToken('token'),{addressId:id},id).then(res=>{
-                        if(res.code=='OK'){
-                            this.$message({
-                                type: 'success',
-                                message: '删除成功!'
-                            });
-                            window.location.reload()
-                        }
-                    })
-
-                }).catch(() => {
-                    this.$message({
-                        type: 'info',
-                        message: '已取消删除'
-                    });
-                });
-
-            },
-            update(id){
-                this.title='修改收货地址'
-                this.id=id
-                this.dialogFormVisible = true
-            }
         }
     }
 </script>
