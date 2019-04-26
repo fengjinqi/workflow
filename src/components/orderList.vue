@@ -27,7 +27,7 @@
                             <div style="width:30%; text-align:left;">
                                 <div class="order-main-list-item-cont-1">
                                     <div>{{item.goodsName}}</div>
-                                    <div class="type">标准套餐</div>
+                                    <div class="type">{{list.orderType=='批发'?'单品':'套餐'}}</div>
                                     <div style="color:#999">{{item.goodsCategoryName}}</div>
 
                                 </div>

@@ -25,6 +25,7 @@
 <script>
     import {addGoodsShops} from '@/api/goods'
     import {getToken} from '@/libs/util'
+    import {mapActions} from 'vuex'
     export default {
         name: "list",
          data(){
@@ -41,6 +42,10 @@
 
         },
         methods: {
+            ...mapActions([
+                'getGoodsShopsCounts',
+
+            ]),
             //标准/自定义
             choose(index){
                 this.chose=index;
@@ -63,12 +68,13 @@
                 addGoodsShops(getToken('token'),obj).then(res=>{
                     console.log(res)
                     if(res.code=='OK'){
+                        this.getGoodsShopsCounts()
                         this.$notify({
                             title: '成功',
                             message: res.message,
                             type: 'success'
                         });
-                        this.$router.push({name:'home'})
+                        //this.$router.push({name:'home'})
                     }
                 })
             },

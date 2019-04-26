@@ -137,7 +137,7 @@
                             <div class="flex ri">
                                 <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll"  @change="handleCheckAllChange">全选</el-checkbox>
      <!--                           <div> <el-checkbox v-model="checked"  @change="toggleSelection">全选</el-checkbox></div>-->
-                                <div>删除</div>
+                                <div @click="dels">删除</div>
                             </div>
                             <div class="flex le">
                                 <div>已选 <span style="color:#26B7BC">{{num}}</span> 件商品 </div>
@@ -225,7 +225,12 @@
                     this.getGoodsShopsCounts()
                 })
                 console.log(value,id,price);
-                //this.price=value*price
+                console.log(this.multipleSelection)
+               // this.price=value*price
+                this.price=0
+                this.multipleSelection.map((item)=>{
+                    this.price+=item.price*item.amount
+                })
             },
             del(id) {
                 this.$confirm('是否删除该商品?', '提示', {
@@ -246,6 +251,36 @@
                             })
                         }
                     })
+
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                });
+            },
+            dels(id) {
+                this.$confirm('是否删除该商品?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    this.multipleSelection.map((item)=>{
+                        delGoodsShopsCount(getToken('token'),{id:item.id},item.id).then(res=>{
+                            if(res.code=='OK'){
+                                this.$message({
+                                    type: 'success',
+                                    message: '删除成功!'
+                                })
+                                this.tableData.map((item,index)=>{
+                                    if(item.id==id){
+                                        this.tableData.splice(index,1)
+                                    }
+                                })
+                            }
+                        })
+                    })
+
 
                 }).catch(() => {
                     this.$message({
@@ -310,7 +345,6 @@
                         }
                     })
                 })
-
             },
         }
     }

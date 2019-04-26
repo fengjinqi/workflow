@@ -6,12 +6,12 @@
                 <div class="fiter-item-all">
                     <el-checkbox v-model="checkAll1" @change="handleCheckAllChange1">全部</el-checkbox>
                 </div>
-                <div class="fiter-item-list flex">
+                <div class="fiter-item-list flex" :style="{height:height}" style="overflow:hidden;">
                     <el-checkbox-group v-model="checkedFiters1" @change="handleCheckedFitersChange1">
                         <el-checkbox v-for="item in category.list" :label="item.id" :key="item.id">{{item.categoryName}}</el-checkbox>
                     </el-checkbox-group>
                 </div>
-                <div class="fiter-item-more">更多 ></div>
+                <div class="fiter-item-more"@click="show">更多 ></div>
             </div>
         </div>
     </div>
@@ -23,6 +23,7 @@
         name: "fiter",
         data() {
             return {
+                height:40+'px',
                 //品牌
                 checkAll1: false,//全选
                 checkedFiters1: [],//已选
@@ -49,6 +50,9 @@
             //console.log(this.dataArr)
         },
         methods: {
+            show(){
+                this.height = 'auto'
+            },
             //品牌
             handleCheckAllChange1(val) {
                 this.checkedFiters1 = val ? this.dataArr : [];

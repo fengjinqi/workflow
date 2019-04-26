@@ -1,7 +1,7 @@
 <template>
    <div>
         <div class="search">
-            <Fiter :category="category"/>
+            <Fiter :category="category" v-if="type==true"/>
             <template  v-if="list.list.length>0">
                 <List :list="list"/>
             </template>
@@ -29,7 +29,8 @@
                 src:require('../../assets/9275427C-CE92-4915-BAFF-290C1D28BB23@1x.png'),
                 category:[],
                 list:[],
-                lists:false
+                lists:false,
+                type:false
             }
         },
         components:{
@@ -53,7 +54,7 @@
                         this.category = res.data
                         loading.close()
                     })
-                }else if(this.id==0 && this.$route.params.type&&this.$route.params.type!=undefined){
+                }else if(this.id==2 && this.$route.params.type&&this.$route.params.type!=undefined){
 
                     await searchCategory(getToken('token'),'',this.$route.params.val).then(res=>{
                         this.list = res.data
@@ -67,6 +68,7 @@
                         this.list = res.data
                         res.data.list.length>0?this.lists=true:this.lists=false
                         this.category = res.data
+                        this.type=true
                         loading.close()
                     })
                 }

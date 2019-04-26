@@ -4,7 +4,9 @@
         <div class="main">
             <div class="top-main flex-j">
                 <div>
-                    <router-link :to="{name:'home'}"><img src="@/assets/logo.png" alt="" style="width:50px;"></router-link>
+                    <router-link :to="{name:'home'}" style="display: inline-block;background: #F9F9F9;color: #000;font-size: 30px;"> <span>智慧医械</span>
+                        <!--<img src="@/assets/logo.png" alt="" style="width:50px;">-->
+                    </router-link>
                 </div>
                 <div class="flex search">
                     <div class="search-left">
@@ -42,7 +44,7 @@
         data(){
             return{
                 category:[],
-                type:1,
+                type:'1',
                 val:'',
                 commandVal:'搜单品'//搜单品
             }
@@ -99,6 +101,7 @@
             },
             //下拉搜索
             handleCommand(command) {
+
                 if(command=='1'){
                     this.commandVal="搜单品"
                     this.type=1

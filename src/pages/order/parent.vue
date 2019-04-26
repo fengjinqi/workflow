@@ -9,72 +9,43 @@
                         <div style="margin: 15px 0;"></div>
 
 
-                        <div class="cont-title">  <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">信用支付额度</el-checkbox></div>
+                        <div class="cont-title"><el-radio v-model="radis" label="0">信用支付额度 </el-radio> </div>
                         <div class="cont-info">可用¥{{$store.state.user.afterSaleAmount.rebateAmount+$store.state.user.afterSaleAmount.giveAmount+$store.state.user.afterSaleAmount.afterSaleAmount}}</div>
 
                     </div>
                     <div class="cont-main">
                         <el-radio-group v-model="radio" @change="chose">
                             <div>
-                                <el-radio :label="3">佣金额度支付
+                                <el-radio label="3">佣金额度支付
                                     <span style="margin-left: 15px;">{{yong}}</span>
                                     <span  style="margin-left: 25px;">佣金余额 ¥{{$store.state.user.afterSaleAmount.rebateAmount}}</span>
                                 </el-radio>
                             </div>
                             <div>
-                                <el-radio :label="2">赠品额度支付
+                                <el-radio label="2">赠品额度支付
                                     <span style="margin-left: 15px;">{{zen}}</span>
                                     <span  style="margin-left: 25px;">赠品余额 ¥{{$store.state.user.afterSaleAmount.giveAmount}}</span>
                                 </el-radio>
                             </div>
                             <div>
-                                <el-radio :label="1">售后额度支付
+                                <el-radio label="4">售后额度支付
                                     <span style="margin-left: 15px;">{{song}}</span>
                                     <span  style="margin-left: 25px;">售后余额 ¥{{$store.state.user.afterSaleAmount.afterSaleAmount}}</span>
                                 </el-radio>
                             </div>
                         </el-radio-group>
-                        <!--<el-checkbox-group v-model="checkedCities" @change="handleCheckedCitiesChange">-->
-                            <!--<div class="flex">-->
-                                <!--<div class="">-->
-                                    <!--<el-checkbox label="3" key="3">佣金额度支付-->
-                                        <!--<span style="margin-left: 15px;">{{yong}}</span>-->
-                                        <!--<span  style="margin-left: 25px;">佣金余额 ¥{{$store.state.user.afterSaleAmount.rebateAmount}}</span>-->
-                                    <!--</el-checkbox>-->
-                                <!--</div>-->
-                            <!--</div>-->
-                            <!--<div class="flex">-->
-                                <!--<div class="">-->
-                                    <!--<el-checkbox label="2" key="2">赠品额度支付-->
-                                        <!--<span style="margin-left: 15px;">{{zen}}</span>-->
-                                        <!--<span  style="margin-left: 25px;">赠品余额 ¥{{$store.state.user.afterSaleAmount.giveAmount}}</span>-->
-                                    <!--</el-checkbox>-->
-                                <!--</div>-->
-                            <!--</div>-->
-                            <!--<div class="flex">-->
-                                <!--<div class="">-->
-                                    <!--<el-checkbox label="1" key="1">售后额度支付-->
-                                        <!--<span style="margin-left: 15px;">{{song}}</span>-->
-                                        <!--<span  style="margin-left: 25px;">售后余额 ¥{{$store.state.user.afterSaleAmount.afterSaleAmount}}</span>-->
-                                    <!--</el-checkbox>-->
-                                <!--</div>-->
-                            <!--</div>-->
 
-                        <!--</el-checkbox-group>-->
 
                     </div>
-                    <div class="cont-title">  <el-checkbox >押金支付 <span style="margin-left: 15px;"></span>  {{ya}} <span  style="margin-left: 25px;">押金余额 ¥{{$store.state.user.afterSaleAmount.deposit}}</span></el-checkbox></div>
-                 <!--   <div class="flex">
-                        <div class="cont-title"><el-checkbox v-model="checked4">售后额度支付</el-checkbox> </div>
-                        <div class="cont-info">可用¥2000.00</div>
-                        <div class="cont-info">微信支付 ¥200000</div>
-                    </div>-->
+                    <div class="cont-title">
+                        <el-radio v-model="radio" label="1">押金支付 <span style="margin-left: 15px;"></span>  {{ya}} <span  style="margin-left: 25px;">押金余额 ¥{{$store.state.user.afterSaleAmount.deposit}}</span></el-radio>  </div>
+
                 </div>
             </div>
             <div class="box1" style="margin-top:20px;">
                 <div class="flex titleBox">
                    <div class="title">支付方式</div>
-                   <div class="info">信用额度 + 佣金额度</div>
+                   <div class="info">{{radio=='1'?'押金支付':'信用支付'}}</div>
                 </div>
                 <div class="flex titleBox">
                     <div class="title">实付金额</div>
@@ -110,10 +81,22 @@
                 song:'',
                 password:"",
                 price:0,
-                radio:0
+                radis:'0',
+                radio:'3',
+
             }
         },
+        computed: {
+
+        },
+
         watch:{
+            'radio':function (val) {
+                val=='1'?this.radis='':this.radis='0'
+            },
+            'radis':function (val) {
+                val=='0'?this.radio='3':''
+            }
         },
         created(){
 
@@ -128,13 +111,13 @@
 
             },
             handleCheckedCitiesChange(value) {
-                alert(value)
+                //alert(value)
                 let checkedCount = value.length;
                 this.checkAll = checkedCount
                 this.isIndeterminate = checkedCount > 0
             },
             chose(value){
-                alert(value);
+                //alert(value);
             }
         }
     }

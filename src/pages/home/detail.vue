@@ -28,12 +28,6 @@
                    </div>
                    <div class="detail-item">
                        <div class="flex item-name">
-                           <div class="detail-item-name">全套种类</div>
-                           <div>12种</div>
-                       </div>
-                   </div>
-                   <div class="detail-item">
-                       <div class="flex item-name">
                            <div class="detail-item-name">单品价格</div>
                            <div class="price">¥{{data.price}}</div>
                        </div>
