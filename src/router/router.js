@@ -38,6 +38,15 @@ export default [
           component: Search,
 
       },
+    {
+        path: '/searchs/:id',
+        name: 'searchs',
+        meta:{
+            keepAlive:true
+        },
+        component: () => import('@/pages/home/searchs'),
+
+    },
       {
           path: '/search/detail/:id',
           name: 'detail',

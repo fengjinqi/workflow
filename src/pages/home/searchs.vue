@@ -17,7 +17,7 @@
 </template>
 
 <script>
-    import {searchCategory} from '@/api/goods'
+    import {searchCategorys} from '@/api/goods'
     import {getToken} from '@/libs/util'
     import Fiter from '@/components/fiter'//筛选
     import List from '@/components/list'//列表
@@ -46,9 +46,9 @@
                     spinner: 'el-icon-loading',
                     background: 'rgba(0, 0, 0, 0.7)'
                 });
-               /* if(this.id==1 && this.$route.params.type&&this.$route.params.type!=undefined){
+                if(this.id==1 && this.$route.params.type&&this.$route.params.type!=undefined){
 
-                    await searchCategory(getToken('token'),'',this.$route.params.val).then(res=>{
+                    await searchCategorys(getToken('token'),'',1,20,this.$route.params.val).then(res=>{
                         this.list = res.data
                         res.data.list.length>0?this.lists=true:this.lists=false
                         this.category = res.data
@@ -56,22 +56,13 @@
                     })
                 }else if(this.id==2 && this.$route.params.type&&this.$route.params.type!=undefined){
 
-                    await searchCategory(getToken('token'),'',this.$route.params.val).then(res=>{
+                    await searchCategorys(getToken('token'),'',1,20,this.$route.params.val).then(res=>{
                         this.list = res.data
                         res.data.list.length>0?this.lists=true:this.lists=false
                         this.category = res.data
                         loading.close()
                     })
-                }else{
-*/
-                    await searchCategory(getToken('token'),this.id,1,20,'').then(res=>{
-                        this.list = res.data
-                        res.data.list.length>0?this.lists=true:this.lists=false
-                        this.category = res.data
-                        this.type=true
-                        loading.close()
-                    })
-                //}
+                }
 
             }
         },
@@ -83,31 +74,23 @@
                 spinner: 'el-icon-loading',
                 background: 'rgba(0, 0, 0, 0.7)'
             });
-           /* if(this.id==1 && this.$route.params.type&&this.$route.params.type!=undefined){
-alert(1)
-                await searchCategory(getToken('token'),'',1,20,this.$route.params.val).then(res=>{
+            if(this.id==1){
+
+                await searchCategorys(getToken('token'),'',1,20,this.$route.params.val).then(res=>{
                     this.list = res.data
                     res.data.length>0?this.lists=true:this.lists=false
                     this.category = res.data
                     loading.close()
                 })
-            }else if(this.id==0 && this.$route.params.type&&this.$route.params.type!=undefined){
-                alert(2)
-                await searchCategory(getToken('token'),this.id,1,20,this.$route.params.val).then(res=>{
-                    this.list = res.data
-                    res.data.list.length>0?this.lists=true:this.lists=false
-                    this.category = res.data
-                    loading.close()
-                })
-            }else{*/
-                await searchCategory(getToken('token'),this.id,1,20,'').then(res=>{
-                    this.list = res.data
-                    res.data.list.length>0?this.lists=true:this.lists=false
-                    this.category = res.data
-                    loading.close()
-                })
-            //}
+            }else if(this.id==0){
 
+                await searchCategorys(getToken('token'),'',1,20,this.$route.params.val).then(res=>{
+                    this.list = res.data
+                    res.data.list.length>0?this.lists=true:this.lists=false
+                    this.category = res.data
+                    loading.close()
+                })
+            }
 
         }
     }

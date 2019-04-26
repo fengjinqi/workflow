@@ -19,14 +19,27 @@ export const getIndexList = (token) =>{
  * @param id
  * @param val
  */
-export const searchCategory = (token,id,val) =>{
+export const searchCategory = (token,id,pageIndex,pageSize,val) =>{
 
     return axios({
         method: 'get',
         headers:{
             'Authorization':'Bearer '+token
         },
-        url: `/api/u/search/searchGoods?categoryIds=${id}&keyword=${val}`
+        url: `/api/u/search/searchGoods?categoryIds=${id}&pageIndex=${pageIndex}&pageSize=${pageSize
+        }&keyword=${val}`
+    });
+}
+
+export const searchCategorys = (token,id,pageIndex,pageSize,val) =>{
+
+    return axios({
+        method: 'get',
+        headers:{
+            'Authorization':'Bearer '+token
+        },
+        url: `/api/u/search/searchGoods?categoryIds=${id}&pageIndex=${pageIndex}&pageSize=${pageSize
+            }&keyword=${val}`
     });
 }
 /**
@@ -124,7 +137,7 @@ export const getUserAdders = (token) =>{
             'Authorization':'Bearer '+token
         },
 
-        url: '/api/u/address/list'
+        url: '/api/u/address/list?status=1'
     });
 }
 

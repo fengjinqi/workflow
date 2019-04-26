@@ -85,13 +85,13 @@
         methods: {
             go(){
                 this.$router.push({
-                 name:'search',
+                 name:'searchs',
                     params:{
                     id:this.type,
-                        type:this.type,
                         val:this.val
                 }
                 })
+                this.val=''
             },
             //跳转到购物车
             tocart(){
