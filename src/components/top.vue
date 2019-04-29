@@ -85,10 +85,10 @@
         methods: {
             go(){
                 this.$router.push({
-                 name:'searchs',
-                    params:{
+                    name:'searchs',
+                    query:{
                     id:this.type,
-                        val:this.val
+                        val:this.val,
                 }
                 })
                 this.val=''
@@ -101,7 +101,6 @@
             },
             //下拉搜索
             handleCommand(command) {
-
                 if(command=='1'){
                     this.commandVal="搜单品"
                     this.type=1

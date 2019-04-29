@@ -2,7 +2,7 @@
    <div>
         <div class="search">
             <Fiter :category="category" v-if="type==true"/>
-            <template  v-if="list.list.length>0">
+            <template  v-if="list!=null&&list.list.length>0">
                 <List :list="list"/>
             </template>
 
@@ -28,8 +28,7 @@
                 id:'',
                 src:require('../../assets/9275427C-CE92-4915-BAFF-290C1D28BB23@1x.png'),
                 category:[],
-                list:[],
-                lists:false,
+                list:null,
                 type:false
             }
         },
@@ -46,27 +45,8 @@
                     spinner: 'el-icon-loading',
                     background: 'rgba(0, 0, 0, 0.7)'
                 });
-               /* if(this.id==1 && this.$route.params.type&&this.$route.params.type!=undefined){
-
-                    await searchCategory(getToken('token'),'',this.$route.params.val).then(res=>{
-                        this.list = res.data
-                        res.data.list.length>0?this.lists=true:this.lists=false
-                        this.category = res.data
-                        loading.close()
-                    })
-                }else if(this.id==2 && this.$route.params.type&&this.$route.params.type!=undefined){
-
-                    await searchCategory(getToken('token'),'',this.$route.params.val).then(res=>{
-                        this.list = res.data
-                        res.data.list.length>0?this.lists=true:this.lists=false
-                        this.category = res.data
-                        loading.close()
-                    })
-                }else{
-*/
                     await searchCategory(getToken('token'),this.id,1,20,'').then(res=>{
                         this.list = res.data
-                        res.data.list.length>0?this.lists=true:this.lists=false
                         this.category = res.data
                         this.type=true
                         loading.close()
@@ -75,7 +55,7 @@
 
             }
         },
-        async created(){
+         created(){
             this.id = this.$route.params.id
             const loading = this.$loading({
                 lock: true,
@@ -83,26 +63,9 @@
                 spinner: 'el-icon-loading',
                 background: 'rgba(0, 0, 0, 0.7)'
             });
-           /* if(this.id==1 && this.$route.params.type&&this.$route.params.type!=undefined){
-alert(1)
-                await searchCategory(getToken('token'),'',1,20,this.$route.params.val).then(res=>{
+                 searchCategory(getToken('token'),this.id,1,20,'').then(res=>{
                     this.list = res.data
-                    res.data.length>0?this.lists=true:this.lists=false
-                    this.category = res.data
-                    loading.close()
-                })
-            }else if(this.id==0 && this.$route.params.type&&this.$route.params.type!=undefined){
-                alert(2)
-                await searchCategory(getToken('token'),this.id,1,20,this.$route.params.val).then(res=>{
-                    this.list = res.data
-                    res.data.list.length>0?this.lists=true:this.lists=false
-                    this.category = res.data
-                    loading.close()
-                })
-            }else{*/
-                await searchCategory(getToken('token'),this.id,1,20,'').then(res=>{
-                    this.list = res.data
-                    res.data.list.length>0?this.lists=true:this.lists=false
+
                     this.category = res.data
                     loading.close()
                 })

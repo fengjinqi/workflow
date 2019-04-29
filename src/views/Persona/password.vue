@@ -4,26 +4,107 @@
             <div class="title">修改密码</div>
         </div>
         <div class="connter">
-            <el-form :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2" label-width="100px" class="demo-ruleForm">
-                <el-form-item label="原密码" prop="oldPass" placeholder="请输入原密码">
-                    <el-input type="password" v-model="ruleForm2.oldPass" auto-complete="off"></el-input>
+            <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+                <el-form-item label="原密码" prop="reload">
+                    <el-input type="password" v-model="ruleForm.reload" autocomplete="off"></el-input>
                 </el-form-item>
-                <el-form-item  label="新密码" prop="pass" placeholder="请输入新密码">
-                    <el-input type="password" v-model="ruleForm2.pass" auto-complete="off"></el-input>
+                <el-form-item label="密码" prop="pass">
+                    <el-input type="password" v-model="ruleForm.pass" autocomplete="off"></el-input>
                 </el-form-item>
-                <el-form-item  type="password" label="确认新密码" prop="checkPass" placeholder="请输入新密码">
-                    <el-input v-model="ruleForm2.checkPass"></el-input>
+                <el-form-item label="确认密码" prop="checkPass">
+                    <el-input type="password" v-model="ruleForm.checkPass" autocomplete="off"></el-input>
                 </el-form-item>
-                <el-form-item style="text-align: center;">
-                    <el-button type="primary" @click="submitForm('ruleForm2')">提交</el-button>
-                    <el-button @click="resetForm('ruleForm2')">重置</el-button>
+                <el-form-item>
+                    <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
+                    <el-button @click="resetForm('ruleForm')">重置</el-button>
                 </el-form-item>
             </el-form>
         </div>
     </div>
 </template>
-
 <script>
+    import {putPass} from '@/api/user'
+    import {getToken,delToken} from '@/libs/util'
+    export default {
+        data() {
+            var validatePass = (rule, value, callback) => {
+                if (value === '') {
+                    callback(new Error('请输入密码'));
+                } else {
+                    if (this.ruleForm.checkPass !== '') {
+                        this.$refs.ruleForm.validateField('checkPass');
+                    }
+                    callback();
+                }
+            };
+            var validatePass2 = (rule, value, callback) => {
+                if (value === '') {
+                    callback(new Error('请再次输入密码'));
+                } else if (value !== this.ruleForm.pass) {
+                    callback(new Error('两次输入密码不一致!'));
+                } else {
+                    callback();
+                }
+            };
+            return {
+                ruleForm: {
+                    pass: '',
+                    checkPass: '',
+                    reload: ''
+                },
+                rules: {
+                    pass: [
+                        { validator: validatePass,required: true, trigger: 'blur' }
+                    ],
+                    checkPass: [
+                        { validator: validatePass2, required: true,trigger: 'blur' }
+                    ],
+                    reload: [
+                        { required: true, message: '请输入原密码', trigger: 'blur' }
+                    ]
+                }
+            };
+        },
+        methods: {
+            submitForm(formName) {
+                this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        let obj={
+                            oldPassword:this.ruleForm.reload,
+                            newPassword:this.ruleForm.pass,
+                            confirmPassword:this.ruleForm.checkPass
+                        }
+                        putPass(getToken('token'),obj).then(res=>{
+                            console.log(res)
+                            if(res.code=='OK'){
+                                this.$message({
+                                    type: 'succes',
+                                    message:'修改成功，重新登录'
+                                })
+                                delToken('token')
+                                this.$router.push({name:'login'})
+                            }else{
+                                this.$message({
+                                    type: 'error',
+                                    message:res.message
+                                })
+                            }
+                        })
+                    } else {
+                        console.log('error submit!!');
+                        return false;
+                    }
+                });
+            },
+            resetForm(formName) {
+                this.$refs[formName].resetFields();
+            }
+        }
+    }
+</script>
+<!--
+<script>
+
     export default {
         name: "password",
         data() {
@@ -31,8 +112,8 @@
                 if (value === '') {
                     callback(new Error('请输入密码'));
                 } else {
-                    if (this.ruleForm2.checkPass !== '') {
-                        this.$refs.ruleForm2.valipdateField('checkPass');
+                    if (this.ruleForm.checkPass !== '') {
+                        //this.$refs.ruleForm.valipdateField('checkPass');
                     }
                     callback();
                 }
@@ -40,14 +121,14 @@
             var validatePass2 = (rule, value, callback) => {
                 if (value === '') {
                     callback(new Error('请输入密码'));
-                } else if (value !== this.ruleForm2.pass) {
+                } else if (value !== this.ruleForm.pass) {
                     callback(new Error('两次输入密码不一致!'));
                 } else {
                     callback();
                 }
             };
             return {
-                ruleForm2: {
+                ruleForm: {
                     oldPass: '',
                     pass: '',
                     checkPass: ''
@@ -83,11 +164,13 @@
         }
     }
 </script>
+-->
 
 <style scoped lang="less">
     .main{
         background: #fff;
         margin-top: 20px;
+        height: 500px;
         .orderM{
             padding: 15px;
             border-bottom: 1px solid #f9f9f9;

@@ -71,14 +71,16 @@
                         <!--<template slot-scope="scope">{{ scope.row.date }}</template>-->
                     </el-table-column>
                     <el-table-column
-                            prop="level"
                             label="医院级别"
                             width="330">
+                        <template  slot-scope="scope">
+                            {{scope.row.type=='1'?'一级甲等':scope.row.type=='2'?'一级乙等 ':scope.row.type=='3'?'一级丙等':scope.row.type=='4'?'二级甲等 ':scope.row.type=='5'?' 二级乙等 ':scope.row.type=='6'?'二级丙等 ':scope.row.type=='7'?'三级甲等 ':scope.row.type=='8'?'三级乙等 ':scope.row.type=='9'?'三级丙等 ':''}}</template>
                     </el-table-column>
                     <el-table-column
-                            prop="address"
+                            prop="city"
                             label="地区"
                             show-overflow-tooltip>
+
                     </el-table-column>
                 </el-table>
             </div>
@@ -91,7 +93,7 @@
 </template>
 
 <script>
-    import {getHospitalList,getaddrs} from '@/api/user'
+    import {getHospitalLists,getaddrs} from '@/api/user'
 
     import {getToken} from '@/libs/util'
     export default {
@@ -131,36 +133,7 @@
 
                 //表格
                 tableData3: [
-                    {
-                        name: '上海第一人民医院',
-                        level: '三甲',
-                        address: '上海市普陀区金沙江路 1518 弄'
-                    },
-                    {
-                        name: '上海第一人民医院',
-                        level: '三甲',
-                        address: '上海市普陀区金沙江路 1518 弄'
-                    },
-                    {
-                        name: '上海第一人民医院',
-                        level: '三甲',
-                        address: '上海市普陀区金沙江路 1518 弄'
-                    },
-                    {
-                        name: '上海第一人民医院',
-                        level: '三甲',
-                        address: '上海市普陀区金沙江路 1518 弄'
-                    },
-                    {
-                        name: '上海第一人民医院',
-                        level: '三甲',
-                        address: '上海市普陀区金沙江路 1518 弄'
-                    },
-                    {
-                        name: '上海第一人民医院',
-                        level: '三甲',
-                        address: '上海市普陀区金沙江路 1518 弄'
-                    }
+
                 ],
                 multipleSelection: [],
                 province:'',
@@ -197,6 +170,12 @@
                         })
                         return currentItem;
                     })
+                }
+            })
+            getHospitalLists(getToken('token')).then(res=>{
+                console.log(res)
+                if(res.code=='OK'){
+                    this.tableData3=res.data
                 }
             })
         },

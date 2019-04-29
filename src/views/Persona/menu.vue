@@ -1,10 +1,10 @@
 <template>
     <div class="userInfo main flex">
         <div class="user-left">
-            <div class="header"></div>
-            <div class="userName">厉害阿媚</div>
-            <div class="userPhone">2898573958</div>
-            <el-button type="primary" class="userBtn">经销商</el-button>
+            <div class="header"><img style="width: 80px;height: 80px;border-radius: 50%;background: #ccc;display: block;margin: 0 auto" :src='/api/+$store.state.user.users.avatar' alt=""></div>
+            <div class="userName">{{$store.state.user.users.userName}}</div>
+            <div class="userPhone">{{$store.state.user.users.mobile}}</div>
+            <el-button type="primary" class="userBtn">{{$store.state.user.users.typeName}}</el-button>
         </div>
         <div class="user-right">
             <el-tabs v-model="activeName" @tab-click="handleClick">
@@ -14,31 +14,31 @@
                         <div class="cont">
                             <div class="cont-item">
                                 <label>性别</label>
-                                <span>男</span>
+                                <span>{{$store.state.user.users.sex}}</span>
                             </div>
                             <div class="cont-item">
                                 <label>出生日期</label>
-                                <span>1996年07月25日</span>
+                                <span>{{$store.state.user.users.birthDate}}</span>
                             </div>
                             <div class="cont-item">
                                 <label>电话号码</label>
-                                <span>151 5665 0202</span>
+                                <span>{{$store.state.user.users.mobile}}</span>
                             </div>
                             <div class="cont-item">
                                 <label>固定电话</label>
-                                <span>151 5665 0202</span>
+                                <span>{{$store.state.user.users.phone}}</span>
                             </div>
                             <div class="cont-item">
                                 <label>身份证号</label>
-                                <span>146301199607280098</span>
+                                <span>{{$store.state.user.users.idCard}}</span>
                             </div>
                             <div class="cont-item">
                                 <label>银行</label>
-                                <span>中国银行</span>
+                                <span>{{$store.state.user.users.bankName}}</span>
                             </div>
                             <div class="cont-item">
                                 <label>银行卡号</label>
-                                <span>3546 4646 6467 7837</span>
+                                <span>{{$store.state.user.users.bankName}}</span>
                             </div>
                         </div>
                     </div>
@@ -47,11 +47,11 @@
                         <div class="cont">
                             <div class="cont-item">
                                 <label>企业名称</label>
-                                <span>上海稻壳信息科技有限公司</span>
+                                <span>{{$store.state.user.users.companyName}}</span>
                             </div>
                             <div class="cont-item">
                                 <label>公司地址</label>
-                                <span>海市虹口区 凉城路 申毅大楼 1806室</span>
+                                <span></span>
                             </div>
 
                         </div>
@@ -63,19 +63,23 @@
                         <div>
                             <div class="imgBoxtitle">营业执照</div>
                             <div class="imgbOX">
-                                <div class="bo">还有6个月到期</div>
+                                <img style="width: 100%;height: 100%;" :src='/api/+JSON.parse($store.state.user.users.licenseImage).file' alt="">
+                                <!--<div class="bo">还有6个月到期</div>-->
                             </div>
                         </div>
                         <div>
                             <div class="imgBoxtitle">医疗器械经营许可证</div>
                             <div class="imgbOX">
-                                <div class="bo">还有6个月到期</div>
+                                <img style="width: 100%;height: 100%;" :src='/api/+JSON.parse($store.state.user.users.medicalDeviceLicenseImage).file' alt="">
+                                <!--<div class="bo">还有6个月到期</div>-->
                             </div>
                         </div>
                         <div>
                             <div class="imgBoxtitle">授权委托书</div>
+
                             <div class="imgbOX">
-                                <div class="bo">还有6个月到期</div>
+                                <img style="width: 100%;height: 100%;" :src='/api/+JSON.parse($store.state.user.users.medicalDeviceLicenseImage).file' alt="">
+                                <!--<div class="bo">还有6个月到期</div>-->
                             </div>
                         </div>
                     </div>
@@ -162,7 +166,7 @@
             .imgbOX{
                 width: 252px;
                 height: 346px;
-                background: red;
+                /*background: red;*/
                 position: relative;
                 margin:20px 20px 0 20px;
                 .bo{

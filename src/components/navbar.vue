@@ -38,16 +38,17 @@
                     <el-menu  class="el-menu-demo" mode="horizontal" >
                     <el-submenu index="2">
                         <template slot="title">{{$store.state.user.position}}</template>
-                        <div><img style="width: 80px;height: 80px;border-radius: 50%;background: #ccc;display: block;margin: 0 auto" :src='/api/+JSON.parse($store.state.user.powerAttorneyImage).file' alt="">
+                        <div><img style="width: 80px;height: 80px;border-radius: 50%;background: #ccc;display: block;margin: 0 auto" :src='/api/+$store.state.user.users.avatar' alt="">
                             <p style="color: #999;font-size: 12px;text-align: center">{{$store.state.user.mobile}}
                             <span @click="lout">|注销</span>
                             </p>
                         </div>
                    <p style="height: 10px;background: #f9f9f9;"></p>
-                        <p style="line-height: 30px"><router-link :to="{name:'Persona_addrs'}" style="display:block;color: #333"> 地址</router-link></p>
-                        <p style="line-height: 30px"><router-link :to="{name:'Persona_Hospital'}" style="display:block;color: #333"> 医院</router-link></p>
-                        <p style="line-height: 30px"><router-link :to="{name:'password'}" style="display:block;color: #333"> 密码</router-link></p>
-                        <p style="line-height: 30px"><router-link :to="{name:'menu'}" style="display:block;color: #333"> 个人</router-link></p>
+                        <p class="p" style=" height:40px;line-height: 40px"><router-link :to="{name:'Persona_addrs'}" style="display:block;color: #333"> 地址管理</router-link></p>
+                        <p class="p" style="height:40px;line-height: 40px"><router-link :to="{name:'Persona_Hospital'}" style="display:block;color: #333"> 新增医院</router-link></p>
+                        <p class="p" style="height:40px;line-height: 40px"><router-link :to="{name:'password'}" style="display:block;color: #333"> 修改密码</router-link></p>
+                        <p class="p" style="height:40px;line-height: 40px"><router-link :to="{name:'menu'}" style="display:block;color: #333"> 会员信息</router-link></p>
+                        <p style="height: 10px;background: #f9f9f9;"></p>
                         <div id="year">
 
                             <p><img :src="shou" alt="">售后金额 <span>¥{{$store.state.user.afterSaleAmount.creditAmount}}</span></p>
@@ -151,6 +152,18 @@
 </script>
 
 <style scoped lang="less">
+    .p{
+        a{
+            height:40px;
+            line-height: 40px;
+            padding: 0 15px;
+            border-bottom: 1px solid #EEEEEE;
+        }
+       a.router-link-exact-active.router-link-active{
+           background: rgba(234, 245, 250, 1);
+           color: #3198CD;
+       }
+    }
     #year{
         p{
             height: 30px;

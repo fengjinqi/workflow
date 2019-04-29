@@ -39,7 +39,7 @@ export default [
 
       },
     {
-        path: '/searchs/:id',
+        path: '/searchs',
         name: 'searchs',
         meta:{
             keepAlive:true

@@ -14,6 +14,10 @@ export const getToken = () => {
     else return false
 }
 
+export const delToken = (name) =>{
+    Cookies.remove(name)
+}
+
 // export const setToken = (token) =>{
 //     sessionStorage.setItem(TOKEN_KEY, token);
 // }

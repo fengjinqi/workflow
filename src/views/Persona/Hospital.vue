@@ -1,7 +1,7 @@
 <template>
     <div class="main">
         <div class="orderM">
-            <div class="title">地址管理</div>
+            <div class="title">医院管理</div>
         </div>
         <div class="connter">
             <el-button style="background: #3198CD;color: #fff" @click="add"> 新增</el-button>
@@ -30,7 +30,7 @@
                             label="状态"
                           >
                         <template  slot-scope="scope">
-                            {{scope.row.status=='1'?'待审核':scope.row.status=='2'?'':scope.row.status=='3'?'审核失败':''}}</template>
+                            {{scope.row.status=='1'?'待审核':scope.row.status=='2'?'已审核':scope.row.status=='3'?'审核失败':''}}</template>
                     </el-table-column>
                     <el-table-column
                             label="操作">
@@ -41,7 +41,7 @@
                             </template>
                             <template v-if="scope.row.status=='2'">
 
-                                <el-button>删除</el-button>
+                                <el-button @click="del(scope.row.id)">删除</el-button>
                             </template>
                             <template v-if="scope.row.status=='3'">
                                 <el-button>再次提交</el-button>
@@ -55,7 +55,7 @@
 </template>
 
 <script>
-    import {getHospitalList} from '@/api/user'
+    import {getHospitalList,delHospitalList} from '@/api/user'
     import {getToken} from '@/libs/util'
     export default {
         name: "index",
@@ -66,6 +66,7 @@
             }
         },
         created(){
+
             getHospitalList(getToken('token')).then(res=>{
                 if(res.code=='OK'){
                     this.list = res.data.list
@@ -79,6 +80,29 @@
                     name:'add_Hospital'
                 })
             },
+            del(n){
+                this.$confirm('是否删除该医院?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    delHospitalList(getToken('token'),n).then(res=>{
+                        if(res.code=='ServiceError') {
+                            this.$message({
+                                type: 'success',
+                                message:res.message
+                            })
+                        }
+                    })
+
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                });
+
+            }
         }
     }
 </script>

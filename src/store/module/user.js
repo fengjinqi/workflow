@@ -26,7 +26,8 @@ export default {
         creditAmount:0,
         deposit:0,
         giveAmount:0,
-        rebateAmount:0
+        rebateAmount:0,
+        users:''
 
     },
     mutations: {
@@ -42,6 +43,9 @@ export default {
         },
         setLicenseImage(state, licenseImage) {
             state.licenseImage = licenseImage
+        },
+        setUsers(state, users) {
+            state.users = users
         },
         setMedicalDeviceLicenseImage(sate, medicalDeviceLicenseImage) {
             sate.medicalDeviceLicenseImage = medicalDeviceLicenseImage
@@ -135,6 +139,7 @@ export default {
                             commit('setPosition', data.data.position)
                             commit('setPowerAttorneyImage', data.data.powerAttorneyImage)
                             commit('setSex', data.data.sex)
+                            commit('setUsers', data.data)
                         }
                         resolve(data)
                     }).catch(err => {

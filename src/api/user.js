@@ -79,7 +79,34 @@ export const getHospitalList = (token) =>{
         url: `/api/u/hospital/list`
     });
 }
-
+/**
+ * 获取基础医院列表
+ * @param token
+ */
+export const getHospitalLists = (token) =>{
+    return axios({
+        method: 'get',
+        headers:{
+            'Authorization':'Bearer '+token
+        },
+        url: `/api/u/hospital/setting/list`
+    });
+}
+/**
+ * 删除医院
+ * @param token
+ * @param id
+ */
+export const delHospitalList = (token,id) =>{
+    return axios({
+        method: 'post',
+        headers:{
+            'Authorization':'Bearer '+token
+        },
+        data:{id:id},
+        url: `/api/u/hospital/delete/${id}`
+    });
+}
 /**
  * 信息
  * @param token
@@ -93,6 +120,25 @@ export const getUserInfo = (token) =>{
         url: '/api/u/user/getUserInfo'
     });
 }
+/**
+ * 修改密码
+ * @param token
+ * @param data
+ */
+export const putPass = (token,data) =>{
+    return axios({
+        method: 'post',
+        headers:{
+            'Authorization':'Bearer '+token
+        },
+        data,
+        url: '/api/u/user/update/password'
+    });
+}
+/**
+ * 购物车数量
+ * @param token
+ */
 export const getpayAmount = (token) =>{
     return axios({
         method: 'get',

@@ -212,22 +212,20 @@
         components:{
           Banner,
         },
-        created() {
+         created() {
             this.getUserInfo().then(res=>{
-                if(res.code!='OK'){
+                if(res.code!=='OK'){
                     this.$notify({
                         title: '警告',
                         message: res.message,
                         type: 'warning'
                     });
                     this.$router.push({
-                        path: '/login'
+                        name: 'login'
                     })
                 }
             })
-
             getIndex(getToken('token')).then(res=>{
-
                 if (res.code=='OK'){
                     this.data = res.data
                     this.src= JSON.parse(res.data.imageResponses[0].imageUrl)
