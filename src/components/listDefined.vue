@@ -5,10 +5,10 @@
                 <div class="list-item" v-for="(item,index) in list" :key="index">
                     <div class="list-item-main" >
                         <div class="divM flex">
-                            <el-checkbox-group v-model="checkedCities" @change="handleCheckedCitiesChange">
-                            <el-checkbox :label="item.id" :key="item.id"></el-checkbox>
+                            <!-- <el-checkbox-group v-model="dts" @change="handleCheckedCitiesChange"> -->
+                            <el-checkbox v-model="item.isChecked"></el-checkbox>
 
-                            </el-checkbox-group>
+                            <!-- </el-checkbox-group> -->
                             <span  class="divMH">{{item.name}}</span>
 
                         </div>
@@ -50,16 +50,25 @@
         components:{
             Count,
         },
-        computed:{
-
+        watch:{
+            "dts": {
+                handler(newVal){
+                    if(newVal.length>0){
+                        this.$emit("input",newVal);
+                    }
+                },
+                deep: true
+            }
         },
         methods: {
             onNumberChange(item,index){
                 console.log(item)
+                
                 this.list.splice(index,1,item);
                 // this.list.map((currentItem)=>{
                 //     console.log(currentItem.count)
                     if(item.count>1){
+                        item.isChecked = true;
                         if(this.dts.some((itemChild)=>itemChild.goodsId === item.id)){
                             this.dts.map((itemChilds,indexChilds)=>{
                                 if(itemChilds.goodsId === item.id){
@@ -77,6 +86,7 @@
                         }
 
                     }else{
+                        item.isChecked = false;
                         if(this.dts.length>0&&this.dts.some((itemChild)=>itemChild.goodsId === item.id)){
                             this.dts.map((itemChilds,indexChilds)=>{
                                 if(itemChilds.goodsId === item.id){
@@ -115,13 +125,14 @@
                 this.isChecked = true;
                 console.log("aaa")
                 this.list.map((item)=>{
-                    this.checkedCities.push(item.id)
+                    // this.checkedCities.push(item.id)
+                    item.isChecked = true;
                      this.dts.push({
                          goodsId:item.id,
                          amount:item.count
                      })
                  })
-
+                 this.$forceUpdate();
                 // this.checkedCities=[]
                 // this.dts = []
                 // this.list.map(item=>{

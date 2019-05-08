@@ -65,9 +65,9 @@
                    </div>
                </div>
                <div v-else>
-                   <ListDefined :list="data.goodsResponses" ref="child"></ListDefined>
+                   <ListDefined :list="data.goodsResponses" ref="child" v-model="selectedGoods"></ListDefined>
                    <div class="flex-r detail-main">
-                       <div class="choseNum">已选 <span>2</span> 件商品</div>
+                       <div class="choseNum">已选 <span>{{selectedGoods.length}}</span> 件商品</div>
                        <div><el-button type="primary"  class="addCart">加入购物车</el-button></div>
                    </div>
                </div>
@@ -169,7 +169,8 @@
                 data:[],
                 num1:1,
                 id:'',
-                type:'1'
+                type:'1',
+                selectedGoods: []
             }
         },
         created(){
@@ -180,6 +181,7 @@
                     this.data = res.data
                     this.data.goodsResponses.map((item)=>{
                         item.count =1;
+                        item.isChecked = false;
                         return item
                     })
                 }
