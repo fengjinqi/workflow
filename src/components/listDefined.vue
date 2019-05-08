@@ -62,11 +62,7 @@
         },
         methods: {
             onNumberChange(item,index){
-                console.log(item)
-                
                 this.list.splice(index,1,item);
-                // this.list.map((currentItem)=>{
-                //     console.log(currentItem.count)
                     if(item.count>1){
                         item.isChecked = true;
                         if(this.dts.some((itemChild)=>itemChild.goodsId === item.id)){
@@ -84,7 +80,6 @@
                                 amount: item.count
                             })
                         }
-
                     }else{
                         item.isChecked = false;
                         if(this.dts.length>0&&this.dts.some((itemChild)=>itemChild.goodsId === item.id)){
