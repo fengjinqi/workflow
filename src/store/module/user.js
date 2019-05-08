@@ -3,7 +3,7 @@ import {
     getUserInfo,
     getpayAmount
 } from '@/api/user'
-import {getGoodsShopsCount} from '@/api/goods'
+import {getGoodsShopsCount,getGoodsTaoShopsCount} from '@/api/goods'
 import {
     Login
 } from '@/api/login'
@@ -22,6 +22,7 @@ export default {
         powerAttorneyImage: '',
         sex: '',
         goods:[],
+        tao:[],
         afterSaleAmount:[],
         creditAmount:0,
         deposit:0,
@@ -33,6 +34,9 @@ export default {
     mutations: {
         setBirthDate(state, birthDate) {
             state.birthDate = birthDate
+        },
+        setTao(state,tao){
+            state.tao=tao
         },
         setToken(state, token) {
             state.token = token
@@ -166,9 +170,22 @@ export default {
              */
             return new Promise((resolve, reject) =>{
                 getGoodsShopsCount(getToken('token')).then(res=>{
-
+                    console.log(res)
                     if(res.code=='OK') {
                         commit('setGoods', res.data)
+                    }
+                })
+            } )
+        },
+        getGoodsTaoShopsCounts({state,commit}){
+            /**
+             * 套餐购物车列表
+             */
+            return new Promise((resolve, reject) =>{
+                getGoodsTaoShopsCount(getToken('token')).then(res=>{
+                    console.log(res)
+                    if(res.code=='OK') {
+                        commit('setTao', res.data)
                     }
                 })
             } )

@@ -2,139 +2,50 @@
     <div class="list">
         <div class="main">
             <div class="list-main flex-w">
-                <div class="list-item">
-                    <div class="list-item-main" @click="todetail('1')">
+                <div class="list-item" v-for="(item,index) in list" :key="index">
+                    <div class="list-item-main" >
                         <div class="divM flex">
-                            <el-checkbox label="" key=""></el-checkbox>
-                            <span  class="divMH">股骨LC-DCP接骨板Ⅱ（锥螺纹）股骨骨</span>
+                            <el-checkbox-group v-model="checkedCities" @change="handleCheckedCitiesChange">
+                            <el-checkbox :label="item.id" :key="item.id"></el-checkbox>
+
+                            </el-checkbox-group>
+                            <span  class="divMH">{{item.name}}</span>
 
                         </div>
-                        <div class="divM info">编码：5688454545121</div>
-                        <div class="divM info">骨折/F3/施乐辉</div>
+                        <div class="divM info">编码：{{item.goodsSn}}</div>
+                        <div class="divM info">{{item.categoryName}}</div>
                         <div class="divM price flex-j">
-                            <div>¥15889</div>
-                            <div> <Count></Count></div>
+                            <div>¥{{item.price}}</div>
+                            <div> <Count :chil="item" :current-index="index" @number="onNumberChange" ref="nb"></Count></div>
                         </div>
                     </div>
                 </div>
-                <div class="list-item">
-                    <div class="list-item-main">
-                        <div class="divM flex">
-                            <el-checkbox label="" key=""></el-checkbox>
-                            <span  class="divMH">股骨LC-DCP接骨板Ⅱ（锥螺纹）股骨骨</span>
 
-                        </div>
-                        <div class="divM info">编码：5688454545121</div>
-                        <div class="divM info">骨折/F3/施乐辉</div>
-                        <div class="divM price flex-j">
-                            <div>¥15889</div>
-                            <div> <Count></Count></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="list-item">
-                    <div class="list-item-main">
-                        <div class="divM flex">
-                            <el-checkbox label="" key=""></el-checkbox>
-                            <span class="divMH">股骨LC-DCP接骨板Ⅱ（锥螺纹）股骨骨</span>
 
-                        </div>
-                        <div class="divM info">编码：5688454545121</div>
-                        <div class="divM info">骨折/F3/施乐辉</div>
-                        <div class="divM price flex-j">
-                            <div>¥15889</div>
-                            <div> <Count></Count></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="list-item">
-                    <div class="list-item-main">
-                        <div class="divM flex">
-                            <el-checkbox label="" key=""></el-checkbox>
-                            <span  class="divMH">股骨LC-DCP接骨板Ⅱ（锥螺纹）股骨骨</span>
-
-                        </div>
-                        <div class="divM info">编码：5688454545121</div>
-                        <div class="divM info">骨折/F3/施乐辉</div>
-                        <div class="divM price flex-j">
-                            <div>¥15889</div>
-                            <div> <Count></Count></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="list-item">
-                    <div class="list-item-main">
-                        <div class="divM flex">
-                            <el-checkbox label="" key=""></el-checkbox>
-                            <span  class="divMH">股骨LC-DCP接骨板Ⅱ（锥螺纹）股骨骨</span>
-
-                        </div>
-                        <div class="divM info">编码：5688454545121</div>
-                        <div class="divM info">骨折/F3/施乐辉</div>
-                        <div class="divM price flex-j">
-                            <div>¥15889</div>
-                            <div> <Count></Count></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="list-item">
-                    <div class="list-item-main">
-                        <div class="divM flex">
-                            <el-checkbox label="" key=""></el-checkbox>
-                            <span  class="divMH">股骨LC-DCP接骨板Ⅱ（锥螺纹）股骨骨</span>
-
-                        </div>
-                        <div class="divM info">编码：5688454545121</div>
-                        <div class="divM info">骨折/F3/施乐辉</div>
-                        <div class="divM price flex-j">
-                            <div>¥15889</div>
-                            <div> <Count></Count></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="list-item">
-                    <div class="list-item-main">
-                        <div class="divM flex">
-                            <el-checkbox label="" key=""></el-checkbox>
-                            <span  class="divMH">股骨LC-DCP接骨板Ⅱ（锥螺纹）股骨骨</span>
-
-                        </div>
-                        <div class="divM info">编码：5688454545121</div>
-                        <div class="divM info">骨折/F3/施乐辉</div>
-                        <div class="divM price flex-j">
-                            <div>¥15889</div>
-                            <div> <Count></Count></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="list-item">
-                    <div class="list-item-main">
-                        <div class="divM flex">
-                            <el-checkbox label="" key=""></el-checkbox>
-                            <span  class="divMH">股骨LC-DCP接骨板Ⅱ（锥螺纹）股骨骨</span>
-
-                        </div>
-                        <div class="divM info">编码：5688454545121</div>
-                        <div class="divM info">骨折/F3/施乐辉</div>
-                        <div class="divM price flex-j">
-                            <div>¥15889</div>
-                            <div> <Count></Count></div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
 </template>
-
+<style>
+    .el-checkbox__label{
+        display: none!important;
+    }
+</style>
 <script>
     import Count from '@/components/count'//加减
     export default {
         name: "listDefinned",
          data(){
             return {
-
+                checkedCities:[],
+                dts:[],
+                isChecked: false
             }
+        },
+        props:{
+          list:{
+              type:[Array]
+          }
         },
         components:{
             Count,
@@ -143,18 +54,86 @@
 
         },
         methods: {
-            //跳转到详情页
-            todetail(id){
-                this.$router.push({
-                    name: 'detail',
-                    params:{
-                        id:id
+            onNumberChange(item,index){
+                console.log(item)
+                this.list.splice(index,1,item);
+                // this.list.map((currentItem)=>{
+                //     console.log(currentItem.count)
+                    if(item.count>1){
+                        if(this.dts.some((itemChild)=>itemChild.goodsId === item.id)){
+                            this.dts.map((itemChilds,indexChilds)=>{
+                                if(itemChilds.goodsId === item.id){
+                                    this.dts.splice(indexChilds,1,{
+                                        goodsId: item.id,
+                                        amount:item.count
+                                    })
+                                }
+                            })
+                        }else{
+                            this.dts.push({
+                                goodsId: item.id,
+                                amount: item.count
+                            })
+                        }
+
+                    }else{
+                        if(this.dts.length>0&&this.dts.some((itemChild)=>itemChild.goodsId === item.id)){
+                            this.dts.map((itemChilds,indexChilds)=>{
+                                if(itemChilds.goodsId === item.id){
+                                    this.dts.splice(indexChilds,1)
+                                }
+                            })
+                        }
+
                     }
+                // })
+                console.log(this.dts)
+            },
+            /**
+             * 单选
+             * @param value
+             */
+            handleCheckedCitiesChange(value) {
+                this.dts = []
+                this.checkedCities.map((item)=>{
+                    this.dts.push({
+                        goodsId:item.id,
+                        amount:1
+                    })
                 })
+                console.log(this.dts)
+                console.log(this.list)
             },
-            //加入购物车
-            addCart(){
-            },
+            /**
+             * 全选
+             */
+            clickme(){ // 如果先单选了，这时候多选，单选会被置空吗不得
+                if(this.isChecked){
+                  return ;
+                }
+                this.dts = []
+                this.isChecked = true;
+                console.log("aaa")
+                this.list.map((item)=>{
+                    this.checkedCities.push(item.id)
+                     this.dts.push({
+                         goodsId:item.id,
+                         amount:item.count
+                     })
+                 })
+
+                // this.checkedCities=[]
+                // this.dts = []
+                // this.list.map(item=>{
+                //     this.checkedCities.push(item.id)
+                //     this.dts.push({
+                //         goodsId:item.id,
+                //         amount:1
+                //     })
+                // })
+                // console.log(this.checkedCities)
+                 console.log(this.dts)
+            }
         }
     }
 </script>

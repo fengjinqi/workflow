@@ -55,6 +55,14 @@ export default [
           },
           component: Detail
       },
+    {
+        path: '/searchs/details/:id',
+        name: 'searchs_detail',
+        meta:{
+            keepAlive:true
+        },
+        component: () => import('@/pages/home/details'),
+    },
       {
           path: '/cart',
           name: 'cart',

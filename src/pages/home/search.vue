@@ -1,7 +1,7 @@
 <template>
    <div>
         <div class="search">
-            <Fiter :category="category" v-if="type==true"/>
+           <!-- <Fiter :category="category" v-if="type==true"/>-->
             <template  v-if="list!=null&&list.list.length>0">
                 <List :list="list"/>
             </template>
@@ -38,7 +38,7 @@
         },
         watch: {
             async $route() {
-                this.id = this.$route.params.id
+                this.id = this.$route.params.id?this.$route.params.id:''
                 const loading = this.$loading({
                     lock: true,
                     text: 'Loading',
@@ -56,7 +56,7 @@
             }
         },
          created(){
-            this.id = this.$route.params.id
+            this.id = this.$route.params.id?this.$route.params.id:''
             const loading = this.$loading({
                 lock: true,
                 text: 'Loading',

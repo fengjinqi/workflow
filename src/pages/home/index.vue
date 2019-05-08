@@ -234,12 +234,14 @@
             })
             this.getGoodsShopsCounts()
             this.getAccem()
+             this.getGoodsTaoShopsCounts()
     },
         methods:{
             ...mapActions([
                 'getUserInfo',
                 'getGoodsShopsCounts',
-                'getAccem'
+                'getAccem',
+                'getGoodsTaoShopsCounts'
             ]),
             //跳转到详情页
             todetail(index){

@@ -2,160 +2,53 @@
     <div class="list">
         <div class="main">
             <div class="list-main flex-w">
-                <div class="list-item">
-                    <div class="list-item-main" @click="todetail('1')">
+                <div class="list-item" v-for="(item,index) in list.list">
+                    <div class="list-item-main" @click="todetail(item.id)">
                         <div class="divM">
-                            <span class="type">寄售</span>
-                            <span>股骨LC-DCP接骨板Ⅱ（锥螺纹）股骨骨</span>
-                            <span class="num">共8种</span>
+                            <span class="type">{{item.goodsType==2?'寄售':'单品'}}</span>
+                            <span>{{item.name}}</span>
+                            <span class="num">共{{item.number}}种</span>
                         </div>
-                        <div class="divM info">编码：5688454545121</div>
-                        <div class="divM info">骨折/F3/施乐辉</div>
-                        <div class="divM price">¥15889</div>
+                        <div class="divM info">编码：{{item.packageSn}}</div>
+                        <div class="divM info">{{item.categoryName}}</div>
+                        <div class="divM price">¥{{item.price}}</div>
                     </div>
                     <div class="flex btnBox">
-                        <div class="list-item-btn" @click="choose('1')" :class="chose=='1'?'active':''">标准套餐</div>
-                        <div class="list-item-btn" @click="choose('2')" :class="chose=='2'?'active':''">自定义</div>
-                        <div class="list-item-btn list-item-btn1" @click="addCart">加入购物车</div>
+                        <div class="list-item-btn" @click="choose(index)" :class="[chose==index?'active':'']">标准套餐</div>
+                        <div class="list-item-btn" @click="choose(index)" :class="[chose==index?'active':'']">自定义</div>
+                        <div class="list-item-btn list-item-btn1" @click="addCart(item.id)">加入购物车</div>
                     </div>
                 </div>
-                <div class="list-item">
-                    <div class="list-item-main">
-                        <div class="divM">
-                            <span class="type">寄售</span>
-                            <span>股骨LC-DCP接骨板Ⅱ（锥螺纹）股骨骨</span>
-                            <span class="num">共8种</span>
-                        </div>
-                        <div class="divM info">编码：5688454545121</div>
-                        <div class="divM info">骨折/F3/施乐辉</div>
-                        <div class="divM price">¥15889</div>
-                    </div>
-                    <div class="flex btnBox">
-                        <div class="list-item-btn" @click="choose('1')" :class="chose=='1'?'active':''">标准套餐</div>
-                        <div class="list-item-btn" @click="choose('2')" :class="chose=='2'?'active':''">自定义</div>
-                        <div class="list-item-btn list-item-btn1">加入购物车</div>
-                    </div>
-                </div>
-                <div class="list-item">
-                    <div class="list-item-main">
-                        <div class="divM">
-                            <span class="type">寄售</span>
-                            <span>股骨LC-DCP接骨板Ⅱ（锥螺纹）股骨骨</span>
-                            <span class="num">共8种</span>
-                        </div>
-                        <div class="divM info">编码：5688454545121</div>
-                        <div class="divM info">骨折/F3/施乐辉</div>
-                        <div class="divM price">¥15889</div>
-                    </div>
-                    <div class="flex btnBox">
-                        <div class="list-item-btn" @click="choose('1')" :class="chose=='1'?'active':''">标准套餐</div>
-                        <div class="list-item-btn" @click="choose('2')" :class="chose=='2'?'active':''">自定义</div>
-                        <div class="list-item-btn list-item-btn1">加入购物车</div>
-                    </div>
-                </div>
-                <div class="list-item">
-                    <div class="list-item-main">
-                        <div class="divM">
-                            <span class="type">寄售</span>
-                            <span>股骨LC-DCP接骨板Ⅱ（锥螺纹）股骨骨</span>
-                            <span class="num">共8种</span>
-                        </div>
-                        <div class="divM info">编码：5688454545121</div>
-                        <div class="divM info">骨折/F3/施乐辉</div>
-                        <div class="divM price">¥15889</div>
-                    </div>
-                    <div class="flex btnBox">
-                        <div class="list-item-btn" @click="choose('1')" :class="chose=='1'?'active':''">标准套餐</div>
-                        <div class="list-item-btn" @click="choose('2')" :class="chose=='2'?'active':''">自定义</div>
-                        <div class="list-item-btn list-item-btn1">加入购物车</div>
-                    </div>
-                </div>
-                <div class="list-item">
-                    <div class="list-item-main">
-                        <div class="divM">
-                            <span class="type">寄售</span>
-                            <span>股骨LC-DCP接骨板Ⅱ（锥螺纹）股骨骨</span>
-                            <span class="num">共8种</span>
-                        </div>
-                        <div class="divM info">编码：5688454545121</div>
-                        <div class="divM info">骨折/F3/施乐辉</div>
-                        <div class="divM price">¥15889</div>
-                    </div>
-                    <div class="flex btnBox">
-                        <div class="list-item-btn" @click="choose('1')" :class="chose=='1'?'active':''">标准套餐</div>
-                        <div class="list-item-btn" @click="choose('2')" :class="chose=='2'?'active':''">自定义</div>
-                        <div class="list-item-btn list-item-btn1">加入购物车</div>
-                    </div>
-                </div>
-                <div class="list-item">
-                    <div class="list-item-main">
-                        <div class="divM">
-                            <span class="type">寄售</span>
-                            <span>股骨LC-DCP接骨板Ⅱ（锥螺纹）股骨骨</span>
-                            <span class="num">共8种</span>
-                        </div>
-                        <div class="divM info">编码：5688454545121</div>
-                        <div class="divM info">骨折/F3/施乐辉</div>
-                        <div class="divM price">¥15889</div>
-                    </div>
-                    <div class="flex btnBox">
-                        <div class="list-item-btn" @click="choose('1')" :class="chose=='1'?'active':''">标准套餐</div>
-                        <div class="list-item-btn" @click="choose('2')" :class="chose=='2'?'active':''">自定义</div>
-                        <div class="list-item-btn list-item-btn1">加入购物车</div>
-                    </div>
-                </div>
-                <div class="list-item">
-                    <div class="list-item-main">
-                        <div class="divM">
-                            <span class="type">寄售</span>
-                            <span>股骨LC-DCP接骨板Ⅱ（锥螺纹）股骨骨</span>
-                            <span class="num">共8种</span>
-                        </div>
-                        <div class="divM info">编码：5688454545121</div>
-                        <div class="divM info">骨折/F3/施乐辉</div>
-                        <div class="divM price">¥15889</div>
-                    </div>
-                    <div class="flex btnBox">
-                        <div class="list-item-btn" @click="choose('1')" :class="chose=='1'?'active':''">标准套餐</div>
-                        <div class="list-item-btn" @click="choose('2')" :class="chose=='2'?'active':''">自定义</div>
-                        <div class="list-item-btn list-item-btn1">加入购物车</div>
-                    </div>
-                </div>
-                <div class="list-item">
-                    <div class="list-item-main">
-                        <div class="divM">
-                            <span class="type">寄售</span>
-                            <span>股骨LC-DCP接骨板Ⅱ（锥螺纹）股骨骨</span>
-                            <span class="num">共8种</span>
-                        </div>
-                        <div class="divM info">编码：5688454545121</div>
-                        <div class="divM info">骨折/F3/施乐辉</div>
-                        <div class="divM price">¥15889</div>
-                    </div>
-                    <div class="flex btnBox">
-                        <div class="list-item-btn" @click="choose('1')" :class="chose=='1'?'active':''">标准套餐</div>
-                        <div class="list-item-btn" @click="choose('2')" :class="chose=='2'?'active':''">自定义</div>
-                        <div class="list-item-btn list-item-btn1">加入购物车</div>
-                    </div>
-                </div>
+
             </div>
         </div>
     </div>
 </template>
 
 <script>
-
+    import {addTaoGoodsShops} from '@/api/goods'
+    import {mapActions} from 'vuex'
+    import {getToken} from '@/libs/util'
     export default {
-        name: "list",
+        name: "lists",
          data(){
             return {
-                chose:'1',//标准
+                chose:'',//标准
             }
+        },
+        props:{
+          list:{
+              type:[Array,Object]
+          }
         },
         computed:{
 
         },
         methods: {
+            ...mapActions([
+                'getGoodsShopsCounts',
+
+            ]),
             //标准/自定义
             choose(index){
                 this.chose=index;
@@ -163,14 +56,36 @@
             //跳转到详情页
             todetail(id){
                 this.$router.push({
-                    name: 'detail',
+                    name: 'searchs_detail',
                     params:{
                         id:id
                     }
                 })
             },
             //加入购物车
-            addCart(){
+            addCart(index){
+                let obj = {
+                    id:index,
+                    amount:1,
+                    goodsJson:null
+                }
+             /*   let chi = JSON.stringify([{
+                    amount:'',
+                    goodsId:''
+                }])
+                obj.goodsJson=chi*/
+                addTaoGoodsShops(getToken('token'),obj).then(res=>{
+                    console.log(res)
+                    if(res.code=='OK'){
+                        this.getGoodsShopsCounts()
+                        this.$notify({
+                            title: '成功',
+                            message: res.message,
+                            type: 'success'
+                        });
+                        //this.$router.push({name:'home'})
+                    }
+                })
             },
         }
     }
@@ -185,7 +100,7 @@
                 width: 278px;
                 height: 218px;
                 border: 1px solid #eee;
-                margin:7px 0;
+                margin: 7px 5px;
                 position: relative;
                 .list-item-main{
                     padding:15px 10px 0 10px;

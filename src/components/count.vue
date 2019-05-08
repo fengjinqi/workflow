@@ -1,8 +1,8 @@
 <template>
-    <div class="count flex" min='1' max='10'>
-        <button class="cut" @click="cuts">-</button>
+    <div class="count flex" min='1' max='100'>
+        <button class="cut" @click="cuts(chil,currentIndex)">-</button>
         <input class="" v-model="number" type="number" readonly />
-        <button class="add" @click="add">+</button>
+        <button class="add" @click="add(chil,currentIndex)">+</button>
     </div>
 </template>
 
@@ -12,16 +12,47 @@
         data(){
             return {
                 number:1,
+                typ:[],
+                zhen:[]
             }
         },
+        props:{
+            chil:{
+              type: Object,
+                default: ()=>{
+                    return {}
+                }
+          },
+            currentIndex: {
+                type: Number,
+                default: 0
+            }
+        },
+        created(){
+            console.log(this.chil)
+        },
         methods: {
-            cuts(){
+            cuts(item,index){
                 if(this.number<=1) return
                 this.number--;
+                // this.typ.push({
+                //     goodsId:e.target.getAttribute('data'),
+                //     amount:this.number
+                // })
+
+                item.count = this.number;
+                this.$emit("number",item,index);
             },
-            add(){
+            add(item,index){
                 if(this.number>=10) return
                 this.number++;
+                // this.typ.push({
+                //     goodsId:e.target.getAttribute('data'),
+                //     amount:this.number
+                // })
+                item.count = this.number;
+                // this.zhen.push(this.typ)
+                this.$emit("number",item,index);
             }
         }
     }

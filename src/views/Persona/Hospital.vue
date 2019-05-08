@@ -22,7 +22,7 @@
                          >
                     </el-table-column>
                     <el-table-column
-                            prop="area"
+                            prop="province"
                             label="地区"
                             >
                     </el-table-column>
@@ -37,7 +37,7 @@
                         <template  slot-scope="scope">
                             <template v-if="scope.row.status=='1'">
 
-                                <el-button>撤销</el-button>
+                                <el-button @click="Revoke(scope.row.id)">撤销</el-button>
                             </template>
                             <template v-if="scope.row.status=='2'">
 
@@ -55,7 +55,7 @@
 </template>
 
 <script>
-    import {getHospitalList,delHospitalList} from '@/api/user'
+    import {getHospitalList,delHospitalList,RevokeHospitalList} from '@/api/user'
     import {getToken} from '@/libs/util'
     export default {
         name: "index",
@@ -102,6 +102,35 @@
                     });
                 });
 
+            },
+            Revoke(n){
+                this.$confirm('是否删撤销?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    RevokeHospitalList(getToken('token'),n).then(res=>{
+                        console.log(res)
+                        if(res.code=='ServiceError') {
+                            this.$message({
+                                type: 'success',
+                                message:res.message
+                            })
+                        }else if(res.code =='OK'){
+                            this.$message({
+                                type: 'success',
+                                message:'撤销成功'
+                            })
+                            window.location.reload()
+                        }
+                    })
+
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                });
             }
         }
     }

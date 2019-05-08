@@ -30,7 +30,14 @@ export const searchCategory = (token,id,pageIndex,pageSize,val) =>{
         }&keyword=${val}`
     });
 }
-
+/**
+ * 单品搜索
+ * @param token
+ * @param id
+ * @param pageIndex
+ * @param pageSize
+ * @param val
+ */
 export const searchCategorys = (token,id,pageIndex,pageSize,val) =>{
 
     return axios({
@@ -39,6 +46,25 @@ export const searchCategorys = (token,id,pageIndex,pageSize,val) =>{
             'Authorization':'Bearer '+token
         },
         url: `/api/u/search/searchGoods?categoryIds=${id}&pageIndex=${pageIndex}&pageSize=${pageSize
+            }&keyword=${val}`
+    });
+}
+/**
+ * 套餐搜索
+ * @param token
+ * @param id
+ * @param pageIndex
+ * @param pageSize
+ * @param val
+ */
+export const searchTaaoCategorys = (token,id,pageIndex,pageSize,val) =>{
+
+    return axios({
+        method: 'get',
+        headers:{
+            'Authorization':'Bearer '+token
+        },
+        url: `/api/u/search/searchPackageGoods?categoryIds=${id}&pageIndex=${pageIndex}&pageSize=${pageSize
             }&keyword=${val}`
     });
 }
@@ -57,7 +83,7 @@ export const getGoodsDetail = (token,id) =>{
     });
 }
 /**
- * 添加购物车
+ * 单品添加购物车
  * @param token
  * @param data
  */
@@ -72,7 +98,67 @@ export const addGoodsShops = (token,data) =>{
     });
 }
 /**
- * 购物车列表数量
+ * 套餐添加购物车
+ * @param token
+ * @param data
+ */
+export const addTaoGoodsShops = (token,data) =>{
+    return axios({
+        method: 'post',
+        headers:{
+            'Authorization':'Bearer '+token
+        },
+        data,
+        url: '/api/u/cart/add/packageCart'
+    });
+}
+/**
+ * 套餐购物车列表
+ * @param token
+ */
+export const getGoodsTaoShopsCount = (token) =>{
+    return axios({
+        method: 'get',
+        headers:{
+            'Authorization':'Bearer '+token
+        },
+
+        url: '/api/u/cart/getPackageCartList'
+    });
+}
+/**
+ * 套餐商品详情
+ * @param token
+ * @param id
+ */
+export const getGoodsTaoShopsDetail = (token,id) =>{
+    return axios({
+        method: 'get',
+        headers:{
+            'Authorization':'Bearer '+token
+        },
+
+        url: '/api/u/goods/get/packageGoods?id='+id
+    });
+}
+/**
+ * 修改套餐购物车数量
+ * @param token
+ * @param id
+ * @param val
+ */
+export const setGoodsTaoShopsCount = (token,data) =>{
+    return axios({
+        method: 'post',
+        headers:{
+            'Authorization':'Bearer '+token
+        },
+        data,
+        url: '/api/u/cart/update/packageCart'
+    });
+}
+/**
+ * 购物车单列表数量
  * @param token
  */
 export const getGoodsShopsCount = (token) =>{
@@ -86,7 +172,7 @@ export const getGoodsShopsCount = (token) =>{
     });
 }
 /**
- * 修改购物车数量
+ * 修改单购物车数量
  * @param token
  * @param id
  * @param val

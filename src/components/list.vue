@@ -5,11 +5,11 @@
                 <div class="list-item" v-for="(item ,index) in list.list" >
                     <div class="list-item-main" @click="todetail(item.id)">
                         <div class="divM">
-                            <span class="type">{{item.goodsType==1?'单品':'套餐'}}</span>
+                            <span class="type">{{item.goodsType==1?'单品':'寄售'}}</span>
                             <span>{{item.name}}</span>
                         </div>
                         <div class="divM info">编码：{{item.goodsSn}}</div>
-                        <div class="divM info">{{item.matModel}}</div>
+                        <div class="divM info">{{item.categoryName}}</div>
                     </div>
                     <div class="btnBox">
                         <div class="fl text">¥{{item.price}}</div>
@@ -64,6 +64,7 @@
                 let obj = {
                     id:index,
                     amount:1,
+
                 }
                 addGoodsShops(getToken('token'),obj).then(res=>{
                     console.log(res)

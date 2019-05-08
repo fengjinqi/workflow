@@ -108,6 +108,52 @@ export const delHospitalList = (token,id) =>{
     });
 }
 /**
+ * 撤销医院申请
+ * @param token
+ * @param id
+ * @constructor
+ */
+export const RevokeHospitalList = (token,id) =>{
+    return axios({
+        method: 'post',
+        headers:{
+            'Authorization':'Bearer '+token
+        },
+        data:{id:id},
+        url: `/api/u/hospital/revocation/${id}`
+    });
+}
+/**
+ * 医院等级
+ * @param token
+ */
+export const getHospitalType = (token) =>{
+    return axios({
+        method: 'get',
+        headers:{
+            'Authorization':'Bearer '+token
+        },
+        url: `/api/u/hospital/setting/type/list`
+    });
+}
+/**
+ * 添加医院
+ * @param token
+ * @param data
+ */
+export const addHospitalList = (token,data) =>{
+    return axios({
+        method: 'post',
+        headers:{
+            'Authorization':'Bearer '+token
+        },
+        data,
+        url: `/api/u/hospital/add`
+    });
+}
+
+
+/**
  * 信息
  * @param token
  */

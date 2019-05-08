@@ -15,9 +15,9 @@
 </template>
 
 <script>
-    import {searchCategorys} from '@/api/goods'
+    import {searchTaaoCategorys} from '@/api/goods'
     import {getToken} from '@/libs/util'
-    import List from '@/components/list'//列表
+    import List from '@/components/lists'//列表
     export default {
         name: "search",
         data(){
@@ -34,23 +34,19 @@
         watch: {
             async $route() {
                 this.id = this.$route.query.id
+
                 const loading = this.$loading({
                     lock: true,
                     text: 'Loading',
                     spinner: 'el-icon-loading',
                     background: 'rgba(0, 0, 0, 0.7)'
                 });
-                if(this.id==1){
-                    await searchCategorys(getToken('token'),'',1,20,this.$route.query.val).then(res=>{
-                        this.list = res.data
-                        loading.close()
-                    })
-                }else if(this.id==0){
-                    await searchCategorys(getToken('token'),'',1,20,this.$route.query.val).then(res=>{
-                        this.list = res.data
-                        loading.close()
-                    })
-                }
+
+                await searchTaaoCategorys(getToken('token'),'',1,20,this.$route.query.val).then(res=>{
+                    this.list = res.data
+                    loading.close()
+                })
+
             }
         },
         async created(){
@@ -61,17 +57,13 @@
                 spinner: 'el-icon-loading',
                 background: 'rgba(0, 0, 0, 0.7)'
             });
-            if(this.id==1){
-                await searchCategorys(getToken('token'),'',1,20,this.$route.query.val).then(res=>{
-                    this.list = res.data
-                    loading.close()
-                })
-            }else if(this.id==0){
-                await searchCategorys(getToken('token'),'',1,20,this.$route.query.val).then(res=>{
-                    this.list = res.data
-                    loading.close()
-                })
-            }
+
+            searchTaaoCategorys(getToken('token'),'',1,20,this.$route.query.val).then(res=>{
+                this.list = res.data
+                console.log(this.list)
+                loading.close()
+            })
+
         }
     }
 </script>

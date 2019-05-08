@@ -53,7 +53,7 @@
             //全局购物车数量
             cartNum:function(){
 
-                return this.$store.state.user.goods.length
+                return this.$store.state.user.goods.length+this.$store.state.user.tao.definedPackageResponse.length+this.$store.state.user.tao.standardPackageResponse.length
             }
         },
         components:{
@@ -84,14 +84,26 @@
         },
         methods: {
             go(){
-                this.$router.push({
-                    name:'searchs',
-                    query:{
-                    id:this.type,
-                        val:this.val,
+
+                if(this.type==1){
+                    this.$router.push({
+                        name:'search',
+                        query:{
+                            id:this.type,
+                            val:this.val,
+                        }
+                    })
+                    this.val=''
+                }else{
+                    this.$router.push({
+                        name:'searchs',
+                        query:{
+                            id:this.type,
+                            val:this.val,
+                        }
+                    })
+                    this.val=''
                 }
-                })
-                this.val=''
             },
             //跳转到购物车
             tocart(){

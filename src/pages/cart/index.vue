@@ -10,7 +10,7 @@
                     <div class="tab">
                         <el-table
                                 ref="multipleTable"
-                                :data="tableData"
+                                :data="tableData1"
                                 tooltip-effect="dark"
                                 style="width: 100%"
                                 @selection-change="handleSelectionChange">
@@ -23,15 +23,14 @@
                                     width="300" >
                                 <template slot-scope="scope">
                                     <div class="order-main-list-item-cont-1">
-                                        <div>{{ scope.row.title}}</div>
-                                        <div class="type">{{ scope.row.type}}</div>
-                                        <div style="color:#999">{{ scope.row.info1}}</div>
-                                        <div style="color:#999">{{ scope.row.info2}}</div>
+                                        <div>{{ scope.row.name}}</div>
+                                        <div class="type">{{ scope.row.packageType=='1'?'标准套餐':'自定义套餐'}}</div>
+                                        <div style="color:#999">{{ scope.row.categoryName}}</div>
                                     </div>
                                 </template>
                             </el-table-column>
                             <el-table-column
-                                    prop="code"
+                                    prop="packageSn"
                                     label="商品编码">
                             </el-table-column>
                             <el-table-column
@@ -40,13 +39,24 @@
                             </el-table-column>
                             <el-table-column
                                     label="数量">
-                                <template slot-scope="scope">
-                                    <Count></Count>
+                                <template slot-scope="amount" >
+                                    <template>
+
+                                        <div ref="dataId"  :dataid="amount.row.goodId"></div>
+                                        <el-input-number  v-model="amount.row.amount"  @change="handleChange1(amount.row.cartId,amount.row.amount,amount.row.price)" :min="1" size="mini"></el-input-number>
+                                    </template>
+
                                 </template>
                             </el-table-column>
                             <el-table-column
-                                    prop="xiaoPrice"
                                     label="小计">
+                                <template slot-scope="name">
+
+                                    <div class="order-main-list-item-cont-1">
+                                        <div>{{name.row.price*name.row.amount}}</div>
+
+                                    </div>
+                                </template>
                             </el-table-column>
                             <el-table-column
                                     label="订单操作">
@@ -60,12 +70,13 @@
                     <div class="cart-bo">
                         <div class="cart-bo-main flex-j">
                             <div class="flex ri">
-                                <div> <el-checkbox  @change="handleSelectionChange">全选</el-checkbox></div>
-                                <div>删除</div>
+                                <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll"  @change="handleCheckAllChange">全选</el-checkbox>
+                                <!--                           <div> <el-checkbox v-model="checked"  @change="toggleSelection">全选</el-checkbox></div>-->
+                                <div >删除</div>
                             </div>
                             <div class="flex le">
-                                <div>已选 <span style="color:#26B7BC">2</span> 件商品 </div>
-                                <div>总价：<span style="color:#26B7BC">¥15680.00</span> </div>
+                                <div>已选 <span style="color:#26B7BC">{{num}}</span> 件商品 </div>
+                                <div>总价：<span style="color:#26B7BC">¥{{price}}</span> </div>
                                 <div> <el-button type="primary" @click="toSubmit">提交</el-button></div>
                             </div>
                         </div>
@@ -155,7 +166,7 @@
 
 <script>
     import Count from '@/components/count'//数量
-    import {setGoodsShopsCount,delGoodsShopsCount} from '@/api/goods'
+    import {setGoodsShopsCount,delGoodsShopsCount,setGoodsTaoShopsCount} from '@/api/goods'
     import {mapActions} from 'vuex'
     import {getToken} from '@/libs/util'
     export default {
@@ -167,6 +178,7 @@
             return {
                 chose:'2',//寄售
                 tableData: [],
+                tableData1:[],
                 multipleSelection: [],
                 num:0,
                 price:0,
@@ -180,23 +192,18 @@
             indeterminate(){
                 return this.multipleSelection.length &&  this.multipleSelection.length < this.tableData.length
             },
-           /* checked: {
-                get() {
-                    return this.multipleSelection.length === this.tableData.length
-                },
-                set(val) {
-                    this.$refs.multipleTable.toggleAllSelection(val)
-                }
-            }*/
         },
         created(){
             this.getGoodsShopsCounts()
+            this.getGoodsTaoShopsCounts()
             this.tableData=this.$store.state.user.goods
+            this.tableData1=this.$store.state.user.tao.standardPackageResponse
         },
         methods: {
             ...mapActions([
                 'getGoodsShopsCounts',
-                'setSubGoodsShopsList'
+                'setSubGoodsShopsList',
+                'getGoodsTaoShopsCounts'
             ]),
             handleSelectionChange(val) {
                 let vlength = val.length
@@ -223,10 +230,28 @@
                 setGoodsShopsCount(getToken('token'),id,value).then(res=>{
                     console.log(res)
                     this.getGoodsShopsCounts()
+                    this.getGoodsTaoShopsCounts()
                 })
                 console.log(value,id,price);
                 console.log(this.multipleSelection)
                // this.price=value*price
+                this.price=0
+                this.multipleSelection.map((item)=>{
+                    this.price+=item.price*item.amount
+                })
+            },
+            handleChange1(id,value,price) {
+                let obj ={}
+                obj.id=id
+                obj.amount = value
+                setGoodsTaoShopsCount(getToken('token'),obj).then(res=>{
+                    console.log(res)
+                    this.getGoodsShopsCounts()
+                    this.getGoodsTaoShopsCounts()
+                })
+                console.log(value,id,price);
+                console.log(this.multipleSelection)
+                // this.price=value*price
                 this.price=0
                 this.multipleSelection.map((item)=>{
                     this.price+=item.price*item.amount

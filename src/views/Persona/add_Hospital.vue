@@ -4,7 +4,7 @@
             <div class="title">新增医院</div>
         </div>
         <div class="connter">
-            <div class="flex-j">
+            <!--<div class="flex-j">
                 <div>
                     <span class="demonstration">选择</span>
                     <el-cascader
@@ -25,17 +25,18 @@
                     <el-button type="primary" style="margin-left: 10px;">搜索</el-button>
                 </div>
             </div>
+          -->
             <div>
                 <el-button type="primary" style="margin: 20px 0;" @click="dialogFormVisible = true">申请医院</el-button>
                 <el-dialog title="申请医院" :visible.sync="dialogFormVisible" center>
-                    <el-form :model="form" style="width: 400px;margin:0 auto">
-                        <el-form-item label="医院名称" :label-width="formLabelWidth">
+                    <el-form :model="form" style="width: 400px;margin:0 auto" :rules="rules" ref="ruleForm">
+                        <el-form-item label="医院名称" :label-width="formLabelWidth" prop="name">
                             <el-input v-model="form.name" auto-complete="off" placeholder="请选择医院名称"></el-input>
                         </el-form-item>
-                        <el-form-item label="医院级别" :label-width="formLabelWidth">
+                        <el-form-item label="医院级别" :label-width="formLabelWidth" prop="level">
                             <el-select v-model="form.level" placeholder="请选择" style="width: 100%;">
-                                <el-option label="二甲" value="二甲"></el-option>
-                                <el-option label="三甲" value="三甲"></el-option>
+                                <el-option :label="item.name" :value="item.id" v-for="item in type"></el-option>
+
                             </el-select>
                         </el-form-item>
                         <el-form-item label="所在地区" :label-width="formLabelWidth" prop="selectedOptions">
@@ -48,21 +49,24 @@
                         </el-form-item>
                     </el-form>
                     <div slot="footer" class="dialog-footer">
-                        <el-button @click="dialogFormVisible = false">取 消</el-button>
-                        <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+                        <el-button @click="resetForm('ruleForm')">取 消</el-button>
+                        <el-button type="primary" @click="submitForm('ruleForm')">确 定</el-button>
                     </div>
                 </el-dialog>
             </div>
+
             <div>
                 <el-table
                         ref="multipleTable"
                         :data="tableData3"
-                        tooltip-effect="dark"
                         style="width: 100%"
-                        @selection-change="handleSelectionChange">
+                       >
                     <el-table-column
-                            type="selection"
                             width="100">
+                        <template scope="scope">
+                            <el-radio :label="scope.row.id" v-model="redis" @change.native="getTemplateRow(scope.row)">&nbsp</el-radio>
+                        </template>
+
                     </el-table-column>
                     <el-table-column
                             prop="name"
@@ -85,7 +89,7 @@
                 </el-table>
             </div>
             <div style="text-align: right">
-                <el-button type="primary" style="margin-top: 20px;">确定新增</el-button>
+                <el-button type="primary" style="margin-top: 20px;"@click="add">确定新增</el-button>
             </div>
         </div>
 
@@ -93,7 +97,7 @@
 </template>
 
 <script>
-    import {getHospitalLists,getaddrs} from '@/api/user'
+    import {getHospitalLists,getaddrs,getHospitalType,addHospitalList} from '@/api/user'
 
     import {getToken} from '@/libs/util'
     export default {
@@ -102,26 +106,21 @@
             return {
                 value:"",
                 data:[],
+                redis:'',
+                type:null,
                 //表单
                 dialogFormVisible: false,
                 form: {
                     name: '',
                     level: '',
-                    address: '',
                     selectedOptions: [],
                 },
                 rules: {
                     name: [
                         { required: true, message: '请输入收货人姓名', trigger: 'blur' },
                     ],
-                    phone: [
-                        { required: true, message: '请输入电话', trigger: 'blur' }
-                    ],
-                    remark: [
-                        { required: true, message: '请输入备注信息', trigger: 'blur' }
-                    ],
-                    address: [
-                        { required: true, message: '请输入详细地址', trigger: 'blur' }
+                    level: [
+                        { required: true, message: '请选择邓肯', trigger: 'change' }
                     ],
                     selectedOptions: [
                         { required: true, message: '请输入地址', trigger: 'change' }
@@ -135,7 +134,7 @@
                 tableData3: [
 
                 ],
-                multipleSelection: [],
+                multipleSelection:'',
                 province:'',
                 city:'',
                 district:''
@@ -178,6 +177,10 @@
                     this.tableData3=res.data
                 }
             })
+            getHospitalType(getToken('token')).then(res=>{
+                console.log(res)
+                this.type=res.data
+            })
         },
         methods: {
             handleChange(value) {
@@ -187,8 +190,65 @@
                 this.district=this.$refs['cascaderAddr'].currentLabels[2]
                 console.log(value, this.$refs['cascaderAddr'])
             },
-            handleSelectionChange(val) {
+            getTemplateRow(val) {
+                console.log(val)
                 this.multipleSelection = val;
+            },
+            submitForm(formName) {
+                this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        let data={
+                            name:this.form.name,
+                            provinceCode:this.form.selectedOptions[0],
+                            cityCode:this.form.selectedOptions[1],
+                            districtCode:this.form.selectedOptions[2],
+                            province:this.province,
+                            city:this.city,
+                            district:this.district,
+                            type:this.form.level,
+                            //id:this.id
+                        }
+                        addHospitalList(getToken('token'),data).then(res=>{
+                            if(res.code=='OK'){
+                                this.$message({
+                                    type: 'success',
+                                    message: '添加成功!'
+                                });
+                                this.$router.push({
+                                    name:'Persona_Hospital'
+                                })
+                            }
+                        })
+                    } else {
+                        console.log('error submit!!');
+                        return false;
+                    }
+                });
+            },
+            resetForm(formName) {
+                this.dialogFormVisible = false
+                this.$refs[formName].resetFields();
+            },
+            add(){
+                if(!this.multipleSelection){
+                    this.$message({
+                        type: 'error',
+                        message: '请选择医院!'
+                    });
+                }else{
+                    console.log(this.multipleSelection)
+                    addHospitalList(getToken('token'),this.multipleSelection).then(res=>{
+                        if(res.code=='OK'){
+                            this.$message({
+                                type: 'success',
+                                message: '添加成功!'
+                            });
+                            this.$router.push({
+                                name:'Persona_Hospital'
+                            })
+                        }
+                    })
+                }
             },
             apply(){
 

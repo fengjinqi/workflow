@@ -38,7 +38,7 @@
                             </div>
                             <div class="cont-item">
                                 <label>银行卡号</label>
-                                <span>{{$store.state.user.users.bankName}}</span>
+                                <span>{{$store.state.user.users.bankAccount}}</span>
                             </div>
                         </div>
                     </div>
@@ -51,7 +51,7 @@
                             </div>
                             <div class="cont-item">
                                 <label>公司地址</label>
-                                <span></span>
+                                <span>{{$store.state.user.users.compAddress}}</span>
                             </div>
 
                         </div>
