@@ -61,8 +61,8 @@
                             <el-table-column
                                     label="订单操作">
                                 <template slot-scope="scope">
-                                    <div>商品详情</div>
-                                    <div>删除商品</div>
+                                    <!--<div>商品详情</div>-->
+                                    <div @click="taoDel(scope.row.cartId)">删除商品</div>
                                 </template>
                             </el-table-column>
                         </el-table>
@@ -72,7 +72,7 @@
                             <div class="flex ri">
                                 <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll"  @change="handleCheckAllChange">全选</el-checkbox>
                                 <!--                           <div> <el-checkbox v-model="checked"  @change="toggleSelection">全选</el-checkbox></div>-->
-                                <div >删除</div>
+                                <div @click="dek">删除</div>
                             </div>
                             <div class="flex le">
                                 <div>已选 <span style="color:#26B7BC">{{num}}</span> 件商品 </div>
@@ -166,7 +166,7 @@
 
 <script>
     import Count from '@/components/count'//数量
-    import {setGoodsShopsCount,delGoodsShopsCount,setGoodsTaoShopsCount} from '@/api/goods'
+    import {setGoodsShopsCount,delGoodsShopsCount,setGoodsTaoShopsCount,delGoodsTaoShopsCount} from '@/api/goods'
     import {mapActions} from 'vuex'
     import {getToken} from '@/libs/util'
     export default {
@@ -198,6 +198,7 @@
             this.getGoodsTaoShopsCounts()
             this.tableData=this.$store.state.user.goods
             this.tableData1=this.$store.state.user.tao.standardPackageResponse
+            console.log(this.tableData1)
         },
         methods: {
             ...mapActions([
@@ -284,6 +285,35 @@
                     });
                 });
             },
+            taoDel(id) {
+                this.$confirm('是否删除该商品?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    delGoodsTaoShopsCount(getToken('token'),{ids:id}).then(res=>{
+                        if(res.code=='OK'){
+                            this.$message({
+                                type: 'success',
+                                message: '删除成功!'
+                            })
+                            this.tableData1.map((item,index)=>{
+                                if(item.cartId==id){
+                                    this.tableData1.splice(index,1)
+                                }
+                            })
+                            this.getGoodsShopsCounts()
+                            this.getGoodsTaoShopsCounts()
+                        }
+                    })
+
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                });
+            },
             dels(id) {
                 this.$confirm('是否删除该商品?', '提示', {
                     confirmButtonText: '确定',
@@ -297,8 +327,8 @@
                                     type: 'success',
                                     message: '删除成功!'
                                 })
-                                this.tableData.map((item,index)=>{
-                                    if(item.id==id){
+                                this.tableData.map((items,index)=>{
+                                    if(items.id==item.id){
                                         this.tableData.splice(index,1)
                                     }
                                 })
@@ -314,6 +344,39 @@
                     });
                 });
             },
+            dek() {
+                this.$confirm('是否删除该商品?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+
+                    this.multipleSelection.map((item)=>{
+                        delGoodsTaoShopsCount(getToken('token'),{ids:item.cartId}).then(res=>{
+                            if(res.code=='OK'){
+                                this.$message({
+                                    type: 'success',
+                                    message: '删除成功!'
+                                })
+                                this.tableData1.map((items,index)=>{
+                                    console.log(items.cartId)
+                                    if(items.cartId==item.cartId){
+                                        this.tableData1.splice(index,1)
+                                    }
+                                })
+                            }
+                        })
+                    })
+
+
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                });
+            },
+
             //寄售/批发
             typed(index){
                 this.chose=index;

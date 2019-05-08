@@ -158,6 +158,23 @@ export const setGoodsTaoShopsCount = (token,data) =>{
     });
 }
 /**
+ * 删除套餐购物车
+ * @param token
+ * @param data
+ */
+export const delGoodsTaoShopsCount = (token,data) =>{
+    return axios({
+        method: 'post',
+        headers:{
+            'Authorization':'Bearer '+token
+        },
+        data:data,
+        url: '/api/u/cart/deletePackageCart'
+    });
+}
+
+
+/**
  * 购物车单列表数量
  * @param token
  */

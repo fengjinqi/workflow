@@ -47,6 +47,7 @@
         methods: {
             ...mapActions([
                 'getGoodsShopsCounts',
+                'getGoodsTaoShopsCounts'
 
             ]),
             //标准/自定义
@@ -78,6 +79,7 @@
                     console.log(res)
                     if(res.code=='OK'){
                         this.getGoodsShopsCounts()
+                        this.getGoodsTaoShopsCounts()
                         this.$notify({
                             title: '成功',
                             message: res.message,
