@@ -68,7 +68,7 @@
                    <ListDefined :list="data.goodsResponses" ref="child" v-model="selectedGoods"></ListDefined>
                    <div class="flex-r detail-main">
                        <div class="choseNum">已选 <span>{{selectedGoods.length}}</span> 件商品</div>
-                       <div><el-button type="primary"  class="addCart">加入购物车</el-button></div>
+                       <div><el-button type="primary"  class="addCart" @click="adds">加入购物车</el-button></div>
                    </div>
                </div>
                <!--<div class="detail-main">
@@ -190,6 +190,26 @@
         methods: {
             handleChange(value) {
                 console.log(value);
+            },
+            adds(){
+                let obj = {
+                    id:this.data.id,
+                    amount:1,
+
+                }
+                    let chi = JSON.stringify(this.selectedGoods)
+              obj.goodsJson=chi
+                addTaoGoodsShops(getToken('token'),obj).then(res=>{
+                    console.log(res)
+                    if(res.code=='OK'){
+                        this.$notify({
+                            title: '成功',
+                            message: res.message,
+                            type: 'success'
+                        });
+                        this.$router.push({name:'home'})
+                    }
+                })
             },
             add(){
                 let obj = {

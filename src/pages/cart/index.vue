@@ -198,6 +198,11 @@
             this.getGoodsTaoShopsCounts()
             this.tableData=this.$store.state.user.goods
             this.tableData1=this.$store.state.user.tao.standardPackageResponse
+
+                this.$store.state.user.tao.definedPackageResponse.map(item=>{
+                    this.tableData1.push(item)
+
+                })
             console.log(this.tableData1)
         },
         methods: {
@@ -258,6 +263,9 @@
                     this.price+=item.price*item.amount
                 })
             },
+            /*
+            *单删除
+            */
             del(id) {
                 this.$confirm('是否删除该商品?', '提示', {
                     confirmButtonText: '确定',
@@ -275,6 +283,8 @@
                                     this.tableData.splice(index,1)
                                 }
                             })
+                            this.getGoodsShopsCounts()
+                            this.getGoodsTaoShopsCounts()
                         }
                     })
 
@@ -285,6 +295,9 @@
                     });
                 });
             },
+           /**
+            * 套删除
+            * */
             taoDel(id) {
                 this.$confirm('是否删除该商品?', '提示', {
                     confirmButtonText: '确定',
@@ -314,6 +327,9 @@
                     });
                 });
             },
+            /**
+             * 单全删
+             * */
             dels(id) {
                 this.$confirm('是否删除该商品?', '提示', {
                     confirmButtonText: '确定',
@@ -332,6 +348,8 @@
                                         this.tableData.splice(index,1)
                                     }
                                 })
+                                this.getGoodsShopsCounts()
+                                this.getGoodsTaoShopsCounts()
                             }
                         })
                     })
@@ -344,6 +362,9 @@
                     });
                 });
             },
+            /**
+             * 套全删
+             * */
             dek() {
                 this.$confirm('是否删除该商品?', '提示', {
                     confirmButtonText: '确定',
@@ -364,6 +385,8 @@
                                         this.tableData1.splice(index,1)
                                     }
                                 })
+                                this.getGoodsShopsCounts()
+                                this.getGoodsTaoShopsCounts()
                             }
                         })
                     })
