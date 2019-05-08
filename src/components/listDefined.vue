@@ -2,7 +2,7 @@
     <div class="list">
         <div class="main">
             <div class="list-main flex-w">
-                <div class="list-item" v-for="(item,index) in list" :key="index">
+                <div class="list-item" v-for="(item,index) in list" :key="index" @click.stop="onTap(item)">
                     <div class="list-item-main" >
                         <div class="divM flex">
                             <!-- <el-checkbox-group v-model="dts" @change="handleCheckedCitiesChange"> -->
@@ -61,6 +61,36 @@
             }
         },
         methods: {
+            onTap(item){
+                console.log(item)
+                item.isChecked = !item.isChecked;
+                if(item.isChecked){
+                    if(this.dts.some((itemChild)=>itemChild.goodsId === item.id)){
+                            this.dts.map((itemChilds,indexChilds)=>{
+                                if(itemChilds.goodsId === item.id){
+                                    this.dts.splice(indexChilds,1,{
+                                        goodsId: item.id,
+                                        amount:item.count
+                                    })
+                                }
+                            })
+                        }else{
+                            this.dts.push({
+                                goodsId: item.id,
+                                amount: item.count
+                            })
+                        }
+                }else{
+                     if(this.dts.length>0&&this.dts.some((itemChild)=>itemChild.goodsId === item.id)){
+                        this.dts.map((itemChilds,indexChilds)=>{
+                            if(itemChilds.goodsId === item.id){
+                                this.dts.splice(indexChilds,1)
+                            }
+                        })
+                    }
+                }
+                this.$forceUpdate();
+            },
             onNumberChange(item,index){
                 this.list.splice(index,1,item);
                     if(item.count>1){

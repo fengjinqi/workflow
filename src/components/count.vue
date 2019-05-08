@@ -1,8 +1,8 @@
 <template>
     <div class="count flex" min='1' max='100'>
-        <button class="cut" @click="cuts(chil,currentIndex)">-</button>
+        <button class="cut" @click.stop="cuts(chil,currentIndex)">-</button>
         <input class="" v-model="number" type="number" readonly />
-        <button class="add" @click="add(chil,currentIndex)">+</button>
+        <button class="add" @click.stop="add(chil,currentIndex)">+</button>
     </div>
 </template>
 
