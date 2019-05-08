@@ -2,11 +2,11 @@
     <div class="list">
         <div class="main">
             <div class="list-main flex-w">
-                <div class="list-item" v-for="(item,index) in list" :key="index" @click.stop="onTap(item)">
+                <div class="list-item" v-for="(item,index) in list" :key="index" @click.prevent="onTap(item)">
                     <div class="list-item-main" >
                         <div class="divM flex">
                             <!-- <el-checkbox-group v-model="dts" @change="handleCheckedCitiesChange"> -->
-                            <el-checkbox v-model="item.isChecked"></el-checkbox>
+                            <el-checkbox v-model="item.isChecked" :checked="item.isChecked"></el-checkbox>
 
                             <!-- </el-checkbox-group> -->
                             <span  class="divMH">{{item.name}}</span>
@@ -62,8 +62,9 @@
         },
         methods: {
             onTap(item){
-                console.log(item)
+                console.log("点击item块")
                 item.isChecked = !item.isChecked;
+                console.log(item.isChecked)
                 if(item.isChecked){
                     if(this.dts.some((itemChild)=>itemChild.goodsId === item.id)){
                             this.dts.map((itemChilds,indexChilds)=>{
