@@ -148,7 +148,7 @@
                             </div>
                         </div>-->
 
-                    <div class="order-main-list-item" v-for="item in data.ordersPackageGoodsResponses" v-if="item.ordersGoodsResponses.length>0">
+                    <div class="order-main-list-item" v-for="item in data" v-if="data.length>0" :key="item.tradeId">
                             <div class="order-main-list-item-head flex">
                                 <div>{{new Date(item.createTime).toLocaleString()}}</div>
                                 <div>订单编号：{{item.tradeId}}</div>
@@ -157,7 +157,7 @@
                             <div class="order-main-list-item-cont1 flex">
 
                                 <div style="width:55%" >
-                                    <div class="flex"  v-for="child in item.ordersGoodsResponses">
+                                    <div class="flex"  v-for="(child,indexChild) in item.children">
                                         <div style="width:289.75px;text-align:left;">
                                             <div class="order-main-list-item-cont-1">
                                                 <div>{{child.goodsName}}</div>
@@ -227,25 +227,26 @@
             })
             getIndex(getToken('token')).then(res=>{
                 if (res.code=='OK'){
-                    this.data = res.data
+                    // this.data = res.data
                     this.src= JSON.parse(res.data.imageResponses[0].imageUrl)
                     //ordersPackageGoodsResponses这个和packageGoodsResponses这个是相同的数据？？？不同
                     let data = []
                    // let obj=
-                   console.log(res.data.ordersPackageGoodsResponses)
                        res.data.ordersPackageGoodsResponses.map(item=>{
 
-                           data.push([...item.ordersGoodsResponses,...item.packageGoodsResponses])
+                           data.push({
+                               ...item,
+                               children: [...item.ordersGoodsResponses,...item.packageGoodsResponses]
+                           })
                        // data.push(item.ordersGoodsResponses.concat(item.packageGoodsResponses))
                        /* return item.ordersGoodsResponses.push(item.packageGoodsResponses.map(it=>{
 
                         }))*/
                     })
-                    console.log(data)
 
-                //  console.log( data.filter((item)=>(item.length>0)))
+                this.data = data.filter((item)=>(item.children.length>0))
 
-
+                console.log(this.data)
                 }
             })
             this.getGoodsShopsCounts()
