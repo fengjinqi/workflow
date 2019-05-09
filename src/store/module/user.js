@@ -157,7 +157,7 @@ export default {
         getAccem({state,commit}){
             return new Promise((resolve, reject) => {
                 getpayAmount(getToken('token')).then(res=>{
-                    console.log(res)
+
                     if(res.code=='OK') {
                         commit('setAfterSaleAmount', res.data)
                     }
@@ -170,7 +170,7 @@ export default {
              */
             return new Promise((resolve, reject) =>{
                 getGoodsShopsCount(getToken('token')).then(res=>{
-                    console.log(res)
+
                     if(res.code=='OK') {
                         commit('setGoods', res.data)
                     }
@@ -183,7 +183,7 @@ export default {
              */
             return new Promise((resolve, reject) =>{
                 getGoodsTaoShopsCount(getToken('token')).then(res=>{
-                    console.log(res)
+
                     if(res.code=='OK') {
                         commit('setTao', res.data)
                     }

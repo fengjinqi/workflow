@@ -42,7 +42,7 @@
                   type="primary"
                   class="ok"
                   style="background: #26B7BC;border-color: #26B7BC;"
-                >订单退款</el-button>
+                @click="tui(data.tradeId)">订单退款</el-button>
               </div>
             </template>
             <template v-else-if="data.orderStatus=='待收货'">
@@ -111,7 +111,7 @@
         <Yiliao></Yiliao>
       </template>
       <Maijia :addrs="data"></Maijia>
-      <OrderList :list="data"></OrderList>
+      <OrderList :list="data.ordersGoodsResponses" :lists="data"></OrderList>
     </div>
   </div>
 </template>
@@ -126,7 +126,7 @@ import Wuliu from "@/components/wuliu"; //物流轨迹
 import Yiliao from "@/components/yiliao"; //医疗信息
 import Maijia from "@/components/maijia"; //买家信息
 import OrderList from "@/components/orderList"; //货物清单
-import { getOrderDetail, removeOrderDetail } from "@/api/order";
+import { getOrderDetail, removeOrderDetail ,tuiOrderDetail} from "@/api/order";
 
 import { getToken } from "@/libs/util";
 export default {
@@ -149,11 +149,11 @@ export default {
       console.log(res);
       if (res.code == "OK") {
         this.data = res.data;
-        this.data.goodsResponses.map(() => {
+        /*this.data.goodsResponses.map(() => {
           item.count = 1;
           item.isChecked = false;
           return item;
-        });
+        });*/
       }
     });
   },
@@ -171,6 +171,21 @@ export default {
             this.$router.push({ name: "order" });
           }
         }
+      );
+    },
+    tui(nodeOrToken) {
+      tuiOrderDetail(getToken("token"), { tradeId: nodeOrToken }).then(
+              res => {
+                console.log(res);
+                if (res.code == "OK") {
+                  this.$notify({
+                    title: "成功",
+                    message: "订单取消成功",
+                    type: "success"
+                  });
+                  this.$router.push({ name: "order" });
+                }
+              }
       );
     },
     sub(tradeId) {

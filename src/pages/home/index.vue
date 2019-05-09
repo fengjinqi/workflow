@@ -151,7 +151,7 @@
                     <div class="order-main-list-item" v-for="item in data.ordersPackageGoodsResponses" v-if="item.ordersGoodsResponses.length>0">
                             <div class="order-main-list-item-head flex">
                                 <div>{{new Date(item.createTime).toLocaleString()}}</div>
-                                <div>订单编号：001A181030DC000</div>
+                                <div>订单编号：{{item.tradeId}}</div>
                                 <div>类型：{{item.orderType}}</div>
                             </div>
                             <div class="order-main-list-item-cont1 flex">
@@ -229,7 +229,19 @@
                 if (res.code=='OK'){
                     this.data = res.data
                     this.src= JSON.parse(res.data.imageResponses[0].imageUrl)
-                    console.log(this.src)
+                    //ordersPackageGoodsResponses这个和packageGoodsResponses这个是相同的数据？？？不同
+                    let data = []
+                   // let obj=
+                       res.data.ordersPackageGoodsResponses.map(item=>{
+
+                           data.push(...[...item.ordersGoodsResponses,...item.packageGoodsResponses])
+                       // data.push(item.ordersGoodsResponses.concat(item.packageGoodsResponses))
+                       /* return item.ordersGoodsResponses.push(item.packageGoodsResponses.map(it=>{
+
+                        }))*/
+                    })
+                    console.log(data)
+
                 }
             })
             this.getGoodsShopsCounts()

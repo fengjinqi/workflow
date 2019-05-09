@@ -77,7 +77,7 @@
                             <div class="flex le">
                                 <div>已选 <span style="color:#26B7BC">{{num}}</span> 件商品 </div>
                                 <div>总价：<span style="color:#26B7BC">¥{{price}}</span> </div>
-                                <div> <el-button type="primary" @click="toSubmit">提交</el-button></div>
+                                <div> <el-button type="primary" @click="toSubmits">提交</el-button></div>
                             </div>
                         </div>
                     </div>
@@ -166,7 +166,7 @@
 
 <script>
     import Count from '@/components/count'//数量
-    import {setGoodsShopsCount,delGoodsShopsCount,setGoodsTaoShopsCount,delGoodsTaoShopsCount} from '@/api/goods'
+    import {setGoodsShopsCount,delGoodsShopsCount,setGoodsTaoShopsCount,delGoodsTaoShopsCount,subGoodsTaoShopsCount} from '@/api/goods'
     import {mapActions} from 'vuex'
     import {getToken} from '@/libs/util'
     export default {
@@ -209,6 +209,7 @@
             ...mapActions([
                 'getGoodsShopsCounts',
                 'setSubGoodsShopsList',
+                'setSubTaoGoodsShopsList',
                 'getGoodsTaoShopsCounts'
             ]),
             handleSelectionChange(val) {
@@ -451,6 +452,28 @@
                 this.setSubGoodsShopsList({cartIds:this.data.join(',')}).then(res=>{
                     this.$router.push({
                         name: 'orderSubmit',
+                        params:{
+                            id:Math.random().toString(36).substr(2)
+                        }
+                    })
+                })
+            },
+            toSubmits(){
+                this.data=[]
+                this.multipleSelection.map(item=>{
+                    this.data.push(item.cartId)
+
+                })
+                if(this.data.length<=0){
+                    this.$message({
+                        type: 'error',
+                        message: '请选择商品'
+                    });
+                    return false
+                }
+                this.setSubTaoGoodsShopsList({cartIds:this.data.join(',')}).then(res=>{
+                    this.$router.push({
+                        name: 'orderSubmits',
                         params:{
                             id:Math.random().toString(36).substr(2)
                         }

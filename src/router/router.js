@@ -79,6 +79,14 @@ export default [
             },
             component: OrderSubmit
        },
+    {
+        path: '/orderSubmits/:id',
+        name: 'orderSubmits',
+        meta:{
+            keepAlive:true
+        },
+        component: () => import('@/pages/cart/orderSubmits.vue'),
+    },
       {
           path: '/order',
           name: 'order',
@@ -102,6 +110,14 @@ export default [
             keepAlive:true
         },
         component: OrderDetail
+    },
+    {
+        path: '/orderdetails/:id',
+        name: 'orderdetails',
+        meta:{
+            keepAlive:true
+        },
+        component: () => import('@/pages/order/detailjishou'),
     },
       {
           path: '/account',

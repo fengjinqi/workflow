@@ -33,7 +33,26 @@ export const getOrderDetail = (token,id) =>{
         url: `/api/u/orders/getTrade?id=${id}`
     });
 }
-
+/**
+ * 退
+ * @param token
+ * @param data
+ */
+export const tuiOrderDetail = (token,data) =>{
+    return axios({
+        method: 'post',
+        headers:{
+            'Authorization':'Bearer '+token
+        },
+        data,
+        url: `/api/u/orders/orders/refund`
+    });
+}
+/**
+ * 删除
+ * @param token
+ * @param data
+ */
 export const removeOrderDetail = (token,data) =>{
     return axios({
         method: 'post',
@@ -42,5 +61,35 @@ export const removeOrderDetail = (token,data) =>{
         },
         data:data,
         url: `/api/u/orders/orders/cancel`
+    });
+}
+/**
+ * 确认订单
+ * @param token
+ * @param data
+ */
+export const queRen = (token,data) =>{
+    return axios({
+        method: 'post',
+        headers:{
+            'Authorization':'Bearer '+token
+        },
+        data:data,
+        url: `/api/u/orders/immediate/settlement`
+    });
+}
+/**
+ * 确认密码
+ * @param token
+ * @param data
+ */
+export const pass = (token,data) =>{
+    return axios({
+        method: 'post',
+        headers:{
+            'Authorization':'Bearer '+token
+        },
+        data:data,
+        url: `/api/u/orders/verification/pay/password`
     });
 }

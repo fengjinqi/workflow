@@ -16,13 +16,14 @@
             <div class="main-b">
                 <div class="main-bgd">
                     <!--收货人信息-->
-                    <el-collapse v-model="activeNames3">
+                    <el-collapse v-model="activeNames3" v-if="addrs.isExtract==false">
                         <el-collapse-item title="收货人信息" name="1">
                             <div>{{addrs.receiverName}}</div>
                             <div>{{addrs.receiverAddress}}</div>
                             <div>{{addrs.receiverPhone}}</div>
                         </el-collapse-item>
                     </el-collapse>
+                    <template v-else>自提</template>
                 </div>
             </div>
         </div>

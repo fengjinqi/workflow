@@ -68,10 +68,10 @@
                                 <span class="label">商品总额</span>
                                 <span class="val price">¥{{shops.data.goodsTotalPrice}}</span>
                             </div>
-                            <div>
+                       <!--     <div>
                                 <span class="label">邮费</span>
                                 <span class="val">¥31.00</span>
-                            </div>
+                            </div>-->
                             <div>
                                 <span class="label">实付金额</span>
                                 <span class="val price price1">¥{{shops.data.goodsTotalPrice}}</span></div>

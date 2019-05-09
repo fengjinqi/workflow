@@ -7,11 +7,11 @@
       <div class="flex-r" style="margin-bottom: 20px;">
         <div>
           共
-          <span style="color: #3198CD">{{list.length}}</span> 件商品
+          <span style="color: #3198CD">{{list.ordersGoodsResponses.length}}</span> 件商品
         </div>
         <div style="margin-left:20px;">
           总价：
-          <span style="color: #FF8512">¥{{lists.totalAmount}}</span>
+          <span style="color: #FF8512">¥{{list.totalAmount}}</span>
         </div>
       </div>
       <div class="order-main-th flex-j">
@@ -24,18 +24,16 @@
       <div class="order-main-list">
         <div class="order-main-list-item">
           <div class="order-main-list-item-head flex">
-
-            <div>{{new Date(lists.createTime).toLocaleString()}}</div>
-            <div>订单编号：{{list[0].id}}</div>
-            <div>类型：{{lists.orderType}}</div>
+            <div>{{new Date(list.createTime).toLocaleString()}}</div>
+            <div>订单编号：{{list.ordersGoodsResponses[0].id}}</div>
+            <div>类型：{{list.orderType}}</div>
           </div>
           <div>
-            <div class="order-main-list-item-cont1 flex" v-for="item in list">
-
+            <div class="order-main-list-item-cont1 flex" v-for="item in list.ordersGoodsResponses">
               <div style="width:30%; text-align:left;">
                 <div class="order-main-list-item-cont-1">
                   <div>{{item.goodsName}}</div>
-                  <div class="type">{{lists.orderType}}</div>
+                  <div class="type">{{list.orderType=='批发'?'单品':'套餐'}}</div>
                   <div style="color:#999">{{item.goodsCategoryName}}</div>
                 </div>
               </div>
@@ -47,7 +45,7 @@
               </div>
 
               <div style="width:15%">
-                <div class="order-main-list-item-cont-1">{{item.goodsPackageSum}}</div>
+                <div class="order-main-list-item-cont-1">{{item.goodsSum}}</div>
               </div>
               <div style="width:25%">
                 <div class="order-main-list-item-cont-1">
@@ -71,30 +69,16 @@ export default {
   props: {
     list: {
       type: [Array, Object]
-    },
-    lists: {
-      type: [Array, Object]
     }
   },
   methods: {
     go(index) {
-      console.log(this.lists.orderType)
-      if(this.lists.orderType=='标准套餐'||this.lists.orderType=='自定义套餐'){
-        this.$router.push({
-          name: "searchs_detail",
-          params: {
-            id: index
-          }
-        });
-      }else{
-        this.$router.push({
-          name: "detail",
-          params: {
-            id: index
-          }
-        });
-      }
-
+      this.$router.push({
+        name: "detail",
+        params: {
+          id: index
+        }
+      });
     }
   }
 };

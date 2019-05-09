@@ -15,28 +15,13 @@
                     <div class="orderSubmit-main-item">
                         <div class="title">收货人信息</div>
                         <div class="list flex-w">
-                            <div class="list-item">
-                                <div class="name">上海 杨浦区（邹宇怀收</div>
-                                <div class="border">凉城路1201弄 凤凰大楼 18号楼 1 copy</div>
-                                <div>186 3444 1386</div>
-                            </div>
-                            <div class="list-item">
-                                <div class="name">上海 杨浦区（邹宇怀收</div>
-                                <div class="border">凉城路1201弄 凤凰大楼 18号楼 1 copy</div>
-                                <div>186 3444 1386</div>
-                            </div>
-                            <div class="list-item">
-                                <div class="name">上海 杨浦区（邹宇怀收</div>
-                                <div class="border">凉城路1201弄 凤凰大楼 18号楼 1 copy</div>
-                                <div>186 3444 1386</div>
-                            </div>
-                            <div class="list-item">
-                                <div class="name">上海 杨浦区（邹宇怀收</div>
-                                <div class="border">凉城路1201弄 凤凰大楼 18号楼 1 copy</div>
-                                <div>186 3444 1386</div>
+
+                            <div class="list-item" :class="[addressId==item.id?'active':'',{'active':item.id==classId}]"  v-for="(item,index) in addressList" @click="setAddress(item.id)">
+                                <div class="name">{{item.province}} {{item.district}}（{{item.name}}</div>
+                                <div class="border">{{item.address}}</div>
+                                <div>{{item.phone}}</div>
                             </div>
                         </div>
-                        <div class="alladdr">显示全部地址</div>
                     </div>
                 </div>
                 <div class="orderSubmit-main">
@@ -50,24 +35,18 @@
                                     </el-form-item>
                                     <el-form-item label="医院名称" prop="hosName">
                                         <el-select v-model="ruleForm.hosName" placeholder="请选择医院">
-                                            <el-option label="医院一" value="1"></el-option>
-                                            <el-option label="医院二" value="2"></el-option>
+                                            <el-option :label="item.name" :value="item.id" v-for="item in yiyuan"></el-option>
+
                                         </el-select>
                                     </el-form-item>
                                     <el-form-item label="科室名称" prop="keName">
-                                        <el-select v-model="ruleForm.keName" placeholder="请选择科室名称">
-                                            <el-option label="科室一" value="1"></el-option>
-                                            <el-option label="科室二" value="2"></el-option>
-                                        </el-select>
+                                        <el-input v-model="ruleForm.keName" placeholder="请输入科室名称"></el-input>
                                     </el-form-item>
                                     <el-form-item label="患者姓名" prop="name">
                                         <el-input v-model="ruleForm.name" placeholder="请输入患者姓名"></el-input>
                                     </el-form-item>
                                     <el-form-item label="医师姓名" prop="yiName">
-                                        <el-select v-model="ruleForm.yiName" placeholder="请选择医师姓名">
-                                            <el-option label="医生一" value="1"></el-option>
-                                            <el-option label="医生二" value="2"></el-option>
-                                        </el-select>
+                                        <el-input type="text" v-model="ruleForm.yiName" autocomplete="off" placeholder="请输入医师姓名"></el-input>
                                     </el-form-item>
                                     <el-form-item label="患者年龄" prop="age">
                                         <el-input type="text" v-model.number="ruleForm.age" autocomplete="off" placeholder="请输入患者年龄"></el-input>
@@ -76,26 +55,23 @@
                                         <el-input type="text" v-model.number="ruleForm.phone" autocomplete="off" placeholder="请输入联系电话"></el-input>
                                     </el-form-item>
                                     <el-form-item label="跟台人员" prop="genName">
-                                        <el-select v-model="ruleForm.genName" placeholder="请选择跟台人员">
-                                            <el-option label="跟台人员一" value="1"></el-option>
-                                            <el-option label="跟台人员二" value="2"></el-option>
-                                        </el-select>
+                                        <el-input type="text" disabled="" v-model="ruleForm.genName" autocomplete="off" placeholder="请输入跟台人员电话"></el-input>
                                     </el-form-item>
                                     <el-form-item label="跟台人员电话" prop="genPhone">
-                                        <el-input type="text" v-model.number="ruleForm.genPhone" autocomplete="off" placeholder="请输入跟台人员电话"></el-input>
+                                        <el-input type="text" disabled="" v-model.number="ruleForm.genPhone" autocomplete="off" placeholder="请输入跟台人员电话"></el-input>
                                     </el-form-item>
                                 <!--</el-form>-->
                             </div>
                             <div class="info-item">
                                 <!--<el-form :model="ruleForm" status-icon :rules="rules2" ref="ruleForm" label-width="120px" class="demo-ruleForm">-->
                                     <el-form-item label="器械名称" prop="jxName">
-                                        <el-input type="text" v-model="ruleForm.jxName" autocomplete="off" placeholder="请输入手术单号"></el-input>
+                                        <el-input type="text" v-model="ruleForm.jxName" autocomplete="off" placeholder="请输入器械名称"></el-input>
                                     </el-form-item>
                                     <el-form-item label="器械规格" prop="container">
-                                        <el-input type="text" v-model="ruleForm.container" autocomplete="off" placeholder="请输入手术单号"></el-input>
+                                        <el-input type="text" v-model="ruleForm.container" autocomplete="off" placeholder="请输入器械规格"></el-input>
                                     </el-form-item>
                                     <el-form-item label="器械批号" prop="jxNum">
-                                        <el-input type="text" v-model="ruleForm.jxNum" autocomplete="off" placeholder="请输入手术单号"></el-input>
+                                        <el-input type="text" v-model="ruleForm.jxNum" autocomplete="off" placeholder="请输入器械批号"></el-input>
                                     </el-form-item>
                                     <el-form-item label="有效期" prop="inTime">
                                         <!--<el-input type="text" v-model="ruleForm.inTime" autocomplete="off" placeholder="请输入手术单号"></el-input>-->
@@ -106,13 +82,13 @@
                                         </el-date-picker>
                                     </el-form-item>
                                     <el-form-item label="注册证号" prop="registerNum">
-                                        <el-input type="text" v-model="ruleForm.registerNum" autocomplete="off" placeholder="请输入手术单号"></el-input>
+                                        <el-input type="text" v-model="ruleForm.registerNum" autocomplete="off" placeholder="请输入注册证号"></el-input>
                                     </el-form-item>
                                     <el-form-item label="生产企业" prop="companey">
-                                        <el-input type="text" v-model="ruleForm.companey" autocomplete="off" placeholder="请输入手术单号"></el-input>
+                                        <el-input type="text" v-model="ruleForm.companey" autocomplete="off" placeholder="请输入生产企业"></el-input>
                                     </el-form-item>
                                     <el-form-item label="数量" prop="number">
-                                        <el-input type="text" v-model="ruleForm.number" autocomplete="off" placeholder="请输入手术单号"></el-input>
+                                        <el-input type="text" v-model="ruleForm.number" autocomplete="off" placeholder="请输入数量"></el-input>
                                     </el-form-item>
                                     <el-form-item label="使用日期" prop="time">
                                         <!--<el-input type="text" v-model="ruleForm.time" autocomplete="off" placeholder="请输入手术单号"></el-input>-->
@@ -139,53 +115,54 @@
                             <div class="list-th-item">订单</div>
                         </div>
                         <div style="margin-bottom: 20px;">
-                            <div class="listInfo-tr flex-j">
+                            <div class="listInfo-tr flex-j" v-for="item in shops">
                                 <div class="list-tr-item" style="width:25%; text-align:left;">
                                     <div class="order-main-list-item-cont-1">
-                                        <div>股骨LC-DCP接骨板Ⅱ（锥螺纹）股骨L</div>
-                                        <div class="type">标准套餐</div>
-                                        <div style="color:#999">骨折/F3/施乐辉</div>
-                                        <div style="color:#999">II—24</div>
+                                        <div>{{item.name}}</div>
+                                        <div class="type">  {{item.packageType=='1'?'标准套餐':'自定义套餐'}}</div>
+                                        <div style="color:#999">{{item.categoryName}}</div>
+                                        <div style="color:#999">{{item.matModel}}</div>
                                     </div>
                                 </div>
                                 <div class="list-tr-item" style="width:15%">
                                     <div class="order-main-list-item-cont-1">
-                                        寄售
+                                        {{item.goodsType=='1'?'单品':'套餐'}}
                                     </div>
                                 </div>
                                 <div class="list-tr-item" style="width:15%">
                                     <div class="order-main-list-item-cont-1">
-                                        ¥3132.00
+                                        ¥{{item.price}}
                                     </div>
                                 </div>
                                 <div class="list-tr-item" style="width:15%">
                                     <div class="order-main-list-item-cont-1">
-                                        X2
+                                        {{item.amount}}
                                     </div>
                                 </div>
                                 <div class="list-tr-item" style="width:15%">
-                                    <div class="order-main-list-item-cont-1">
+                                    <div class="order-main-list-item-cont-1" @click="sub(item.id)">
                                         商品详情
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                         <div class="subinfo">
                             <div>
                                 <span class="label">商品总额</span>
-                                <span class="val price">¥3132.00</span>
+                                <span class="val price">¥{{prices}}</span>
                             </div>
-                            <div>
+                        <!--    <div>
                                 <span class="label">邮费</span>
                                 <span class="val">¥31.00</span>
-                            </div>
+                            </div>-->
                             <div>
                                 <span class="label">实付金额</span>
-                                <span class="val price price1">¥3132.00</span></div>
+                                <span class="val price price1">¥{{prices}}</span></div>
                             <div class="border">
-                                <span>寄送至：上海市 杨浦区 城区 上海市杨浦</span>
-                                <span style="margin:0 20px">收货人：邹宇怀</span>
-                                <span>186 3434 3783</span>
+                                <span>寄送至：{{address.province}}{{address.city}}{{address.district}}{{address.address}}</span>
+                                <span style="margin:0 20px">收货人：{{address.name}}</span>
+                                <span>{{address.phone}}</span>
                             </div>
                         </div>
                         <div class="flex-j" style="text-align: right;">
@@ -207,8 +184,12 @@
 
 <script>
     // import Count from '@/components/count'//数量
+    import {getUserAdders,addTaoGoodsShopst} from '@/api/goods'
+    import {getHospitalList} from '@/api/user'
+    import {mapActions} from 'vuex'
+    import {getToken} from '@/libs/util'
     export default {
-        name: "orderSubmit",
+        name: "orderSubmits",
         components:{
             //Count,
         },
@@ -251,8 +232,8 @@
                     yiName:'',//医生姓名
                     age:'',//患者年龄
                     phone:'',//联系电话
-                    genName:'',//跟台人员
-                    genPhone:'',//跟台人员电话
+                    genName:this.$store.state.user.users.userName,//跟台人员
+                    genPhone:this.$store.state.user.users.phone,//跟台人员电话
                     jxName:'',//机械名称
                     container:'',//容器规格
                     jxNum:'',//器械批号
@@ -268,7 +249,7 @@
                         { validator: validate1, required: true, message: '请输入手术单号', trigger: 'blur'}
                     ],
                     hosName: [
-                        { required: true, message: '请选择医院',trigger: 'blur' }
+                        { required: true, message: '请选择医院',trigger: 'change' }
                     ],
                     keName: [
                         { required: true, message: '请选择科室名称',trigger: 'blur' }
@@ -315,14 +296,99 @@
                     time: [
                         {  required: true, message: '请输入使用日期', trigger: 'blur'}
                     ]
-                }
+                },
+                addressList:null,
+                address:'',
+                classId:'',
+                addressId:'',
+                shops:[],
+                prices:'',
+                yiyuan:''
             }
         },
+        created(){
+            /*
+            地址
+             */
+            getUserAdders(getToken('token')).then(res=>{
+                if(res.code=='OK'){
+                    console.log(res)
+                    this.addressList=res.data
+                    this.address = this.addressList[0]
+                    this.addressId=this.addressList[0].id
+                }
+            })
+            getHospitalList(getToken('token')).then(res=>{
+                this.yiyuan=res.data.list
+            })
+            this.shops = this.$store.state.shop.s.data.cartPackageResponses
+            this.prices = this.$store.state.shop.s.data.goodsTotalPrice
+            this.$store.state.shop.s.data.cartResponseList.map(item=>{
+                this.shops.push(item)
+            })
+        },
         methods: {
+            sub(n){
+                this.$router.push({
+                    name:'searchs_detail',
+                    params:{
+                        id:n
+                    }
+
+                })
+            },
+            setAddress(id){
+                this.addressId=id
+                this.addressList.map((item,index)=>{
+                    if(item.id==id){
+                        this.address=this.addressList[index]
+                        this.addressList[index]
+                        this.classId = id
+                    }
+                })
+            },
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        alert('submit!');
+                        this.shopId=[]
+                        this.shops.map((el,id)=>{
+                            this.shopId.push(el.cartId)
+                        })
+                        let obj={}
+                        obj.tradeMemo = this.ruleForm.desc
+                        obj.isExtract = this.typeVal
+                        obj.addressId = this.addressId
+                        obj.cartIds = this.shopId.join(',')
+                        obj['medicalForm.operationSn'] = this.ruleForm.orderId
+                        obj['medicalForm.hospitalId'] = this.ruleForm.hosName
+                        obj['medicalForm.treatmentRoomName'] = this.ruleForm.keName
+                        obj['medicalForm.physicianName'] = this.ruleForm.yiName
+                        obj['medicalForm.sickPersonName'] = this.ruleForm.name
+                        obj['medicalForm.sickPersonAge'] = this.ruleForm.age
+                        obj['medicalForm.sickPersonPhone'] = this.ruleForm.phone
+                        obj['medicalForm.userName'] = this.ruleForm.genName
+                        obj['medicalForm.userPhone'] = this.ruleForm.genPhone
+                        obj['medicalForm.instrumentName'] = this.ruleForm.jxName
+                        obj['medicalForm.instrumentSku'] = this.ruleForm.container
+                        obj['medicalForm.instrumentNo'] = this.ruleForm.jxNum
+                        obj['medicalForm.overdueTime'] = this.ruleForm.inTime
+                        obj['medicalForm.certificateNo'] = this.ruleForm.registerNum
+                        obj['medicalForm.number'] = this.ruleForm.number
+                        obj['medicalForm.manufacturers'] = this.ruleForm.companey
+                        obj['medicalForm.useTime'] = this.ruleForm.time
+                        console.log(obj)
+                        addTaoGoodsShopst(getToken('token'),obj).then(res=>{
+                            console.log(res)
+                            if(res.code=='OK'){
+                                this.$notify({
+                                    title: '成功',
+                                    message: '提交成功',
+                                    type: 'success'
+                                });
+                                this.$router.push({name:'home'})
+                            }
+                        })
+
                     } else {
                         console.log('error submit!!');
                         return false;
@@ -367,6 +433,9 @@
                     .name{
                         font-size: 18px;
                     }
+                }
+                .list-item.active{
+                    border: 4px solid rgba(38, 183, 188, 1)
                 }
             }
             .alladdr{

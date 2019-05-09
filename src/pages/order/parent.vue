@@ -58,7 +58,7 @@
                     </div>
                     <div class="pay-item">请输入6位数字支付密码</div>
                     <div class="pay-item">
-                        <el-button type="primary">立即结算</el-button>
+                        <el-button type="primary"@click="sub(id)">立即结算</el-button>
                     </div>
                 </div>
             </div>
@@ -67,7 +67,9 @@
 </template>
 
 <script>
+    import { queRen, pass} from "@/api/order";
 
+    import { getToken } from "@/libs/util";
     export default {
 
         data() {
@@ -83,6 +85,7 @@
                 price:0,
                 radis:'0',
                 radio:'3',
+                id:''
 
             }
         },
@@ -101,6 +104,7 @@
         created(){
 
             this.price=this.$route.query.price
+            this.id=this.$route.query.id
 
         },
 
@@ -117,7 +121,35 @@
                 this.isIndeterminate = checkedCount > 0
             },
             chose(value){
-                //alert(value);
+                alert(value);
+            },
+            sub(n){
+                let obj={
+                    payType:this.radio!='1'?1:2,
+                    tradeId:n
+                }
+
+                queRen(getToken('token'),obj).then(res=>{
+                    console.log(res)
+                    if(res.code=='OK'){
+                        pass(getToken('token'),{password:this.password}).then(res=>{
+                            console.log(res)
+                            if(res.code=='OK'){
+                                this.$message({
+                                    message: res.message,
+                                    type: 'success'
+                                });
+                                this.$router.push({name:'home'})
+                            }else{
+                                this.$message({
+                                    type: 'error',
+                                    message: res.message
+                                });
+
+                            }
+                        })
+                    }
+                })
             }
         }
     }

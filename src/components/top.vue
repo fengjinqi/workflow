@@ -52,7 +52,7 @@
         computed:{
             //全局购物车数量
             cartNum:function(){
-
+                console.log()
                 return this.$store.state.user.goods.length+this.$store.state.user.tao.definedPackageResponse.length+this.$store.state.user.tao.standardPackageResponse.length
             }
         },

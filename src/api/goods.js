@@ -172,6 +172,36 @@ export const delGoodsTaoShopsCount = (token,data) =>{
         url: '/api/u/cart/deletePackageCart'
     });
 }
+/**
+ * 套结算
+ * @param token
+ * @param data
+ */
+export const subGoodsTaoShopsCount = (token,data) =>{
+    return axios({
+        method: 'post',
+        headers:{
+            'Authorization':'Bearer '+token
+        },
+        data:data,
+        url: '/api/u/cart/package/single/arithmetic'
+    });
+}
+/**
+ * 套提交
+ * @param token
+ * @param data
+ */
+export const addTaoGoodsShopst = (token,data) =>{
+    return axios({
+        method: 'post',
+        headers:{
+            'Authorization':'Bearer '+token
+        },
+        data:data,
+        url: '/api/u/orders/combo/affirm'
+    });
+}
 
 
 /**
@@ -219,6 +249,11 @@ export const delGoodsShopsCount = (token,data,id) =>{
         url: '/api/u/cart/deleteCart/'+id
     });
 }
+/**
+ * 单品结算
+ * @param token
+ * @param data
+ */
 export const subGoodsShops = (token,data) =>{
     return axios({
         method: 'post',
