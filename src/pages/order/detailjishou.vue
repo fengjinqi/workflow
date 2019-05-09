@@ -70,6 +70,15 @@
                                 >申请售后</el-button>
                             </div>
                         </template>
+                        <template v-else-if="data.orderStatus=='待审核'">
+                            <div>
+                                <el-button
+                                        type="primary"
+                                        class="ok"
+                                        style="background: #26B7BC;border-color: #26B7BC;"
+                                >待审核</el-button>
+                            </div>
+                        </template>
                         <template v-else-if="data.orderStatus=='已取消'">
                             <div>
                                 <el-button
