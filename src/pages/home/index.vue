@@ -232,15 +232,19 @@
                     //ordersPackageGoodsResponses这个和packageGoodsResponses这个是相同的数据？？？不同
                     let data = []
                    // let obj=
+                   console.log(res.data.ordersPackageGoodsResponses)
                        res.data.ordersPackageGoodsResponses.map(item=>{
 
-                           data.push(...[...item.ordersGoodsResponses,...item.packageGoodsResponses])
+                           data.push([...item.ordersGoodsResponses,...item.packageGoodsResponses])
                        // data.push(item.ordersGoodsResponses.concat(item.packageGoodsResponses))
                        /* return item.ordersGoodsResponses.push(item.packageGoodsResponses.map(it=>{
 
                         }))*/
                     })
                     console.log(data)
+
+                //  console.log( data.filter((item)=>(item.length>0)))
+
 
                 }
             })
