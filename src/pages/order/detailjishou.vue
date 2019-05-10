@@ -58,6 +58,7 @@
                                         type="primary"
                                         class="ok"
                                         style="background: #26B7BC;border-color: #26B7BC;"
+                                        @click="receivings(data.tradeId)"
                                 >确认签收</el-button>
                             </div>
                         </template>
@@ -76,7 +77,8 @@
                                         type="primary"
                                         class="ok"
                                         style="background: #26B7BC;border-color: #26B7BC;"
-                                >待审核</el-button>
+                                        @click="remove(data.tradeId)"
+                                >取消订单</el-button>
                             </div>
                         </template>
                         <template v-else-if="data.orderStatus=='已取消'">
@@ -90,25 +92,80 @@
                         </template>
                         <template v-else-if="data.orderStatus=='使用中'">
                             <div>
-                                <el-button disabled>使用中</el-button>
+                                <el-button
+                                        type="primary"
+                                        class="cancel"
+                                        style="color: #26B7BC;border-color: #26B7BC;"
+@click="replenishments(data.tradeId,data.packageGoodsResponses[0].id)"
+                                >连台补货</el-button>
+                            </div>
+                            <div>
+                                <el-button
+                                        type="primary"
+                                        style="background: #26B7BC;border-color: #26B7BC;"
+                                        class="ok"
+                @click="finishs(data.tradeId)"
+                                >手术完成</el-button>
+                            </div>
+                        </template>
+                        <template v-else-if="data.orderStatus=='已使用'">
+
+                            <div>
+                                <el-button
+                                        type="primary"
+                                        style="background: #26B7BC;border-color: #26B7BC;"
+                                        class="ok"
+
+                                >物品寄回</el-button>
+                            </div>
+                        </template>
+                        <template v-else-if="data.orderStatus=='已寄回'">
+
+                            <div>
+                                <el-button
+                                        type="primary"
+                                        style="background: #26B7BC;border-color: #26B7BC;"
+                                        class="ok"
+
+                                >查看物流</el-button>
                             </div>
                         </template>
                     </div>
                     <div class="right">
+
                         <div class="item">
+                            使用前
                             <div class="cont">
                                 <el-steps
-                                        :active="data.orderStatus=='待确认'?1:data.orderStatus=='审核中'?2:data.orderStatus=='待发货'?3:data.orderStatus=='待收货'?4:data.orderStatus=='已完成'?5:data.orderStatus=='使用中'?5:''"
+                                        :active="data.orderStatus=='待确认'?1:data.orderStatus=='待审核'?2:data.orderStatus=='待发货'?3:data.orderStatus=='待收货'?4:data.orderStatus=='已完成'?5:data.orderStatus=='使用中'?5:''"
                                 >
                                     <el-step title="待确认">
                                         <slot>
                                             <img :src="dai" alt>
                                         </slot>
                                     </el-step>
-                                    <el-step title="审核中"></el-step>
+                                    <el-step title="待审核"></el-step>
                                     <el-step title="待发货"></el-step>
                                     <el-step title="待收货"></el-step>
+                                    <el-step title="使用中"></el-step>
+                                </el-steps>
+                            </div>
+                        </div>
+                        <div class="item">
+                            使用后
+                            <div class="cont">
+                                <el-steps
+                                        :active="data.orderStatus=='已使用'?1:data.orderStatus=='已寄回'?2:data.orderStatus=='已入库'?3:data.orderStatus=='已完成'?4:''"
+                                >
+                                    <el-step title="已使用">
+                                        <slot>
+                                            <img :src="dai" alt>
+                                        </slot>
+                                    </el-step>
+                                    <el-step title="已寄回"></el-step>
+                                    <el-step title="已入库"></el-step>
                                     <el-step title="已完成"></el-step>
+
                                 </el-steps>
                             </div>
                         </div>
@@ -135,7 +192,7 @@
     import Yiliao from "@/components/yiliao"; //医疗信息
     import Maijia from "@/components/maijia"; //买家信息
     import OrderList from "@/components/orderList"; //货物清单
-    import { getOrderDetail, removeOrderDetail ,tuiOrderDetail} from "@/api/order";
+    import { getOrderDetail, removeOrderDetail ,tuiOrderDetail,replenishment,finish,receiving} from "@/api/order";
 
     import { getToken } from "@/libs/util";
     export default {
@@ -205,7 +262,84 @@
                         price: this.data.totalAmount
                     }
                 });
+            },
+            /**
+             * 连台补货
+             * @param id
+             */
+            replenishments(id,n){
+                replenishment(getToken('token'),{tradeId:id}).then(res=>{
+                    console.log(res)
+                    if(res.code=='OK'){
+                        this.$message({
+                            message: res.message,
+                            type: 'success'
+                        });
+                        this.$router.push({
+                            name:'searchs_detail',
+                            params:{
+                                id:n
+                            }
+                        })
+                    }else{
+                        this.$message({
+                            message: res.message,
+                            type: 'error'
+                        });
+                    }
+                })
+            },
+            /**
+             * 手术完成
+             * @param id
+             */
+            finishs(id){
+                finish(getToken('token'),id).then(res=>{
+                    console.log(res)
+                    if(res.code=='OK'){
+                        this.$message({
+                            message: res.message,
+                            type: 'success'
+                        });
+                        this.$router.push({name:'home'})
+                    }else{
+                        this.$message({
+                            message: res.message,
+                            type: 'error'
+                        });
+                    }
+                })
+            },
+            receivings(id){
+                this.$confirm('是否确认签收?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    receiving(getToken('token'),{tradeId:id}).then(res=>{
+                        if(res.code=='OK'){
+                            this.$message({
+                                message: res.message,
+                                type: 'success'
+                            });
+                            window.location.reload()
+                        }else{
+                            this.$message({
+                                message: res.message,
+                                type: 'error'
+                            });
+                        }
+                    })
+
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消'
+                    });
+                });
+
             }
+
         }
     };
 </script>

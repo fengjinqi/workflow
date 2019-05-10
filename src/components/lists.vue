@@ -14,8 +14,8 @@
                         <div class="divM price">¥{{item.price}}</div>
                     </div>
                     <div class="flex btnBox">
-                        <div class="list-item-btn" @click="choose(index)" :class="[chose==index?'active':'']">标准套餐</div>
-                        <div class="list-item-btn" @click="choose(index)" :class="[chose==index?'active':'']">自定义</div>
+                        <div class="list-item-btn" @click="choose(index)" >标准套餐</div>
+                        <!--<div class="list-item-btn" @click="choose(index)" :class="[chose==index?'active':'']">自定义</div>-->
                         <div class="list-item-btn list-item-btn1" @click="addCart(item.id)">加入购物车</div>
                     </div>
                 </div>

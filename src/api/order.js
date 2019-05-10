@@ -49,6 +49,21 @@ export const tuiOrderDetail = (token,data) =>{
     });
 }
 /**
+ * 连台补货
+ * @param token
+ * @param data
+ */
+export const replenishment = (token,data) =>{
+    return axios({
+        method: 'post',
+        headers:{
+            'Authorization':'Bearer '+token
+        },
+        data,
+        url: `/api/u/orders/replenishmentTrade`
+    });
+}
+/**
  * 删除
  * @param token
  * @param data
@@ -91,5 +106,35 @@ export const pass = (token,data) =>{
         },
         data:data,
         url: `/api/u/orders/verification/pay/password`
+    });
+}
+/**
+ * 手术完成
+ * @param token
+ * @param id
+ */
+export const finish = (token,id) =>{
+    return axios({
+        method: 'post',
+        headers:{
+            'Authorization':'Bearer '+token
+        },
+        data:{id:id},
+        url: `/api/u/orders/operation/finish/${id}`
+    });
+}
+/**
+ * 确认收货
+ * @param token
+ * @param data
+ */
+export const receiving = (token,data) =>{
+    return axios({
+        method: 'post',
+        headers:{
+            'Authorization':'Bearer '+token
+        },
+        data,
+        url: `/api/u/orders/affirm/receiving`
     });
 }

@@ -184,7 +184,7 @@
 
 <script>
     // import Count from '@/components/count'//数量
-    import {getUserAdders,addTaoGoodsShopst,getGoods} from '@/api/goods'
+    import {getUserAdders,addTaoGoodsShopst} from '@/api/goods'
     import {getHospitalList} from '@/api/user'
     import {mapActions} from 'vuex'
     import {getToken} from '@/libs/util'
@@ -303,20 +303,10 @@
                 addressId:'',
                 shops:[],
                 prices:'',
-                yiyuan:'',
-                da:false,
-                yuanid:''
+                yiyuan:''
             }
         },
         created(){
-            getGoods(getToken('token')).then(res=>{
-                console.log(typeof res.data)
-                if(typeof res.data=='object'){
-                    this.da=true
-                    this.yuanid=res.data.id
-                }
-
-            })
             /*
             地址
              */
@@ -368,9 +358,6 @@
                         obj.tradeMemo = this.ruleForm.desc
                         obj.isExtract = this.typeVal
                         obj.addressId = this.addressId
-                        if(this.da==true){
-                            obj.sourceTradeId=this.yuanid
-                        }
                         obj.cartIds = this.shopId.join(',')
                         obj['medicalForm.operationSn'] = this.ruleForm.orderId
                         obj['medicalForm.hospitalId'] = this.ruleForm.hosName

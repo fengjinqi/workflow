@@ -182,7 +182,7 @@
                                         </div>
                                         <div class="order-main-list-item-cont-0" style="width:173.84px;">
                                             <div class="order-main-list-item-cont-1 order-main-list-item-cont-2">
-                                                <div @click="todetail(item.tradeId)" style="cursor: pointer">订单详情</div>
+                                                <div @click="todetail(item.tradeId,item.orderType)" style="cursor: pointer">订单详情</div>
                                                 <!--<div>申请发票</div>-->
                                             </div>
                                         </div>
@@ -261,13 +261,23 @@
                 'getGoodsTaoShopsCounts'
             ]),
             //跳转到详情页
-            todetail(index){
-                this.$router.push({
-                    name: 'orderdetail',
-                    params:{
-                        id:index
-                    }
-                })
+            todetail(index,n){
+                if(n=='批发'){
+                    this.$router.push({
+                        name: 'orderdetail',
+                        params:{
+                            id:index
+                        }
+                    })
+                }else{
+                    this.$router.push({
+                        name: 'orderdetails',
+                        params:{
+                            id:index
+                        }
+                    })
+                }
+
             },
         }
     }

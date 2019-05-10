@@ -58,6 +58,7 @@
                   type="primary"
                   class="ok"
                   style="background: #26B7BC;border-color: #26B7BC;"
+                  @click="receivings(data.tradeId)"
                 >确认签收</el-button>
               </div>
             </template>
@@ -126,7 +127,7 @@ import Wuliu from "@/components/wuliu"; //物流轨迹
 import Yiliao from "@/components/yiliao"; //医疗信息
 import Maijia from "@/components/maijia"; //买家信息
 import OrderList from "@/components/orderList"; //货物清单
-import { getOrderDetail, removeOrderDetail ,tuiOrderDetail} from "@/api/order";
+import { getOrderDetail, removeOrderDetail ,tuiOrderDetail,receiving} from "@/api/order";
 
 import { getToken } from "@/libs/util";
 export default {
@@ -196,6 +197,35 @@ export default {
           price: this.data.totalAmount
         }
       });
+    },
+    receivings(id){
+      this.$confirm('是否确认签收?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        receiving(getToken('token'),{tradeId:id}).then(res=>{
+          if(res.code=='OK'){
+            this.$message({
+              message: res.message,
+              type: 'success'
+            });
+            window.location.reload()
+          }else{
+            this.$message({
+              message: res.message,
+              type: 'error'
+            });
+          }
+        })
+
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消'
+        });
+      });
+
     }
   }
 };

@@ -310,3 +310,17 @@ export const addGoodsShopst = (token,data) =>{
         url: '/api/u/orders/single/affirm'
     });
 }
+
+/**
+ * 获取当前用户连台订单
+ * @param token
+ */
+export const getGoods = (token) =>{
+    return axios({
+        method: 'get',
+        headers:{
+            'Authorization':'Bearer '+token
+        },
+        url: '/api/u/orders/getReplenishmentTrade'
+    });
+}
