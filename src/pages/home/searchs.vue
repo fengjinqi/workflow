@@ -19,7 +19,7 @@
     import {getToken} from '@/libs/util'
     import List from '@/components/lists'//列表
     export default {
-        name: "search",
+        name: "searchs",
         data(){
             return{
                 id:'',
@@ -33,7 +33,7 @@
         },
         watch: {
             async $route() {
-                this.id = this.$route.query.id
+                this.id = this.$route.query.id?this.$route.query.id:''
 
                 const loading = this.$loading({
                     lock: true,
@@ -42,7 +42,7 @@
                     background: 'rgba(0, 0, 0, 0.7)'
                 });
 
-                await searchTaaoCategorys(getToken('token'),'',1,20,this.$route.query.val).then(res=>{
+                await searchTaaoCategorys(getToken('token'),this.id,1,20,this.$route.query.val?this.$route.query.val:'').then(res=>{
                     this.list = res.data
                     loading.close()
                 })
@@ -50,7 +50,7 @@
             }
         },
         async created(){
-            this.id = this.$route.query.id
+            this.id = this.$route.query.id?this.$route.query.id:''
             const loading = this.$loading({
                 lock: true,
                 text: 'Loading',
@@ -58,7 +58,7 @@
                 background: 'rgba(0, 0, 0, 0.7)'
             });
 
-            searchTaaoCategorys(getToken('token'),'',1,20,this.$route.query.val).then(res=>{
+            searchTaaoCategorys(getToken('token'),this.id,1,20,this.$route.query.val?this.$route.query.val:'').then(res=>{
                 this.list = res.data
                 console.log(this.list)
                 loading.close()

@@ -84,6 +84,7 @@
         },
         methods: {
             go(){
+                this.$store.commit('setTypes',this.type)
 
                 if(this.type==1){
                     this.$router.push({
@@ -116,9 +117,11 @@
                 if(command=='1'){
                     this.commandVal="搜单品"
                     this.type=1
+                    this.$store.commit('setTypes',this.type)
                 } else{
                     this.commandVal="搜套餐"
                     this.type=0
+                    this.$store.commit('setTypes',this.type)
                 }
             },
 

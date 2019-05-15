@@ -1,4 +1,5 @@
 import Search from '@/pages/home/search'//搜索页
+import Searchs from '@/pages/home/searchs'//搜索页
 import Detail from '@/pages/home/detail'//详情页
 import Cart from '@/pages/cart/index'//购物车
 import OrderSubmit from '@/pages/cart/orderSubmit'//提交订单
@@ -44,7 +45,7 @@ export default [
         meta:{
             keepAlive:true
         },
-        component: () => import('@/pages/home/searchs'),
+        component: Searchs,
 
     },
       {

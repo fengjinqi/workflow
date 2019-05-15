@@ -65,12 +65,11 @@
             <div  class="orderM">
                 <div class="title"><img :src="ren" alt="">账户明细</div>
                 <ul class="nav_meun">
-                    <li @click="active('1')" :class="act=='1'?'active':''">信用额度</li>
-                    <li @click="active('2')" :class="act=='2'?'active':''">下单额度</li>
-                    <li @click="active('3')" :class="act=='3'?'active':''">我的佣金</li>
-                    <li @click="active('4')" :class="act=='4'?'active':''">赠品额度</li>
+                    <li @click="active('1')" :class="act=='1'?'active':''">下单额度</li>
+                    <li @click="active('2')" :class="act=='2'?'active':''">信用额度</li>
+                    <li @click="active('3')" :class="act=='3'?'active':''">赠品额度</li>
+                    <li @click="active('4')" :class="act=='4'?'active':''">返利额度</li>
                     <li @click="active('5')" :class="act=='5'?'active':''">售后额度</li>
-                    <li @click="active('6')" :class="act=='6'?'active':''">我的押金</li>
                 </ul>
             </div>
             <p class="hr"></p>

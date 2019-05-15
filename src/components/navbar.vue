@@ -126,12 +126,25 @@
 
             },
             handleChange(value) {
+                this.$forceUpdate()
+                if(this.$store.state.user.types==1){
                 this.$router.push({
                     name:'search',
                     params:{
                         id:value.pop()
                     }
                 })
+                }
+                this.$forceUpdate()
+                if(this.$store.state.user.types==0){
+
+                    this.$router.push({
+                        name:'searchs',
+                        query:{
+                            id:value.pop()
+                        }
+                    })
+                }
 
             },
             //选择导航
