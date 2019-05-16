@@ -28,6 +28,7 @@ export default {
         deposit:0,
         giveAmount:0,
         rebateAmount:0,
+        p:'',
         users:'',
         types:1,
 
@@ -35,6 +36,9 @@ export default {
     mutations: {
         setTypes(state,types){
             state.types=types
+        },
+        setP(state,p){
+            state.p=p
         },
         setBirthDate(state, birthDate) {
             state.birthDate = birthDate

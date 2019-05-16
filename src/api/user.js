@@ -196,6 +196,23 @@ export const getpayAmount = (token) =>{
 }
 
 /**
+ * 用户金额使用日志
+ * @param token
+ * @param size
+ * @param index
+ * @param type
+ */
+export const getMyInfo = (token,size,index,type) =>{
+    return axios({
+        method: 'get',
+        headers:{
+            'Authorization':'Bearer '+token
+        },
+        url: `/api/u/user/get/amount/log?pageSize=${size}&pageIndex=${index}&type=${type}`
+    });
+}
+
+/**
  * 首页
  * @param token
  */

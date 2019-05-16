@@ -8,40 +8,40 @@
                         <h3>信用额度(元)</h3>
                         <div class="available">
                             <span>可用余额</span>
-                            <h4><i>￥</i>10 000.00</h4>
+                            <h4><i>￥</i>{{$store.state.user.afterSaleAmount.creditAmount}}</h4>
                         </div>
-                        <div class="box-footer">
-                            <span>账户总额度：¥10 000.00</span>
-                            <span>已用额度：¥10 000.00</span>
-                        </div>
+                        <!--<div class="box-footer">-->
+                            <!--<span>账户总额度：¥10 000.00</span>-->
+                            <!--<span>已用额度：¥10 000.00</span>-->
+                        <!--</div>-->
                     </div>
                     <div :style="rout" class="img">
-                        <h3>信用额度(元)</h3>
+                        <h3>售后额度(元)</h3>
                         <div class="available">
                             <span>可用余额</span>
-                            <h4><i>￥</i>10 000.00</h4>
+                            <h4><i>￥</i>{{$store.state.user.afterSaleAmount.afterSaleAmount}}</h4>
                         </div>
-                        <div class="box-footer">
-                            <span>账户总额度：¥10 000.00</span>
-                            <span>已用额度：¥10 000.00</span>
-                        </div>
+                        <!--<div class="box-footer">-->
+                            <!--<span>账户总额度：¥10 000.00</span>-->
+                            <!--<span>已用额度：¥10 000.00</span>-->
+                        <!--</div>-->
                     </div>
                     <div :style="rout" class="img">
-                        <h3>信用额度(元)</h3>
+                        <h3>可用押金(元)</h3>
                         <div class="available">
                             <span>可用余额</span>
-                            <h4><i>￥</i>10 000.00</h4>
+                            <h4><i>￥</i>{{$store.state.user.afterSaleAmount.deposit}}</h4>
                         </div>
-                        <div class="box-footer">
-                            <span>账户总额度：¥10 000.00</span>
-                            <span>已用额度：¥10 000.00</span>
-                        </div>
+                        <!--<div class="box-footer">-->
+                            <!--<span>账户总额度：¥10 000.00</span>-->
+                            <!--<span>已用额度：¥10 000.00</span>-->
+                        <!--</div>-->
                     </div>
                     <div :style="rout" class="img">
-                        <h3>信用额度(元)</h3>
+                        <h3>赠送额度金额(元)</h3>
                         <div class="available">
                             <span>可用余额</span>
-                            <h4><i>￥</i>10 000.00</h4>
+                            <h4><i>￥</i>{{$store.state.user.afterSaleAmount.giveAmount}}</h4>
                         </div>
                         <div class="box-footer">
                             <span></span>
@@ -49,13 +49,13 @@
                         </div>
                     </div>
                     <div :style="rout" class="img">
-                        <h3>信用额度(元)</h3>
+                        <h3>	返利佣金金额(元)</h3>
                         <div class="available">
                             <span>可用余额</span>
-                            <h4><i>￥</i>10 000.00</h4>
+                            <h4><i>￥</i>{{$store.state.user.afterSaleAmount.rebateAmount}}</h4>
                         </div>
                         <div class="box-footer">
-                            <el-button style="background: #44C8CC;color: #fff">押金提现</el-button>
+                            <!--<el-button style="background: #44C8CC;color: #fff">押金提现</el-button>-->
                         </div>
                     </div>
                 </div>
@@ -81,21 +81,22 @@
                             border
                             style="width: 100%">
                         <el-table-column
-                                prop="date"
+                                prop="tradeId"
                                 label="订单编号"
                                 width="180">
                         </el-table-column>
                         <el-table-column
-                                prop="name"
+
                                 label="时间"
                                 width="180">
+                            <template slot-scope="name">{{new Date(name.row.createTime).toLocaleString()}}</template>
                         </el-table-column>
-                        <el-table-column
+                        <!--<el-table-column
                                 prop="address"
                                 label="套餐类型">
-                        </el-table-column>
+                        </el-table-column>-->
                         <el-table-column
-                                prop="address"
+                                prop="amount"
                                 label="支付金额">
                         </el-table-column>
                     </el-table>
@@ -107,6 +108,9 @@
 </template>
 
 <script>
+    import {getMyInfo} from '@/api/user'
+
+    import {getToken} from '@/libs/util'
     export default {
         name: "index",
         data(){
@@ -116,28 +120,25 @@
                   background:"url(" + require("../../assets/BEC16CCF-FA0D-41CB-80FE-BF78C77E9021@1x.png") + ")",
                 },
                 ren:require('../../assets/84235F17-3ECC-4158-A87F-37678D0D7812@1x.png'),
-                tableData: [{
-                    date: '2016-05-02',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1518 弄'
-                }, {
-                    date: '2016-05-04',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1517 弄'
-                }, {
-                    date: '2016-05-01',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1519 弄'
-                }, {
-                    date: '2016-05-03',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1516 弄'
-                }]
+                tableData: null
             }
+        },
+        created(){
+            getMyInfo(getToken('token'),10,1,this.act).then(res=>{
+                console.log(res)
+                if(res.code=='OK'){
+                    this.tableData=res.data.list
+                }
+            })
         },
         methods:{
           active(index){
             this.act=index
+              getMyInfo(getToken('token'),10,1,this.act).then(res=>{
+                  if(res.code=='OK'){
+                      this.tableData=res.data.list
+                  }
+              })
           }
         },
         components:{
