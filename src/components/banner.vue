@@ -1,7 +1,15 @@
 <template>
     <div class="banner">
 
-        <div class="main"><img :src='/api/+list.file' alt=""></div>
+        <div class="main">
+            <el-carousel trigger="click" height="150px">
+                <el-carousel-item v-for="(item,index) in list" :key="index">
+
+                    <img :src='/api/+item.src' alt="">
+                </el-carousel-item>
+            </el-carousel>
+            <!--<img :src='/api/+list.file' alt="">-->
+        </div>
     </div>
 </template>
 
@@ -13,13 +21,18 @@
         },
         props:{
             list:{
-                type:[Object,Array]
+                type:[Array]
             }
         },
     }
 </script>
-
+<style>
+    .el-carousel__container{
+        height: 629px!important;
+    }
+</style>
 <style scoped lang="less">
+
     .banner{
         width: 100%;
         height: 629px;

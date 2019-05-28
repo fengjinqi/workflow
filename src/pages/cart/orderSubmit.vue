@@ -75,7 +75,7 @@
                             <div>
                                 <span class="label">实付金额</span>
                                 <span class="val price price1">¥{{shops.data.goodsTotalPrice}}</span></div>
-                            <div class="border">
+                            <div class="border" v-if="typeVal==false">
 
                                 <span>寄送至：{{address.province}}{{address.city}}{{address.district}}{{address.address}}</span>
                                 <span style="margin:0 20px">收货人：{{address.name}}</span>

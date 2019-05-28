@@ -2,9 +2,10 @@
     <div class="nav">
         <div class="main">
             <div class="flex">
-                <div>
+                <div id="allsearch">
+                    <img :src="allsrc" alt="" class="allsrc">
                     <el-cascader
-                            placeholder="商品分类"
+                            placeholder="全部商品分类"
                             expand-trigger="hover"
                             :options="list"
                             v-model="selectedOptions2"
@@ -46,8 +47,9 @@
                    <p style="height: 10px;background: #f9f9f9;"></p>
                         <p class="p" style=" height:40px;line-height: 40px"><router-link :to="{name:'Persona_addrs'}" style="display:block;color: #333"> 地址管理</router-link></p>
                         <p class="p" style="height:40px;line-height: 40px"><router-link :to="{name:'Persona_Hospital'}" style="display:block;color: #333"> 新增医院</router-link></p>
-                        <p class="p" style="height:40px;line-height: 40px"><router-link :to="{name:'password'}" style="display:block;color: #333"> 修改密码</router-link></p>
                         <p class="p" style="height:40px;line-height: 40px"><router-link :to="{name:'menu'}" style="display:block;color: #333"> 会员信息</router-link></p>
+                        <p class="p" style="height:40px;line-height: 40px"><router-link :to="{name:'password'}" style="display:block;color: #333"> 修改密码</router-link></p>
+
                         <p style="height: 10px;background: #f9f9f9;"></p>
                         <div id="year">
 
@@ -91,6 +93,37 @@
     .el-menu--horizontal>.el-menu-item:not(.is-disabled):focus, .el-menu--horizontal>.el-menu-item:not(.is-disabled):hover, .el-menu--horizontal>.el-submenu .el-submenu__title:hover{
         background: #35CED4 !important;
     }
+    #search .el-cascader__label{
+        color: #fff;font-size: 18px;
+    }
+    .el-input__icon{
+        color: #fff;
+        }
+    #allsearch .el-input__inner
+    {
+        height: 43px;
+        top: -1px;
+        position: relative;
+        background: #26B7BC;
+        border: 0;
+        border-radius: 0;        padding: 0 15px 0 45px; text-align: center;
+    }
+.el-cascader__label{
+    text-align: center!important;
+    color: #fff!important;font-size: 18px!important;  padding: 0 15px 0 45px!important;
+}
+    #allsearch ::-webkit-input-placeholder { /* WebKit browsers */
+        color: #fff;
+        font-size: 18px;
+    }
+
+    #allsearch ::-moz-placeholder { /* Mozilla Firefox 19+ */
+        color: #fff;font-size: 18px;
+    }
+
+    #allsearch :-ms-input-placeholder { /* Internet Explorer 10+ */
+        color: #fff;font-size: 18px;
+    }
 </style>
 <script>
     import Cookies from 'js-cookie'
@@ -103,6 +136,7 @@
                 xin:require('../assets/信用@2x.png'),
                 zen:require('../assets/赠品@2x.png'),
                 yong:require('../assets/佣金@2x.png'),
+                allsrc:require('../assets/clasify.png'),
                 selectTypeShow:false,
                 selectTypeIndex:'1',
                 selectedOptions2: [],
@@ -211,6 +245,17 @@
         padding:0 39px;
             display: block;
     }
+    }
+    #allsearch{
+        position: relative;}
+    .allsrc{
+        position: absolute;
+        top:0;
+        left: 0;
+        z-index: 9;
+        width: 20px;
+        left: 45px;
+        top: 12px;
     }
     .nav-first{
         padding:0 47px;

@@ -58,7 +58,7 @@
                     </div>
                     <div class="order-main-list">
 
-                        <p v-if="list1==null&&list1.list.length==0">暂无数据...</p>
+                        <p v-if="list1.list.length<=0" style="text-align: center">暂无数据</p>
                         <div class="order-main-list-item" v-for="item in list1.list" v-if="list1!=null&&list.list.length>0">
                             <div class="order-main-list-item-head flex">
                                 <div>{{new Date(item.createTime).toLocaleString()}}</div>
@@ -126,7 +126,7 @@
                     </div>
                     <div class="order-main-list" id="id">
 
-                        <p v-if="list.list.length<=0">暂无数据...</p>
+                        <p v-if="list.list.length<=0" style="text-align: center">暂无数据</p>
                      <div class="order-main-list-item" v-for="item in list.list" v-if="list!=null&&list.list.length>0">
                             <div class="order-main-list-item-head flex">
                                 <div>{{new Date(item.createTime).toLocaleString()}}</div>

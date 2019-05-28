@@ -208,14 +208,14 @@ export const addTaoGoodsShopst = (token,data) =>{
  * 购物车单列表数量
  * @param token
  */
-export const getGoodsShopsCount = (token) =>{
+export const getGoodsShopsCount = (token,pageIndex=1,pageSize=10) =>{
     return axios({
         method: 'get',
         headers:{
             'Authorization':'Bearer '+token
         },
 
-        url: '/api/u/cart/single/list'
+        url: `/api/u/cart/single/list?pageIndex=${pageIndex}&pageSize=${pageSize}`
     });
 }
 /**

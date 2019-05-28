@@ -213,6 +213,7 @@
           Banner,
         },
          created() {
+
             this.getUserInfo().then(res=>{
                 if(res.code!=='OK'){
                     this.$notify({
@@ -228,11 +229,19 @@
             getIndex(getToken('token')).then(res=>{
                 if (res.code=='OK'){
                     // this.data = res.data
-                    this.src= JSON.parse(res.data.imageResponses[0].imageUrl)
+                    let src = res.data.imageResponses
+                    src.map((item)=>{
+
+                        this.src.push({
+                            src:JSON.parse(item.imageUrl).file
+                        })
+                    })
+
+                    //JSON.parse(res.data.imageResponses[0].imageUrl)
                     //ordersPackageGoodsResponses这个和packageGoodsResponses这个是相同的数据？？？不同
                     let data = []
                    // let obj=
-                       res.data.ordersPackageGoodsResponses.map(item=>{
+                       res.data.ordersPackageGoodsResponses.list.map(item=>{
 
                            data.push({
                                ...item,
@@ -246,7 +255,6 @@
 
                 this.data = data.filter((item)=>(item.children.length>0))
 
-                console.log(this.data)
                 }
             })
             this.getGoodsShopsCounts()

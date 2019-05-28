@@ -216,13 +216,14 @@ export const getMyInfo = (token,size,index,type) =>{
  * 首页
  * @param token
  */
-export const getIndex = (token) =>{
+
+export const getIndex = (token,pageIndex=1,pageSize=10) =>{
     return axios({
         method: 'get',
         headers:{
             'Authorization':'Bearer '+token
         },
-        url: '/api/u/index'
+        url: `/api/u/index?pageIndex=${pageIndex}&pageSize=${pageSize}`
     });
 }
 /**

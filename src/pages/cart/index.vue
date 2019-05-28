@@ -196,14 +196,13 @@
         created(){
             this.getGoodsShopsCounts()
             this.getGoodsTaoShopsCounts()
-            this.tableData=this.$store.state.user.goods
+            this.tableData=this.$store.state.user.goods.list
             this.tableData1=this.$store.state.user.tao.standardPackageResponse
 
                 this.$store.state.user.tao.definedPackageResponse.map(item=>{
                     this.tableData1.push(item)
 
                 })
-            console.log(this.tableData1)
         },
         methods: {
             ...mapActions([

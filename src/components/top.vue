@@ -10,6 +10,7 @@
                 </div>
                 <div class="flex search">
                     <div class="search-left">
+                        <div class="san"></div>
                         <el-dropdown trigger="click" @command="handleCommand">
                               <span class="el-dropdown-link">
                                 {{commandVal}}
@@ -24,7 +25,7 @@
                     <div class="search-btn" @click="go">搜索</div>
                 </div>
                 <div class="cart" @click="tocart">
-                    <img src="" alt="" />
+                    <img :src="cartsrc" alt="" />
                     <span class="cart-name">我的购物车</span>
                     <span class="cart-num">{{cartNum}}</span>
                 </div>
@@ -46,14 +47,15 @@
                 category:[],
                 type:'1',
                 val:'',
-                commandVal:'搜单品'//搜单品
+                commandVal:'搜单品',//搜单品
+                cartsrc:require('../assets/cart.png')
             }
         },
         computed:{
             //全局购物车数量
             cartNum:function(){
-                console.log()
-                return this.$store.state.user.goods.length+this.$store.state.user.tao.definedPackageResponse.length+this.$store.state.user.tao.standardPackageResponse.length
+                let b = this.$store.state.user.goods.list.length+this.$store.state.user.tao.definedPackageResponse.length+this.$store.state.user.tao.standardPackageResponse.length
+                return b
             }
         },
         components:{
@@ -146,7 +148,23 @@
                 height: 100%;
                 background-color: rgba(244, 244, 244, 1);
                 text-align: center;
-
+                position: relative;
+                overflow: hidden;
+                .san{
+                    width:0;
+                    height:0;
+                    border-right:7px solid transparent;
+                    border-left:7px solid transparent;
+                    border-bottom:7px solid #999;
+                    position: absolute;
+                    bottom: -1px;
+                    right: -5px;
+                    transform:rotate(130deg);
+                    -ms-transform:rotate(130deg); 	/* IE 9 */
+                    -moz-transform:rotate(130deg); 	/* Firefox */
+                    -webkit-transform:rotate(130deg); /* Safari 和 Chrome */
+                    -o-transform:rotate(130deg); 	/* Opera */
+                }
             }
             .search-btn{
                 width: 100px;
@@ -164,13 +182,18 @@
             }
         }
         .cart{
-            width: 200px;
+            width: 180px;
             background: #fff;
             color: #26B7BC;
             text-align: center;
             height: 40px;
             border: 1px solid #EEEEEE;
             cursor: pointer;
+            img{
+                top: 4px;
+                position: relative;
+                width: 20px;
+            }
             .cart-name{
                 margin:0 15px 0 10px;
                 line-height: 40px;

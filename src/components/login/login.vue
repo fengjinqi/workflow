@@ -27,48 +27,49 @@
                                 </el-form-item>
                             </el-form>
                         </div>
-                        <div class="form-forgetPwd">忘记密码？</div>
+                  <!--      <div class="form-forgetPwd">忘记密码？</div>-->
                     </div>
                 </div>
             </div>
         </div>
-        <div class="login-nav">
-            <div class="main flex-j">
-                <div class="nav-item">
-                    <div class="div">
-                        <div class="img"><img src="" alt=""></div>
-                        <div class="title">上市集团参股</div>
-                        <div class="info">上市集团参股上市集团参股上市集团参股上市集团参股
-                            上市集团参股上市集团参股</div>
-                    </div>
-                </div>
-                <div class="nav-item">
-                    <div class="div">
-                        <div class="img"><img src="" alt=""></div>
-                        <div class="title">上市集团参股</div>
-                        <div class="info">上市集团参股上市集团参股上市集团参股上市集团参股
-                            上市集团参股上市集团参股</div>
-                    </div>
-                </div>
-                <div class="nav-item">
-                    <div class="div">
-                        <div class="img"><img src="" alt=""></div>
-                        <div class="title">上市集团参股</div>
-                        <div class="info">上市集团参股上市集团参股上市集团参股上市集团参股
-                            上市集团参股上市集团参股</div>
-                    </div>
-                </div>
-                <div class="nav-item">
-                    <div class="div">
-                        <div class="img"><img src="" alt=""></div>
-                        <div class="title">上市集团参股</div>
-                        <div class="info">上市集团参股上市集团参股上市集团参股上市集团参股
-                            上市集团参股上市集团参股</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div></div>
+        <img src="../../assets/loginbottom.png" alt="" class="loginbottom">
+        <!--<div class="login-nav">-->
+            <!--<div class="main flex-j">-->
+                <!--<div class="nav-item">-->
+                    <!--<div class="div">-->
+                        <!--<div class="img"><img src="" alt=""></div>-->
+                        <!--<div class="title">上市集团参股</div>-->
+                        <!--<div class="info">上市集团参股上市集团参股上市集团参股上市集团参股-->
+                            <!--上市集团参股上市集团参股</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="nav-item">-->
+                    <!--<div class="div">-->
+                        <!--<div class="img"><img src="" alt=""></div>-->
+                        <!--<div class="title">上市集团参股</div>-->
+                        <!--<div class="info">上市集团参股上市集团参股上市集团参股上市集团参股-->
+                            <!--上市集团参股上市集团参股</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="nav-item">-->
+                    <!--<div class="div">-->
+                        <!--<div class="img"><img src="" alt=""></div>-->
+                        <!--<div class="title">上市集团参股</div>-->
+                        <!--<div class="info">上市集团参股上市集团参股上市集团参股上市集团参股-->
+                            <!--上市集团参股上市集团参股</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="nav-item">-->
+                    <!--<div class="div">-->
+                        <!--<div class="img"><img src="" alt=""></div>-->
+                        <!--<div class="title">上市集团参股</div>-->
+                        <!--<div class="info">上市集团参股上市集团参股上市集团参股上市集团参股-->
+                            <!--上市集团参股上市集团参股</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div></div>-->
     </div>
 </template>
 
@@ -264,6 +265,11 @@
                 }
             }
         }
+    }
+    .loginbottom{
+        display: block;
+        margin:0 auto;
+        width: 100%;
     }
 }
 </style>

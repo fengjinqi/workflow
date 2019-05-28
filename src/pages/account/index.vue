@@ -81,7 +81,7 @@
                             border
                             style="width: 100%">
                         <el-table-column
-                                prop="tradeId"
+                                prop="companyId"
                                 label="订单编号"
                                 width="180">
                         </el-table-column>
