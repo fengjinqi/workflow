@@ -21,8 +21,13 @@ export default {
         position: '',
         powerAttorneyImage: '',
         sex: '',
-        goods:[],
-        tao:[],
+        goods:{
+            list: []
+        },
+        tao:{
+            definedPackageResponse: [],
+            standardPackageResponse: []
+        },
         afterSaleAmount:[],
         creditAmount:0,
         deposit:0,
@@ -97,6 +102,9 @@ export default {
         },
     },
     getters: {
+        cartNum(state){
+            return state.goods.list.length+state.tao.standardPackageResponse.length+state.tao.definedPackageResponse.length
+        }
     },
     actions: {
         // 登录
@@ -180,6 +188,7 @@ export default {
                 getGoodsShopsCount(getToken('token')).then(res=>{
 
                     if(res.code=='OK') {
+                        console.log(res.data)
                         commit('setGoods', res.data)
                     }
                 })

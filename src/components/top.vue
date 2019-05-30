@@ -40,6 +40,9 @@
     import Navbar from '@/components/navbar'
     import {getIndexList} from '@/api/user'
     import {getToken} from '@/libs/util'
+    import {
+        mapState, mapGetters
+    } from "vuex"
     export default {
         name: "top",
         data(){
@@ -53,10 +56,16 @@
         },
         computed:{
             //全局购物车数量
-            cartNum:function(){
-                let b = this.$store.state.user.goods.list.length+this.$store.state.user.tao.definedPackageResponse.length+this.$store.state.user.tao.standardPackageResponse.length
-                return b
-            }
+            // ...mapState({
+            //     "cartNum": state=>state.user.goods.list.length+state.user.tao.definedPackageResponse.length+state.user.tao.standardPackageResponse.length
+            // }),
+            ...mapGetters(['cartNum'])
+            // cartNum:function(){
+            //     console.log(this.$store.state.user)
+            //     let b = this.$store.state.user.goods.list.length+this.$store.state.user.tao.definedPackageResponse.length+this.$store.state.user.tao.standardPackageResponse.length
+               
+            //     return b
+            // }
         },
         components:{
             Navbar
