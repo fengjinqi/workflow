@@ -4,10 +4,20 @@
             <div class="box">
                 <div class="title">账户信息</div>
                 <div class="cont">
-                    <div class="flex">
+                    <div class="flex" v-if="type==2">
 
                         <div style="margin: 15px 0;"></div>
 
+                        <div class="cont-title"><el-radio v-model="radis" label="9">虚拟下单额度 </el-radio> </div>
+                        <div class="cont-info">可用¥{{$store.state.user.afterSaleAmount.virtualAmount}}</div>
+
+                    </div>
+                    <template v-else>
+
+
+                    <div class="flex">
+
+                        <div style="margin: 15px 0;"></div>
 
                         <div class="cont-title"><el-radio v-model="radis" label="0">信用支付额度 </el-radio> </div>
                         <div class="cont-info">可用¥{{$store.state.user.afterSaleAmount.rebateAmount+$store.state.user.afterSaleAmount.giveAmount+$store.state.user.afterSaleAmount.afterSaleAmount}}</div>
@@ -39,13 +49,16 @@
                     </div>
                     <div class="cont-title">
                         <el-radio v-model="radio" label="1">押金支付 <span style="margin-left: 15px;"></span>  {{ya}} <span  style="margin-left: 25px;">押金余额 ¥{{$store.state.user.afterSaleAmount.deposit}}</span></el-radio>  </div>
-
+                    </template>
                 </div>
             </div>
             <div class="box1" style="margin-top:20px;">
                 <div class="flex titleBox">
                    <div class="title">支付方式</div>
-                   <div class="info">{{radio=='1'?'押金支付':'信用支付'}}</div>
+                   <!--<div class="info">{{radio=='1'?'押金支付'?radio=='2':'虚拟支付':'信用支付'}}</div>-->
+                    <div class="info" v-if="radio=='1'">押金支付</div>
+                    <div class="info" v-else-if="radio=='9'">虚拟支付</div>
+                    <div class="info" v-else-if="radio=='3'">信用支付</div>
                 </div>
                 <div class="flex titleBox">
                     <div class="title">实付金额</div>
@@ -58,7 +71,7 @@
                     </div>
                     <div class="pay-item">请输入6位数字支付密码</div>
                     <div class="pay-item">
-                        <el-button type="primary"@click="sub(id)">立即结算</el-button>
+                        <el-button type="primary" @click="sub(id)">立即结算</el-button>
                     </div>
                 </div>
             </div>
@@ -67,7 +80,7 @@
 </template>
 
 <script>
-    import { queRen, pass} from "@/api/order";
+    import { queRen, pass,subsettlement} from "@/api/order";
 
     import { getToken } from "@/libs/util";
     export default {
@@ -85,7 +98,8 @@
                 price:0,
                 radis:'0',
                 radio:'3',
-                id:''
+                id:'',
+                type:''//1单品2套餐
 
             }
         },
@@ -105,7 +119,8 @@
 
             this.price=this.$route.query.price
             this.id=this.$route.query.id
-
+            this.type=this.$route.query.type
+            this.radis=this.type==1?'0':'9'
         },
 
         methods:{
@@ -129,6 +144,13 @@
                     tradeId:n
                 }
 
+                if(this.type==1&&this.radio==3||this.type==1&&this.radio==2||this.type==1&&this.radio==4){
+                    alert(this.radio)
+                    obj['discountType']=this.radio==4?1:this.radio==2?2:this.radio==3?3:''
+
+                }
+                console.log(obj)
+                if(this.type==1){
                 queRen(getToken('token'),obj).then(res=>{
                     console.log(res)
                     if(res.code=='OK'){
@@ -150,6 +172,29 @@
                         })
                     }
                 })
+                }else{
+                    subsettlement(getToken('token'),{tradeId:n}).then(res=>{
+                        console.log(res)
+                        if(res.code=='OK'){
+                            pass(getToken('token'),{password:this.password}).then(res=>{
+                                console.log(res)
+                                if(res.code=='OK'){
+                                    this.$message({
+                                        message: res.message,
+                                        type: 'success'
+                                    });
+                                    this.$router.push({name:'home'})
+                                }else{
+                                    this.$message({
+                                        type: 'error',
+                                        message: res.message
+                                    });
+
+                                }
+                            })
+                        }
+                    })
+                }
             }
         }
     }

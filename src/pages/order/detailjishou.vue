@@ -259,7 +259,8 @@
                     name: "parent",
                     query: {
                         id: tradeId,
-                        price: this.data.totalAmount
+                        price: this.data.totalAmount,
+                        type:2
                     }
                 });
             },

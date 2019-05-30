@@ -21,7 +21,7 @@
                             </el-dropdown-menu>
                         </el-dropdown>
                     </div>
-                    <div><input type="text" v-model="val" placeholder="搜全网6085789件商品"></div>
+                    <div><input type="text" v-model="val"></div>
                     <div class="search-btn" @click="go">搜索</div>
                 </div>
                 <div class="cart" @click="tocart">

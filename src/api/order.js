@@ -138,3 +138,18 @@ export const receiving = (token,data) =>{
         url: `/api/u/orders/affirm/receiving`
     });
 }
+/**
+ * 套餐结算
+ * @param token
+ * @param data
+ */
+export const subsettlement = (token,data) =>{
+    return axios({
+        method: 'post',
+        headers:{
+            'Authorization':'Bearer '+token
+        },
+        data,
+        url: `/api/u/orders/package/immediate/settlement`
+    });
+}

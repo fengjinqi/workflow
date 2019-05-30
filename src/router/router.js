@@ -170,6 +170,14 @@ export default [
         component: () => import('@/views/Persona/menu'),
     },
     {
+        path: '/money',
+        name: 'money',
+        meta:{
+            keepAlive:true
+        },
+        component: () => import('@/views/Money/list'),
+    },
+    {
         path: '*',
         redirect:'/home'
     }

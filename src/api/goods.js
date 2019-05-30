@@ -275,7 +275,7 @@ export const getUserAdders = (token) =>{
             'Authorization':'Bearer '+token
         },
 
-        url: '/api/u/address/list?status=1'
+        url: '/api/u/address/list?status=2'
     });
 }
 

@@ -32,7 +32,7 @@
                         <router-link to="/account">账户金额</router-link>
                     </div>
                     <div class="nav-item" @mouseover="selectNav"><a href="">服务报告</a></div>
-                    <div class="nav-item" @mouseover="selectNav"><a href="">待结算订单</a></div>
+                    <div class="nav-item" @mouseover="selectNav"> <router-link to="/money">款项管理</router-link></div>
                     <div class="nav-item" @mouseover="selectNav"><a href="">开票服务</a></div>
                 </div>
                 <div class="nav-last">

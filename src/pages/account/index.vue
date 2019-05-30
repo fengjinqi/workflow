@@ -81,7 +81,7 @@
                             border
                             style="width: 100%">
                         <el-table-column
-                                prop="companyId"
+                                prop="tradeSn"
                                 label="订单编号"
                                 width="180">
                         </el-table-column>
@@ -98,6 +98,10 @@
                         <el-table-column
                                 prop="amount"
                                 label="支付金额">
+                        </el-table-column>
+                        <el-table-column
+                                prop="title"
+                                label="备注">
                         </el-table-column>
                     </el-table>
                 </template>

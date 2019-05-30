@@ -151,7 +151,7 @@
                     <div class="order-main-list-item" v-for="item in data" v-if="data.length>0" :key="item.tradeId">
                             <div class="order-main-list-item-head flex">
                                 <div>{{new Date(item.createTime).toLocaleString()}}</div>
-                                <div>订单编号：{{item.tradeId}}</div>
+                                <div>订单编号：{{item.tradeSn}}</div>
                                 <div>类型：{{item.orderType}}</div>
                             </div>
                             <div class="order-main-list-item-cont1 flex">
@@ -161,6 +161,7 @@
                                         <div style="width:289.75px;text-align:left;">
                                             <div class="order-main-list-item-cont-1">
                                                 <div>{{child.goodsName}}</div>
+                                                <div class="type">{{item.orderType}}</div>
                                                 <div style="color:#999">{{child.goodsCategoryName}}</div>
                                             </div>
                                         </div>
