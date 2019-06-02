@@ -4,7 +4,12 @@
             <div class="title">医院管理</div>
         </div>
         <div class="connter">
-            <el-button style="background: #3198CD;color: #fff" @click="add"> 新增</el-button>
+            <div id="tabl">
+            <span :class="act=='1'?'active':''" @click="tabl(1)">待审核</span>
+            <span  :class="act=='2'?'active':''" @click="tabl(2)">已审核</span>
+            <span  :class="act=='3'?'active':''" @click="tabl(3)">审核失败</span>
+            <el-button style="background: #26B7BC;color: #fff;float: right" @click="add"> 新增</el-button>
+            </div>
             <p style="margin: 20px 0"></p>
             <template>
                 <el-table
@@ -62,12 +67,13 @@
         data(){
             return{
                 list:[],
+                act:1,
                 dialogFormVisible: false,
             }
         },
         created(){
 
-            getHospitalList(getToken('token')).then(res=>{
+            getHospitalList(getToken('token'),1).then(res=>{
                 if(res.code=='OK'){
                     this.list = res.data.list
                     console.log(this.list)
@@ -75,6 +81,16 @@
             })
         },
         methods:{
+            tabl(n){
+                this.act=n
+                getHospitalList(getToken('token'),n).then(res=>{
+                    if(res.code=='OK'){
+                        this.list = res.data.list
+                        console.log(this.list)
+                    }
+                })
+            },
+
             add(){
                 this.$router.push({
                     name:'add_Hospital'
@@ -137,6 +153,19 @@
 </script>
 
 <style scoped lang="less">
+    #tabl{
+        span{
+            margin: 5px 20px;
+            height: 40px;
+            display: inline-block;
+            line-height: 40px;
+            cursor: pointer;
+        }
+        span.active{
+            color: #26B7BC;
+            border-bottom: 2px solid #26B7BC;
+        }
+    }
 .main{
     background: #fff;margin-top: 20px;
     .orderM{

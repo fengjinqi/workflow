@@ -9,9 +9,10 @@
             </ul>
         </div>
         <div class="orderType">
-            <div class="flex type">
+            <div class="flex type"style="position: relative;height: 42px;margin-bottom: 20px">
                 <div :class="act=='1'?'active':''" @click="typeC('1')">已申请</div>
                 <div :class="act=='2'?'active':''" @click="typeC('2')">已结清</div>
+              <el-button type="primary" style="width: 100px;height: 42px;right: 0;position: absolute;background-color: #26B7BC;border-color: #26B7BC;" @click="$router.push({name:'money_add'})">新增</el-button>
             </div>
             <div class="order-main-th flex-j">
                 <div class="order-main-th-item" style="width: 15%;">打款金额</div>
@@ -28,9 +29,9 @@
                         <div class="order-main-list-item-cont-1">¥{{item.amount}}</div>
                     </div>
                     <div style="width:40%;">
-                        <div class="order-main-list-item-cont-1">
+                        <div class="order-main-list-item-cont-1" style="display: flex">
                             <template v-for="img in item.img">
-                            <img :src="/api/+img.file" alt="" height="100px" style="margin: 0 5px">
+                            <img :src="/api/+img.file" alt=""  style="margin: 0 5px;height: 100px;width: 200px">
                             </template>
                             </div>
                     </div>
@@ -73,10 +74,15 @@
                 console.log(res)
                 if(res.code=='OK'){
                     res.data.list.map(res=>{
-                        res['img']=JSON.parse(res.voucherImage)
-                        console.log(JSON.parse(res.voucherImage))
+                        let arr = res.voucherImage.split(',')
+
+                        res['img'] =arr.map(item=>{
+                            return{file:item}
+
+                        })
                     })
                     this.list = res.data.list
+                    console.log(this.list)
                 }
             })
         },
@@ -86,8 +92,9 @@
                 getRepaymentList(getToken('token'),n).then((res)=>{
                     if(res.code=='OK'){
                         res.data.list.map(res=>{
-                            res['img']=JSON.parse(res.voucherImage)
-                            console.log(JSON.parse(res.voucherImage))
+                            console.log(res.voucherImage)
+                            // res['img']=JSON.parse(res.voucherImage)
+                            // console.log(JSON.parse(res.voucherImage))
                         })
                         this.list = res.data.list
                     }
@@ -113,11 +120,11 @@
     background: #fff;
     padding: 20px;
     .type{
-        border-bottom: 1px solid #eee;
+        /*border-bottom: 1px solid #eee;*/
         div{
             width: 80px;
             text-align: center;
-            padding-bottom: 20px;
+            /*padding-bottom: 20px;*/
             cursor: pointer;
         }
         div.active{

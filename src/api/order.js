@@ -10,13 +10,13 @@ import axios from '@/libs/axios.request'
  * @param startTime
  * @param endTime
  */
-export const getOrder = (token,index=1,type=1,keyword='',status='',startTime='',endTime='') =>{
+export const getOrder = (token,index=1,type=1,keyword='',status='',startTime='',endTime='',pageSize=10) =>{
     return axios({
         method: 'get',
         headers:{
             'Authorization':'Bearer '+token
         },
-        url: `/api/u/search/searchOrders?pageIndex=${index}&type=${type}&keyword=${keyword}&status=${status}&startTime=${startTime}&endTime=${endTime}`
+        url: `/api/u/search/searchOrders?pageIndex=${index}&type=${type}&keyword=${keyword}&status=${status}&startTime=${startTime}&endTime=${endTime}&pageSize=${pageSize}`
     });
 }
 /**

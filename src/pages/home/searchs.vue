@@ -3,6 +3,12 @@
         <div class="search">
             <template  v-if="list!=null&&list.list.length>0">
                 <List :list="list"/>
+                <div style="width: 1200px;margin: 0 auto;background-color: #fff">
+                    <el-pagination style="padding: 20px 0 40px 0"
+                                   layout="prev, pager, next"
+                                   :total="count" :page-size="pageSize"  @current-change="page"  :current-page="currentPage">
+                    </el-pagination>
+                </div>
             </template>
             <p v-else class="error">
 
@@ -26,10 +32,23 @@
                 src:require('../../assets/9275427C-CE92-4915-BAFF-290C1D28BB23@1x.png'),
                 category:[],
                 list:null,
+                count:0,
+                pageSize: 20,
+                currentPage:1,
             }
         },
         components:{
           List,
+        },
+        methods:{
+            page(val){
+                this.currentPage = val;
+                searchTaaoCategorys(getToken('token'),this.id,val,20,this.$route.query.val?this.$route.query.val:'').then(res=>{
+                    this.list = res.data
+                    this.category = res.data
+                    this.count = res.data.totalRecord
+                })
+            },
         },
         watch: {
             async $route() {
@@ -44,6 +63,7 @@
 
                 await searchTaaoCategorys(getToken('token'),this.id,1,20,this.$route.query.val?this.$route.query.val:'').then(res=>{
                     this.list = res.data
+                    this.count = res.data.totalRecord
                     loading.close()
                 })
 
@@ -60,6 +80,7 @@
 
             searchTaaoCategorys(getToken('token'),this.id,1,20,this.$route.query.val?this.$route.query.val:'').then(res=>{
                 this.list = res.data
+                this.count = res.data.totalRecord
                 console.log(this.list)
                 loading.close()
             })

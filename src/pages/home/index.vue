@@ -161,7 +161,7 @@
                                         <div style="width:289.75px;text-align:left;">
                                             <div class="order-main-list-item-cont-1">
                                                 <div>{{child.goodsName}}</div>
-                                                <div class="type">{{item.orderType}}</div>
+                                                <div class="type" v-if="item.orderType!='批发'">{{item.orderType}}</div>
                                                 <div style="color:#999">{{child.goodsCategoryName}}</div>
                                             </div>
                                         </div>
@@ -190,6 +190,11 @@
                                 </div>
                             </div>
                         </div>
+
+                        <el-pagination style="margin-top: 20px"
+                                       layout="prev, pager, next"
+                                       :total="count" :page-size="pageSize"  @current-change="page"  :current-page="currentPage">
+                        </el-pagination>
                     </div>
                 </div>
             </div>
@@ -207,14 +212,19 @@
         data(){
             return{
                 data:[],
-                src:[]
+                src:[],
+                count:0,
+                pageSize: 20,
+                currentPage:1,
             }
         },
         components:{
           Banner,
         },
          created() {
-
+             this.getGoodsShopsCounts()
+             this.getAccem()
+             this.getGoodsTaoShopsCounts()
             this.getUserInfo().then(res=>{
                 if(res.code!=='OK'){
                     this.$notify({
@@ -231,6 +241,7 @@
                 if (res.code=='OK'){
                     // this.data = res.data
                     let src = res.data.imageResponses
+                    this.count = res.data.ordersPackageGoodsResponses.totalRecord
                     src.map((item)=>{
 
                         this.src.push({
@@ -258,9 +269,7 @@
 
                 }
             })
-            this.getGoodsShopsCounts()
-            this.getAccem()
-             this.getGoodsTaoShopsCounts()
+
     },
         methods:{
             ...mapActions([
@@ -269,6 +278,41 @@
                 'getAccem',
                 'getGoodsTaoShopsCounts'
             ]),
+            page(val){
+                this.currentPage = val;
+                getIndex(getToken('token'),val,20).then(res=>{
+                    if (res.code=='OK'){
+                        // this.data = res.data
+                        let src = res.data.imageResponses
+                        this.count = res.data.ordersPackageGoodsResponses.totalRecord
+                        src.map((item)=>{
+
+                            this.src.push({
+                                src:JSON.parse(item.imageUrl).file
+                            })
+                        })
+
+                        //JSON.parse(res.data.imageResponses[0].imageUrl)
+                        //ordersPackageGoodsResponses这个和packageGoodsResponses这个是相同的数据？？？不同
+                        let data = []
+                        // let obj=
+                        res.data.ordersPackageGoodsResponses.list.map(item=>{
+
+                            data.push({
+                                ...item,
+                                children: [...item.ordersGoodsResponses,...item.packageGoodsResponses]
+                            })
+                            // data.push(item.ordersGoodsResponses.concat(item.packageGoodsResponses))
+                            /* return item.ordersGoodsResponses.push(item.packageGoodsResponses.map(it=>{
+
+                             }))*/
+                        })
+
+                        this.data = data.filter((item)=>(item.children.length>0))
+
+                    }
+                })
+            },
             //跳转到详情页
             todetail(index,n){
                 if(n=='批发'){

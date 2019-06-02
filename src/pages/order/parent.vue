@@ -59,6 +59,8 @@
                     <div class="info" v-if="radio=='1'">押金支付</div>
                     <div class="info" v-else-if="radio=='9'">虚拟支付</div>
                     <div class="info" v-else-if="radio=='3'">信用支付</div>
+                    <div class="info" v-else-if="radio=='2'">信用支付</div>
+                    <div class="info" v-else-if="radio=='4'">信用支付</div>
                 </div>
                 <div class="flex titleBox">
                     <div class="title">实付金额</div>
@@ -136,7 +138,7 @@
                 this.isIndeterminate = checkedCount > 0
             },
             chose(value){
-                alert(value);
+                //alert(value);
             },
             sub(n){
                 let obj={

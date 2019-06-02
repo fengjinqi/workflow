@@ -17,6 +17,7 @@
                     </div>
                 </div>
 
+
             </div>
         </div>
     </div>
@@ -31,6 +32,7 @@
          data(){
             return {
                 chose:'1',//标准
+
             }
         },
         props:{
@@ -46,6 +48,7 @@
                 'getGoodsShopsCounts',
 
             ]),
+
             //标准/自定义
             choose(index){
                 this.chose=index;

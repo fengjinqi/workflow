@@ -2,7 +2,7 @@
     <div>
         <div class="main">
             <div class="orderM">
-                <div class="title"><img :src="ren" alt="">订单管理</div>
+                <div class="title"><img :src="ren" alt="">余额明细</div>
                 <div class="box">
                     <div :style="rout" class="img">
                         <h3>信用额度(元)</h3>
@@ -53,6 +53,16 @@
                         <div class="available">
                             <span>可用余额</span>
                             <h4><i>￥</i>{{$store.state.user.afterSaleAmount.rebateAmount}}</h4>
+                        </div>
+                        <div class="box-footer">
+                            <!--<el-button style="background: #44C8CC;color: #fff">押金提现</el-button>-->
+                        </div>
+                    </div>
+                    <div :style="rout" class="img">
+                        <h3>	下单额度(元)</h3>
+                        <div class="available">
+                            <span>可用余额</span>
+                            <h4><i>￥</i>{{$store.state.user.afterSaleAmount.virtualAmount}}</h4>
                         </div>
                         <div class="box-footer">
                             <!--<el-button style="background: #44C8CC;color: #fff">押金提现</el-button>-->

@@ -101,6 +101,11 @@
                                 </div>
                             </div>
                         </div>
+
+                        <el-pagination style="margin-top: 20px"
+                                       layout="prev, pager, next"
+                                       :total="count1" :page-size="pageSize1"  @current-change="page1"  :current-page="currentPage1">
+                        </el-pagination>
                     </div>
                 </template>
                 <template v-if="act=='2'">
@@ -170,6 +175,10 @@
                                 </div>
                             </div>
                         </div>
+                        <el-pagination style="margin-top: 20px"
+                                layout="prev, pager, next"
+                                :total="count" :page-size="pageSize"  @current-change="page"  :current-page="currentPage">
+                        </el-pagination>
                     </div>
                 </template>
             </div>
@@ -191,7 +200,15 @@
                 actType:'1',//全部
                 actType1:'1'//全部
                 ,list:null,
-                list1:null
+                list1:null,
+                count:0,
+                pageSize: 20,
+                currentPage:1,
+                typeItemCs:'',
+                count1:0,
+                pageSize1: 20,
+                currentPage1:1,
+                typeItemCs1:''
             }
         },
         created(){
@@ -199,13 +216,16 @@
                 console.log(res)
                 if(res.code=='OK'){
                     this.list=res.data
+                    this.count = res.data.totalRecord
+
                 }
             })
-            let data=[1,2,'','','','']
+            let data=[1,2,'','','','',10]
             getOrder(getToken('token'),...data).then(res=>{
-                console.log(res)
+                //console.log(res)
                 if(res.code=='OK'){
                     this.list1=res.data
+                    this.count1 = res.data.totalRecord
                 }
             })
         },
@@ -219,12 +239,14 @@
             },
             typeItemC(index,id){
                 this.actType=index
+                this.typeItemCs = id
                 let loadingInstance = Loading.service({target:document.querySelector('#id')});
-                let data=[1,1,'',id,'','']
+                let data=[1,1,'',id,'','',10]
                 getOrder(getToken('token'),...data).then(res=>{
                     console.log(res)
                     if(res.code=='OK'){
                         this.list=res.data
+                        this.count = res.data.totalRecord
                         loadingInstance.close()
                     }
                 })
@@ -232,12 +254,14 @@
             },
             typeItemC1(index,id){
                 this.actType1=index
+                this.typeItemCs1 = id
                 let loadingInstance = Loading.service({target:document.querySelector('#id')});
-                let data=[1,2,'',id,'','']
+                let data=[1,2,'',id,'','',10]
                 getOrder(getToken('token'),...data).then(res=>{
                     console.log(res)
                     if(res.code=='OK'){
                         this.list1=res.data
+                        this.count1 = res.data.totalRecord
                         loadingInstance.close()
                     }
                 })
@@ -251,12 +275,13 @@
                         spinner: 'el-icon-loading',
                         background: 'rgba(0, 0, 0, 0.7)'
                     });
-                    let data=[1,1,'','',this.time1==null?'':this.time1,this.time2==null?'':this.time2]
+                    let data=[1,1,'','',this.time1==null?'':this.time1,this.time2==null?'':this.time2,10]
                     console.log('---')
                     getOrder(getToken('token'),...data).then(res=>{
                         console.log(res)
                         if(res.code=='OK'){
                             this.list=res.data
+                            this.count = res.data.totalRecord
                             loading.close()
                         }
                     })
@@ -267,17 +292,42 @@
                         spinner: 'el-icon-loading',
                         background: 'rgba(0, 0, 0, 0.7)'
                     });
-                    let data=[1,2,'','',this.time1==null?'':this.time1,this.time2==null?'':this.time2]
+                    let data=[1,2,'','',this.time1==null?'':this.time1,this.time2==null?'':this.time2,10]
                     console.log(data)
                     getOrder(getToken('token'),...data).then(res=>{
                         console.log(res)
                         if(res.code=='OK'){
                             this.list1=res.data
+                            this.count1 = res.data.totalRecord
                             loading.close()
                         }
                     })
                 }
 
+            },
+            page(val){
+                this.currentPage = val;
+                let data=[val,1,'',this.typeItemCs,this.time1==null?'':this.time1,this.time2==null?'':this.time2,20]
+                console.log('---')
+                getOrder(getToken('token'),...data).then(res=>{
+                    console.log(res)
+                    if(res.code=='OK'){
+                        this.list=res.data
+                        this.count = res.data.totalRecord
+                    }
+                })
+            },
+            page1(val){
+                this.currentPage1 = val;
+                let data=[val,2,'',this.typeItemCs1,this.time1==null?'':this.time1,this.time2==null?'':this.time2,20]
+                console.log('---')
+                getOrder(getToken('token'),...data).then(res=>{
+                    console.log(res)
+                    if(res.code=='OK'){
+                        this.list1=res.data
+                        this.count1 = res.data.totalRecord
+                    }
+                })
             },
             //跳转到详情页
             todetail(index){

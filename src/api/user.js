@@ -70,13 +70,13 @@ export const updateaddrs = (token,data) =>{
  * 获取医院列表
  * @param token
  */
-export const getHospitalList = (token) =>{
+export const getHospitalList = (token,status) =>{
     return axios({
         method: 'get',
         headers:{
             'Authorization':'Bearer '+token
         },
-        url: `/api/u/hospital/list`
+        url: `/api/u/hospital/list?status=${status}`
     });
 }
 /**

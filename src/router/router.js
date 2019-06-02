@@ -178,6 +178,14 @@ export default [
         component: () => import('@/views/Money/list'),
     },
     {
+        path: '/money/add',
+        name: 'money_add',
+        meta:{
+            keepAlive:true
+        },
+        component: () => import('@/views/Money/add'),
+    },
+    {
         path: '*',
         redirect:'/home'
     }

@@ -268,14 +268,14 @@ export const subGoodsShops = (token,data) =>{
  * 收货地址
  * @param token
  */
-export const getUserAdders = (token) =>{
+export const getUserAdders = (token,status) =>{
     return axios({
         method: 'get',
         headers:{
             'Authorization':'Bearer '+token
         },
 
-        url: '/api/u/address/list?status=2'
+        url: `/api/u/address/list?status=${status}`
     });
 }
 

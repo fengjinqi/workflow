@@ -4,13 +4,18 @@
             <div class="title">地址管理</div>
         </div>
         <div class="connter">
-            <el-button style="background: #3198CD;color: #fff" @click="add"> 新增</el-button>
+            <div id="tabl">
+                <span  :class="act=='2'?'active':''" @click="tabl(2)">已审核</span>
+                <span :class="act=='1'?'active':''" @click="tabl(1)">待审核</span>
+                <span  :class="act=='3'?'active':''" @click="tabl(3)">审核失败</span>
+            <el-button style="background: #26B7BC;color: #fff;float: right" @click="add"> 新增</el-button>
+            </div>
             <div class="addrs-connner" v-for="item in list">
                 <div class="title">{{item.name}}<p style="color: rgb(255, 142, 35)">{{item.status=='1'?'待审核':item.status=='2'?'':item.status=='3'?'审核失败':''}}</p></div>
                 <div><span>姓名</span>{{item.name}}</div>
                 <div><span>所在地区</span>{{item.province}}{{item.city}}{{item.district}}</div>
                 <div><span>详细地址</span>{{item.address}}</div>
-                <div><span>手机号码</span>{{item.phone}} <p><el-button style="background: #3198CD;color: #fff" @click="update(item.id)">修改</el-button ><el-button style="background: #FFEDDC;border-color: #FF8819;color: #FF8E23" @click="remove(item.id)">删除</el-button></p></div>
+                <div><span>手机号码</span>{{item.phone}} <p><el-button style="background: #26B7BC;color: #fff" @click="update(item.id)">修改</el-button ><el-button style="background: #FFEDDC;border-color: #FF8819;color: #FF8E23" @click="remove(item.id)">删除</el-button></p></div>
 
             </div>
         </div>
@@ -61,6 +66,7 @@
                 city:'',
                 district:'',
                 is_update:false,
+                act:2,
                 form: {
                     name: '',
                     phone: '',
@@ -89,7 +95,7 @@
             }
         },
         created(){
-            getUserAdders(getToken('token')).then(res=>{
+            getUserAdders(getToken('token'),2).then(res=>{
 
                 if(res.code=='OK'){
                     this.list = res.data
@@ -126,6 +132,15 @@
             })
         },
         methods:{
+            tabl(n){
+                this.act=n
+                getUserAdders(getToken('token'),n).then(res=>{
+
+                    if(res.code=='OK'){
+                        this.list = res.data
+                    }
+                })
+            },
             add(){
                 this.title='新增收货地址'
                 this.dialogFormVisible = true
@@ -225,6 +240,19 @@
 </script>
 
 <style scoped lang="less">
+    #tabl{
+        span{
+            margin: 5px 20px;
+            height: 40px;
+            display: inline-block;
+            line-height: 40px;
+            cursor: pointer;
+        }
+        span.active{
+            color: #26B7BC;
+            border-bottom: 2px solid #26B7BC;
+        }
+    }
 .main{
     background: #fff;
     .orderM{

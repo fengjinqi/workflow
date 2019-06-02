@@ -48,14 +48,14 @@
                         <p class="p" style=" height:40px;line-height: 40px"><router-link :to="{name:'Persona_addrs'}" style="display:block;color: #333"> 地址管理</router-link></p>
                         <p class="p" style="height:40px;line-height: 40px"><router-link :to="{name:'Persona_Hospital'}" style="display:block;color: #333"> 新增医院</router-link></p>
                         <p class="p" style="height:40px;line-height: 40px"><router-link :to="{name:'menu'}" style="display:block;color: #333"> 会员信息</router-link></p>
-                        <p class="p" style="height:40px;line-height: 40px"><router-link :to="{name:'password'}" style="display:block;color: #333"> 修改密码</router-link></p>
+                        <!--<p class="p" style="height:40px;line-height: 40px"><router-link :to="{name:'password'}" style="display:block;color: #333"> 修改密码</router-link></p>-->
 
                         <p style="height: 10px;background: #f9f9f9;"></p>
                         <div id="year">
 
-                            <p><img :src="shou" alt="">售后金额 <span>¥{{$store.state.user.afterSaleAmount.creditAmount}}</span></p>
+                            <p><img :src="shou" alt="">售后金额 <span>¥{{$store.state.user.afterSaleAmount.afterSaleAmount}}</span></p>
                             <p><img :src="xin" alt="">信用额度<span>¥{{$store.state.user.afterSaleAmount.creditAmount}}</span></p>
-                            <p><img :src="xia" alt="">下单额度<span>¥{{$store.state.user.afterSaleAmount.deposit}}</span></p>
+                            <p><img :src="xia" alt="">下单额度<span>¥{{$store.state.user.afterSaleAmount.virtualAmount}}</span></p>
                             <p><img :src="zen" alt="">赠送额度金额<span>¥{{$store.state.user.afterSaleAmount.giveAmount}}</span></p>
                             <p><img :src="yong" alt="">返利佣金金额<span>¥{{$store.state.user.afterSaleAmount.rebateAmount}}</span></p>
                         </div>
