@@ -20,10 +20,12 @@
                                     <el-form-item label="" prop="code">
                                         <el-input v-model="ruleForm.code" placeholder="验证码"></el-input>
                                     </el-form-item>
-                                    <el-button type="primary" @click="getCodes" class="getCode">获取验证码</el-button>
+                                    <el-button type="primary" @click="getCodes" class="getCode" v-show="show" >获取验证码</el-button>
+                                    <el-button type="primary" :disabled="true" v-show="!show" class="getCode">{{count}}s</el-button>
                                 </div>
                                 <el-form-item>
                                     <el-button type="primary" @click="submitForm('ruleForm')" class="loginBtn">登录</el-button>
+
                                 </el-form-item>
                             </el-form>
                         </div>
@@ -81,6 +83,9 @@
         name: "login",
         data() {
             return {
+                show: true,
+                timer: null,
+                count: '',
                 ruleForm: {
                     username: '18616755331',//手机号
                     code: '666666',//验证码
@@ -139,6 +144,36 @@
                 let obj={
                     userName:this.ruleForm.username
                 };
+
+                const TIME_COUNT = 60;
+
+                if (!this.timer) {
+
+                    this.count = TIME_COUNT;
+
+                    this.show = false;
+
+                    this.timer = setInterval(() => {
+
+                        if (this.count > 0 && this.count <= TIME_COUNT) {
+
+                            this.count--;
+
+
+                        } else {
+
+                            this.show = true;
+
+                            clearInterval(this.timer);
+
+                            this.timer = null;
+
+                        }
+
+                    }, 1000)
+
+                }
+
                 getCode(obj).then(res=>{
                     console.log(res)
                     //let data = JSON.parse(res)
@@ -160,6 +195,7 @@
                 }).catch(err=>{
                     console.log(err)
                 })
+
             },
         }
     }

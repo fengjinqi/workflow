@@ -320,7 +320,7 @@
             /*
             地址
              */
-            getUserAdders(getToken('token')).then(res=>{
+            getUserAdders(getToken('token'),2).then(res=>{
                 if(res.code=='OK'){
                     console.log(res)
                     this.addressList=res.data

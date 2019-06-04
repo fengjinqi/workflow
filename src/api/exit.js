@@ -26,14 +26,19 @@ export const getRepaymentList = (token,status=1,PageIndex=1)=>{
         url: `/api/u/user/repaymentList?status=${status}&pageIndex=${PageIndex}`
     });
 }
-
+/**
+ * 申请
+ * @param token
+ * @param data
+ */
 export const postrepayment = (token,data)=>{
     return axios({
         method: 'post',
         headers:{
-            'Authorization':'Bearer '+token
+            'Authorization':'Bearer '+token,
+            'Content-Type':'application/json;charset=UTF-8'
         },
-        data,
+        data:data,
         url: `/api/u/user/create/repayment`
     });
 }

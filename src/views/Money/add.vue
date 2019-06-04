@@ -72,7 +72,16 @@
                 }).then(res=>{
                     console.log(res)
                     if(res.status==200){
-                        this.img.push(res.data.url)
+                        //this.img.push(res.data.url)
+                        this.img.push({
+                            file:res.data.url,
+                            original:res.data.original,
+                            size:res.data.size,
+                            title:res.data.title,
+                            type:res.data.type,
+                            url:res.data.url,
+                            state:res.data.state
+                        })
                     }
                 })
             }          ,
@@ -82,12 +91,29 @@
                    a.push(res.raw)
                })
                 let obj={
-                    amount:this.price,
+                    amount:Number(this.price),
                     remark:this.text,
-                    voucherImage:this.img.join(',')
+                    imageModels:this.img
+                    //voucherImage:this.img.join(',')
                 }
-                console.log(obj)
-                postrepayment(getToken('token'),obj).then(res=>{
+                axios({
+                    method:'post',
+                    data:{form:obj},
+                    headers:{
+                        'Authorization':'Bearer '+getToken('token')
+                    },
+                    url:'/api/api/u/user/create/repayment'
+                }).then(res=>{
+                    console.log(res)
+                    if(res.data.code=='OK'){
+                        this.$message({
+                            type: 'success',
+                            message: '添加成功!'
+                        });
+                        this.$router.push({name:'money'})
+                    }
+                })
+                /*postrepayment(getToken('token'),{form:obj}).then(res=>{
                     console.log(res)
                     if(res.code=='OK'){
                         this.$message({
@@ -96,7 +122,7 @@
                         });
                         this.$router.push({name:'money'})
                     }
-                })
+                })*/
             }
         }
     }

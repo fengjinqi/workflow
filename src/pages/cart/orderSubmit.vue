@@ -129,7 +129,7 @@
             /*
             地址
              */
-            getUserAdders(getToken('token')).then(res=>{
+            getUserAdders(getToken('token'),2).then(res=>{
                 if(res.code=='OK'){
                     this.addressList=res.data
                     this.address = this.addressList[0]

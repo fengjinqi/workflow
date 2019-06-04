@@ -62,7 +62,7 @@
                         <div class="order-main-list-item" v-for="item in list1.list" v-if="list1!=null&&list.list.length>0">
                             <div class="order-main-list-item-head flex">
                                 <div>{{new Date(item.createTime).toLocaleString()}}</div>
-                                <div>订单编号：{{item.tradeId}}</div>
+                                <div>订单编号：{{item.tradeSn}}</div>
                                 <div>类型：{{item.orderType}}</div>
                             </div>
                             <div class="order-main-list-item-cont1 flex">
@@ -135,7 +135,7 @@
                      <div class="order-main-list-item" v-for="item in list.list" v-if="list!=null&&list.list.length>0">
                             <div class="order-main-list-item-head flex">
                                 <div>{{new Date(item.createTime).toLocaleString()}}</div>
-                                <div>订单编号：{{item.tradeId}}</div>
+                                <div>订单编号：{{item.tradeSn}}</div>
                                 <div>类型：{{item.orderType}}</div>
                             </div>
                             <div class="order-main-list-item-cont1 flex">
