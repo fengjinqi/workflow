@@ -186,6 +186,38 @@ export default [
         component: () => import('@/views/Money/add'),
     },
     {
+        path: '/moban',
+        name: 'moban',
+        meta:{
+            keepAlive:true
+        },
+        component: () => import('@/components/moban'),
+    },
+    {
+        path: '/mobans',
+        name: 'mobans',
+        meta:{
+            keepAlive:true
+        },
+        component: () => import('@/components/mobanadd'),
+    },
+    {
+        path: '/service',
+        name: 'service',
+        meta:{
+            keepAlive:true
+        },
+        component: () => import('@/views/service/list'),
+    },
+    {
+        path: '/service/:id',
+        name: 'service_detail',
+        meta:{
+            keepAlive:true
+        },
+        component: () => import('@/views/service/detail'),
+    },
+    {
         path: '*',
         redirect:'/home'
     }

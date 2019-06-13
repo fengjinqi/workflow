@@ -83,6 +83,13 @@
                     </div>
                 </template>
                 <template v-else-if="chose==2">
+                    <div style="text-align: right">
+                        <div style="cursor: pointer;margin-top: 10px;" @click="$router.push({name:'moban'})"><img :src="dao" alt="">表格批量导入</div>
+                        <div style="margin: 15px 0;" class="parent">
+                            新增商品 <input type="text" placeholder="请输入商品编号" style="border:1px solid #26B7BC;height: 30px;line-height: 30px;border-radius: 5%;width: 350px;padding-left: 15px;" >
+                            <div class="child"><i class="el-icon-search"></i></div>
+                        </div>
+                    </div>
                     <div class="tab">
                         <el-table
                                 ref="multipleTable"
@@ -178,6 +185,7 @@
             return {
                 chose:'2',//寄售
                 tableData: [],
+                dao:require('../../assets/2E6208CD-1AA3-4947-9798-E653C4289E11@1x.png'),
                 tableData1:[],
                 multipleSelection: [],
                 num:0,
@@ -488,7 +496,19 @@
     }
 </style>
 <style scoped lang="less">
-
+.parent{
+    position: relative;
+    .child{
+        position: absolute;
+        right: 0;
+        top: 3px;
+        padding: 0 10px;
+        i{
+            font-size: 24px;
+            color: #ccc;
+        }
+    }
+}
 .cart{
     margin-top:20px;
     .cart-main{

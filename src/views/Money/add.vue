@@ -33,7 +33,7 @@
     import {postrepayment} from '@/api/exit'
     import {getToken} from '@/libs/util'
     import axios from 'axios'
-    import $axios from "../../libs/axios.request";
+
     export default {
         data(){
             return{
