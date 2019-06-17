@@ -59,6 +59,7 @@
                     </el-table-column>
                 </el-table>
                 <el-pagination style="margin-top: 20px"
+                               v-if="count>0"
                                layout="prev, pager, next"
                                :total="count" :page-size="pageSize"  @current-change="page"  :current-page="currentPage">
                 </el-pagination>

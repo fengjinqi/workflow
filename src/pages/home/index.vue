@@ -192,6 +192,7 @@
                         </div>
 
                         <el-pagination style="margin-top: 20px"
+                                       v-if="count>0"
                                        layout="prev, pager, next"
                                        :total="count" :page-size="pageSize"  @current-change="page"  :current-page="currentPage">
                         </el-pagination>
@@ -223,7 +224,13 @@
         },
          created() {
              this.getGoodsShopsCounts()
-             this.getAccem()
+             this.getAccem().catch(err=>{
+                 this.$notify({
+                     title: '警告',
+                     message: '用户金额接口出错,请联系管理员',
+                     type: 'warning'
+                 });
+             })
              this.getGoodsTaoShopsCounts()
             this.getUserInfo().then(res=>{
                 if(res.code!=='OK'){
@@ -236,6 +243,12 @@
                         name: 'login'
                     })
                 }
+            }).catch(err=>{
+                this.$notify({
+                    title: '警告',
+                    message: '接口错误,请联系技术人员',
+                    type: 'warning'
+                });
             })
             getIndex(getToken('token')).then(res=>{
                 if (res.code=='OK'){
@@ -268,6 +281,12 @@
                 this.data = data.filter((item)=>(item.children.length>0))
 
                 }
+            }).catch(err=>{
+                this.$notify({
+                    title: '警告',
+                    message: '接口错误,请联系技术人员',
+                    type: 'warning'
+                });
             })
 
     },

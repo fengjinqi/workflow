@@ -1,5 +1,6 @@
 import axios from '@/libs/axios.request'
-
+import axioss from 'axios'
+import config from '@/config/index'
 export const getbankInfo = (token)=>{
     return axios({
         method: 'get',
@@ -16,14 +17,14 @@ export const getbankInfo = (token)=>{
  * @param status
  * @param PageIndex
  */
-export const getRepaymentList = (token,status=1,PageIndex=1)=>{
+export const getRepaymentList = (token,status=1,PageIndex=1,pageSize=20)=>{
     return axios({
         method: 'get',
         headers:{
             'Authorization':'Bearer '+token
         },
 
-        url: `/api/u/user/repaymentList?status=${status}&pageIndex=${PageIndex}`
+        url: `/api/u/user/repaymentList?status=${status}&pageIndex=${PageIndex}&pageSize=${pageSize}`
     });
 }
 /**
@@ -160,13 +161,13 @@ export const medicalInfo = (token,tradeSn)=>{
  * @param token
  */
 export const serveAdd = (token,data)=>{
-    return axios({
+    return axioss({
         method: 'post',
         headers:{
             'Authorization':'Bearer '+token,
         },
-        data:data,
-        url: `/api/u/report/serve/add`
+        data,
+        url: config.baseUrl+`/api/u/report/serve/add`
     });
 }
 /**
@@ -175,12 +176,12 @@ export const serveAdd = (token,data)=>{
  * @param data
  */
 export const brandAdd = (token,data)=>{
-    return axios({
+    return axioss({
         method: 'post',
         headers:{
             'Authorization':'Bearer '+token,
         },
-        data:data,
-        url: `/api/u/report/brand/add`
+        data,
+        url:config.baseUrl+ `/api/u/report/brand/add`
     });
 }

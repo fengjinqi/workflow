@@ -46,7 +46,13 @@
                     </div>
                 </div>
             </div>
+            <el-pagination style="margin-top: 20px"
+                           v-if="count>0"
+                           layout="prev, pager, next"
+                           :total="count" :page-size="pageSize"  @current-change="page"  :current-page="currentPage">
+            </el-pagination>
             <p v-if="list.length==0" style="text-align: center;margin: 20px auto">暂无数据</p>
+
         </div>
     </div>
 </template>
@@ -59,7 +65,10 @@
             return{
                 act:'1',
                 info:{},
-                list:[]
+                list:[],
+                count:0,
+                pageSize: 20,
+                currentPage:1,
             }
         },
         created(){
@@ -67,6 +76,7 @@
                 console.log(res)
                 if(res.code=='OK'){
                     this.info = res.data
+
                 }
 
             })
@@ -83,6 +93,7 @@
                     })
                     this.list = res.data.list
                     console.log(this.list)
+                    this.count = res.data.totalRecord
                 }
             })
         },
@@ -97,9 +108,24 @@
                             // console.log(JSON.parse(res.voucherImage))
                         })
                         this.list = res.data.list
+                        this.count = res.data.totalRecord
                     }
                 })
-            }
+            },
+            page(val){
+                this.currentPage = val;
+                getRepaymentList(getToken('token'),  this.act,val).then((res)=>{
+                    if(res.code=='OK'){
+                        res.data.list.map(res=>{
+                            console.log(res.voucherImage)
+                            // res['img']=JSON.parse(res.voucherImage)
+                            // console.log(JSON.parse(res.voucherImage))
+                        })
+                        this.list = res.data.list
+                        this.count = res.data.totalRecord
+                    }
+                })
+            },
         }
     }
 </script>

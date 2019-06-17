@@ -218,6 +218,22 @@ export default [
         component: () => import('@/views/service/detail'),
     },
     {
+        path: '/piao',
+        name: 'piao',
+        meta:{
+            keepAlive:true
+        },
+        component: () => import('@/views/piao/list'),
+    },
+    {
+        path: '/piao/:id',
+        name: 'piao_add',
+        meta:{
+            keepAlive:true
+        },
+        component: () => import('@/views/piao/add'),
+    },
+    {
         path: '*',
         redirect:'/home'
     }

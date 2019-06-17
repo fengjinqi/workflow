@@ -4,6 +4,9 @@ const resolve = dir => {
     return path.join(__dirname, dir)
 }
 module.exports = {
+    configureWebpack: {
+        externals: { BMap: "BMap" }
+    },
     // Project deployment base
     // By default we assume your app will be deployed at the root of a domain,
     // e.g. https://www.my-app.com/

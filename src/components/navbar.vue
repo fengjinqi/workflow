@@ -33,7 +33,7 @@
                     </div>
                     <div class="nav-item" @mouseover="selectNav"><router-link to="/service">服务报告</router-link></div>
                     <div class="nav-item" @mouseover="selectNav"> <router-link to="/money">款项管理</router-link></div>
-                    <div class="nav-item" @mouseover="selectNav"><a href="">开票服务</a></div>
+                    <div class="nav-item" @mouseover="selectNav"><router-link to="/piao">开票服务</router-link></div>
                 </div>
                 <div class="nav-last">
                     <el-menu  class="el-menu-demo" mode="horizontal" >
@@ -187,6 +187,10 @@
             },
             lout(){
                 Cookies.remove('token')
+                window.localStorage.clear()
+                window.sessionStorage.clear()
+
+
                 this.$notify({
                     title: '成功',
                     message: '退出成功',

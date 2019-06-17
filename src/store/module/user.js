@@ -171,12 +171,15 @@ export default {
             })
         },
         getAccem({state,commit}){
+            let _this = this
             return new Promise((resolve, reject) => {
                 getpayAmount(getToken('token')).then(res=>{
 
                     if(res.code=='OK') {
                         commit('setAfterSaleAmount', res.data)
                     }
+                }).catch(err=>{
+                    reject(err)
                 })
             })
         },

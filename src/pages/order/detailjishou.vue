@@ -174,7 +174,7 @@
             </div>
             <template v-if="data.orderStatus=='待收货'">
                 <Wuliu></Wuliu>
-                <Yiliao></Yiliao>
+                <!--<Yiliao></Yiliao>-->
             </template>
             <Maijia :addrs="data"></Maijia>
             <OrderList :list="data.packageGoodsResponses" :lists="data"></OrderList>

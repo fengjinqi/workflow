@@ -109,8 +109,9 @@
       </div>
       <template v-if="data.orderStatus=='待收货'">
         <Wuliu></Wuliu>
-        <Yiliao></Yiliao>
       </template>
+
+      <!--<Yiliao></Yiliao>-->
       <Maijia :addrs="data"></Maijia>
       <OrderList :list="data.ordersGoodsResponses" :lists="data"></OrderList>
     </div>
@@ -121,6 +122,7 @@
   background: #26b7bc;
 }
 </style>
+
 <script>
 import Ordering from "@/components/ordering"; //寄售订单
 import Wuliu from "@/components/wuliu"; //物流轨迹
@@ -141,7 +143,7 @@ export default {
   },
   data() {
     return {
-      data: [],
+      data: null,
       dai: require("../../assets/846DBAB8-EB1C-4380-9AA0-F4A4583E73BF@1x.png")
     };
   },
