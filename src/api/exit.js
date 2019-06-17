@@ -185,3 +185,36 @@ export const brandAdd = (token,data)=>{
         url:config.baseUrl+ `/api/u/report/brand/add`
     });
 }
+
+
+/**
+ * 查询未开票
+ * @param token
+ * @param pageIndex
+ * @param type
+ * @param hospitalName
+ */
+export const getordesrs = (token,pageIndex,type,hospitalName,pageSize)=>{
+    return axios({
+        method: 'get',
+        headers:{
+            'Authorization':'Bearer '+token,
+        },
+        url: `/api/u/invoice/search/ordesrs?pageIndex=${pageIndex}&type=${type}&hospitalName=${hospitalName}&pageSize=${pageSize}`
+    });
+}
+/**
+ * 开票查询
+ * @param token
+ * @param type
+ * @param makeInvoiceType
+ */
+export const getquery = (token,type,makeInvoiceType)=>{
+    return axios({
+        method: 'get',
+        headers:{
+            'Authorization':'Bearer '+token,
+        },
+        url: `/api/u/invoice/makeInformation/query?type=${type}&makeInvoiceType=${makeInvoiceType}`
+    });
+}

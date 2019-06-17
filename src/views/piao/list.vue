@@ -12,9 +12,9 @@
                         <!--
                       交易状态:{1:待确认,2:待审核,3:待发货,4:待收货,5:使用中,6:已使用,7:待入库,8:交易成功,-1:已取消,-2:交易关闭,-3:审核失败}
                       -->
-                        <div class="typeItem" :class="actType1=='1'?'active':''" @click="typeItemC1('9','')">申请开票订单</div>
-                        <div class="typeItem" :class="actType1=='2'?'active':''" @click="typeItemC1('9','1')">开票中订单</div>
-                        <div class="typeItem" :class="actType1=='3'?'active':''" @click="typeItemC1('9','2')">开票完成订单</div>
+                        <div class="typeItem" :class="actType1=='1'?'active':''" @click="typeItemC1('1','')">申请开票订单</div>
+                        <div class="typeItem" :class="actType1=='2'?'active':''" @click="typeItemC1('2','1')">开票中订单</div>
+                        <div class="typeItem" :class="actType1=='3'?'active':''" @click="typeItemC1('3','2')">开票完成订单</div>
                     </div>
                     <div class="action">
                         <div id="selsect">
@@ -37,8 +37,8 @@
                     </div>
                     <div class="order-main-list">
 
-                        <p v-if="list1.list.length<=0" style="text-align: center">暂无数据</p>
-                   <!--     <div class="order-main-list-item" v-for="item in list1.list" v-if="list1!=null&&list.list.length>0">
+                        <!--<p v-if="list1.length<=0" style="text-align: center">暂无数据</p>-->
+                        <div class="order-main-list-item" v-for="item in list.list" v-if="list!=null&&list.list.length>0">
                             <div class="order-main-list-item-head flex">
                                 <div>{{new Date(item.createTime).toLocaleString()}}</div>
                                 <div>订单编号：{{item.tradeSn}}</div>
@@ -52,7 +52,7 @@
                                                 <div>{{chil.goodsName}}</div>
                                                 <div class="type">{{chil.goodsType}}</div>
                                                 <div style="color:#999">{{chil.goodsCategoryName}}</div>
-                                                &lt;!&ndash;      <div style="color:#999">II—24</div>&ndash;&gt;
+                                                <!--      <div style="color:#999">II—24</div>-->
                                             </div>
                                         </div>
                                         <div style="width:173.84px"><div class="order-main-list-item-cont-1">{{chil.goodsSn}}</div></div>
@@ -74,7 +74,7 @@
                                     <div class="order-main-list-item-cont-0" style="width:173.84px;">
                                         <div class="order-main-list-item-cont-1 order-main-list-item-cont-2">
                                             <div @click="btn(item.tradeId)">订单详情</div>
-                                            &lt;!&ndash;<div>申请发票</div>&ndash;&gt;
+                                            <!--<div>申请发票</div>-->
                                         </div>
                                     </div>
                                 </div>
@@ -85,7 +85,7 @@
                                        v-if="count1>0"
                                        layout="prev, pager, next"
                                        :total="count1" :page-size="pageSize1"  @current-change="page1"  :current-page="currentPage1">
-                        </el-pagination>-->
+                        </el-pagination>
                     </div>
                 </template>
                 <template v-if="act=='2'">
@@ -93,9 +93,9 @@
                         <!--
                         交易状态:{1:待确认,2:待审核,3:待发货,4:待收货,5:使用中,6:已使用,7:待入库,8:交易成功,-1:已取消,-2:交易关闭,-3:审核失败}
                         -->
-                        <div class="typeItem" :class="actType=='1'?'active':''" @click="typeItemC('9','')">申请开票订单</div>
-                        <div class="typeItem" :class="actType=='2'?'active':''" @click="typeItemC('9',1)">开票中订单</div>
-                        <div class="typeItem" :class="actType=='3'?'active':''" @click="typeItemC('9',2)">开票完成订单</div>
+                        <div class="typeItem" :class="actType=='1'?'active':''" @click="typeItemC('1','')">申请开票订单</div>
+                        <div class="typeItem" :class="actType=='2'?'active':''" @click="typeItemC('2',1)">开票中订单</div>
+                        <div class="typeItem" :class="actType=='3'?'active':''" @click="typeItemC('3',2)">开票完成订单</div>
                     </div>
                     <div class="order-main-th flex-j">
                         <div class="order-main-th-item" style="width:25%">订单简介</div>
@@ -107,9 +107,9 @@
                     </div>
                     <div class="order-main-list" id="id">
 
-                        <p v-if="list.list.length<=0" style="text-align: center">暂无数据</p>
+                        <!--<p v-if="list.length<=0" style="text-align: center">暂无数据</p>-->
 
-                    <!--    <div class="order-main-list-item" v-for="item in list.list" v-if="list!=null&&list.list.length>0">
+                        <div class="order-main-list-item" v-for="item in list1.list" v-if="list1!=null&&list1.list.length>0">
                             <div class="order-main-list-item-head flex">
                                 <div>{{new Date(item.createTime).toLocaleString()}}</div>
                                 <div>订单编号：{{item.tradeSn}}</div>
@@ -156,7 +156,7 @@
                                        v-if="count>0"
                                        layout="prev, pager, next"
                                        :total="count" :page-size="pageSize"  @current-change="page"  :current-page="currentPage">
-                        </el-pagination>-->
+                        </el-pagination>
                     </div>
                 </template>
             </div>
@@ -165,7 +165,7 @@
 </template>
 
 <script>
-    import {getOrder} from '@/api/order'
+    import {getquery,getordesrs} from '@/api/exit'
     import { Loading } from 'element-ui';
     import {getToken} from '@/libs/util'
     export default {
@@ -174,7 +174,7 @@
             return {
                 time1:"",
                 time2:"",
-                act:'2',//寄售
+                act:'1',//寄售
                 actType:'1',//全部
                 actType1:'1'//全部
                 ,list:null,
@@ -190,22 +190,24 @@
             }
         },
         created(){
-            getOrder(getToken('token')).then(res=>{
-                console.log(res)
+            getordesrs(getToken('token'),1,2,'',20).then(res=>{
                 if(res.code=='OK'){
                     this.list=res.data
-                    this.count = res.data.totalRecord
+                    //this.count = res.data.totalRecord
 
                 }
+                console.log(this.list)
             })
-            let data=[1,2,'','','','',10]
-            getOrder(getToken('token'),...data).then(res=>{
-                //console.log(res)
+            getordesrs(getToken('token'),1,1,'',20).then(res=>{
                 if(res.code=='OK'){
                     this.list1=res.data
-                    this.count1 = res.data.totalRecord
+                    //this.count = res.data.totalRecord
+
                 }
+
             })
+
+
         },
         methods: {
             realod(){
@@ -218,94 +220,30 @@
             typeItemC(index,id){
                 this.actType=index
                 this.typeItemCs = id
-                let loadingInstance = Loading.service({target:document.querySelector('#id')});
-                let data=[1,1,'',id,'','',10]
-                getOrder(getToken('token'),...data).then(res=>{
-                    console.log(res)
-                    if(res.code=='OK'){
-                        this.list=res.data
-                        this.count = res.data.totalRecord
-                        loadingInstance.close()
-                    }
-                })
+
 
             },
             typeItemC1(index,id){
                 this.actType1=index
                 this.typeItemCs1 = id
-                let loadingInstance = Loading.service({target:document.querySelector('#id')});
-                let data=[1,2,'',id,'','',10]
-                getOrder(getToken('token'),...data).then(res=>{
-                    console.log(res)
-                    if(res.code=='OK'){
-                        this.list1=res.data
-                        this.count1 = res.data.totalRecord
-                        loadingInstance.close()
-                    }
-                })
+
 
             },
             search(){
                 if(this.act==2){
-                    const loading = this.$loading({
-                        lock: true,
-                        text: 'Loading',
-                        spinner: 'el-icon-loading',
-                        background: 'rgba(0, 0, 0, 0.7)'
-                    });
-                    let data=[1,1,'','',this.time1==null?'':this.time1,this.time2==null?'':this.time2,10]
-                    console.log('---')
-                    getOrder(getToken('token'),...data).then(res=>{
-                        console.log(res)
-                        if(res.code=='OK'){
-                            this.list=res.data
-                            this.count = res.data.totalRecord
-                            loading.close()
-                        }
-                    })
+
                 }else{
-                    const loading = this.$loading({
-                        lock: true,
-                        text: 'Loading',
-                        spinner: 'el-icon-loading',
-                        background: 'rgba(0, 0, 0, 0.7)'
-                    });
-                    let data=[1,2,'','',this.time1==null?'':this.time1,this.time2==null?'':this.time2,10]
-                    console.log(data)
-                    getOrder(getToken('token'),...data).then(res=>{
-                        console.log(res)
-                        if(res.code=='OK'){
-                            this.list1=res.data
-                            this.count1 = res.data.totalRecord
-                            loading.close()
-                        }
-                    })
+
                 }
 
             },
             page(val){
                 this.currentPage = val;
-                let data=[val,1,'',this.typeItemCs,this.time1==null?'':this.time1,this.time2==null?'':this.time2,20]
-                console.log('---')
-                getOrder(getToken('token'),...data).then(res=>{
-                    console.log(res)
-                    if(res.code=='OK'){
-                        this.list=res.data
-                        this.count = res.data.totalRecord
-                    }
-                })
+
             },
             page1(val){
                 this.currentPage1 = val;
-                let data=[val,2,'',this.typeItemCs1,this.time1==null?'':this.time1,this.time2==null?'':this.time2,20]
-                console.log('---')
-                getOrder(getToken('token'),...data).then(res=>{
-                    console.log(res)
-                    if(res.code=='OK'){
-                        this.list1=res.data
-                        this.count1 = res.data.totalRecord
-                    }
-                })
+
             },
             //跳转到详情页
             todetail(index){
